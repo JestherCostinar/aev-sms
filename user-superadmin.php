@@ -207,28 +207,40 @@ while($usersres = mysqli_fetch_assoc($userssql))
 		$finaldisplaybu .= " - <a style='color:blue; cursor:pointer;' onclick='openMultipleBUModal(".$usersres['id'].");'>EDIT</a>";
 	}
 	$iconcolor = ($usersres['status'] == 'Active') ? "green" : "red";
-	$acctdata = "<tr align=\"center\">" .						
-						"<td>".$usersres['lname'].", ".$usersres['fname']." ".$usersres['mi']."</td>".
-						"<td>".$usersres['gender']."</td>".
-						"<td>".$usersres['email']."</td>".
-						"<td>".$usersres['level']."</td>".
-						"<td>".$finaldisplaybu."</td>".
-						"<td>".$usersres['contact']."</td>".
-						"<td>".$usersres['status']."</td>".
-						"<td><img src=\"images/edit2.png\" height=\"28px\" title=\"Edit User\" style=\"cursor:pointer;\" onclick=\"editUserSA('".$usersres['lname']."', '".$usersres['fname']."', '".$usersres['mi']."', '".$usersres['gender']."', '".$usersres['email']."', '".$usersres['level']."', '".$usersres['contact']."', '".$usersres['id']."', '".$usersres['bu']."')\" /></td>".
-						"<td><img src=\"images/activate".$iconcolor.".png\" height=\"32px\" title=\"Activate/Deactivate\" style=\"cursor:pointer;\" onclick=\"deleteItem2('".$usersres['id']."', 'Users');\" /></td>".
-				  "</tr>";
-	if($usersres['level'] == "User")
-	{
+	$acctdata = "<tr align=\"center\">" .
+		"<td>" . $usersres['lname'] . ", " . $usersres['fname'] . " " . $usersres['mi'] . "</td>" .
+		"<td>" . $usersres['gender'] . "</td>" .
+		"<td>" . $usersres['email'] . "</td>" .
+		"<td>" . $usersres['level'] . "</td>" .
+		"<td>" . $finaldisplaybu . "</td>" .
+		"<td>" . $usersres['contact'] . "</td>" .
+		"<td>" . $usersres['status'] . "</td>" .
+		"<td><img src=\"images/edit2.png\" height=\"28px\" title=\"Edit User\" style=\"cursor:pointer;\" onclick=\"editUserSA('" . $usersres['lname'] . "', '" . $usersres['fname'] . "', '" . $usersres['mi'] . "', '" . $usersres['gender'] . "', '" . $usersres['email'] . "', '" . $usersres['user_email'] . "', '" . $usersres['level'] . "', '" . $usersres['contact'] . "', '" . $usersres['id'] . "', '" . $usersres['bu'] . "')\" /></td>" .
+		"<td><img src=\"images/activate" . $iconcolor . ".png\" height=\"32px\" title=\"Activate/Deactivate\" style=\"cursor:pointer;\" onclick=\"deleteItem2('" . $usersres['id'] . "', 'Users');\" /></td>" .
+		"</tr>";
+
+	$acctdataWithEmail = "<tr align=\"center\">" .
+		"<td>" . $usersres['lname'] . ", " . $usersres['fname'] . " " . $usersres['mi'] . "</td>" .
+		"<td>" . $usersres['gender'] . "</td>" .
+		"<td>" . $usersres['email'] . "</td>" .
+		"<td>" . $usersres['user_email'] . "</td>" .
+
+		"<td>" . $usersres['level'] . "</td>" .
+		"<td>" . $finaldisplaybu . "</td>" .
+		"<td>" . $usersres['contact'] . "</td>" .
+		"<td>" . $usersres['status'] . "</td>" .
+		"<td><img src=\"images/edit2.png\" height=\"28px\" title=\"Edit User\" style=\"cursor:pointer;\" onclick=\"editUserSA('" . $usersres['lname'] . "', '" . $usersres['fname'] . "', '" . $usersres['mi'] . "', '" . $usersres['gender'] . "', '" . $usersres['email'] . "', '" . $usersres['user_email'] . "', '" . $usersres['level'] . "', '" . $usersres['contact'] . "', '" . $usersres['id'] . "', '" . $usersres['bu'] . "')\" /></td>" .
+		"<td><img src=\"images/activate" . $iconcolor . ".png\" height=\"32px\" title=\"Activate/Deactivate\" style=\"cursor:pointer;\" onclick=\"deleteItem2('" . $usersres['id'] . "', 'Users');\" /></td>" .
+		"</tr>";
+
+	if ($usersres['level'] == "User") {
 		$userstable .= $acctdata;
-	}
-	elseif(($usersres['level'] == "Admin") || ($usersres['level'] == "Custom Admin"))
-	{
-		$adminstable .= $acctdata;
-	}
-	elseif($usersres['level'] == "Super Admin")
-	{
-		$superstable .= $acctdata;
+	} elseif (($usersres['level'] == "Head Guard")) {
+		$headguardtable .= $acctdata;
+	} elseif (($usersres['level'] == "Admin") || ($usersres['level'] == "Custom Admin")) {
+		$adminstable .= $acctdataWithEmail;
+	} elseif ($usersres['level'] == "Super Admin") {
+		$superstable .= $acctdataWithEmail;
 	}
 }
 
@@ -561,37 +573,37 @@ if($_POST)
 		mysqli_query($conn, "UPDATE oic_mst SET fname = '".$oicfname."', mname = '".$oicmname."', lname = '".$oiclname."', email_ad = '".$oicemail."', mobile = '".$oiccontact."', bu = '".$_POST['oicbu']."', slevel = '".$_POST['oicslevel']."' WHERE id = ". $oicid);
 		mysqli_query($conn, "INSERT INTO system_log (uid, log, datetime, bu_id) VALUES ('".$_SESSION['id']."', 'Edited security alert recipient ".$oiclname.", ".$oicfname." ".$oicmname."', now(), ".$_SESSION['bu'].")") or die(mysqli_error());
 		header("Location: user-superadmin.php?last=SecAlert");
-	}
-	elseif(!empty($_POST['btnsaveuser'])){
+	} 
+	elseif (!empty($_POST['btnsaveuser'])) {
 		$adduserlname = mysqli_real_escape_string($conn, $_POST['userslastname']);
 		$adduserfname = mysqli_real_escape_string($conn, $_POST['usersfirstname']);
 		$addusermi = mysqli_real_escape_string($conn, $_POST['usersmi']);
 		$addusergender = $_POST['selugender'];
 		$adduserusername = mysqli_real_escape_string($conn, $_POST['usersusername']);
+		$adduseremail = mysqli_real_escape_string($conn, $_POST['user_email']);
 		$adduserbu = (($_POST['seluserbu']) ? $_POST['seluserbu'] : 0);
 		$adduserlevel = $_POST['selaccess'];
 		$addusercontact = mysqli_real_escape_string($conn, $_POST['userscontact']);
-		$adduserpass = "password" . date("Y");		
-		mysqli_query($conn, "INSERT INTO users_mst(fname, mi, lname, bu, level, email, status, date_created, gender, contact, changepass, password) VALUES('".$adduserfname."', '".$addusermi."', '".$adduserlname."', '".$adduserbu."', '".$adduserlevel."', '".$adduserusername."', 'Active', now(), '".$addusergender."', '".$addusercontact."', 1, '".md5($adduserpass)."')") or die(mysqli_error($conn));
-		mysqli_query($conn, "INSERT INTO system_log (uid, log, datetime, bu_id) VALUES ('".$_SESSION['id']."', 'Added user ".$adduserlname.", ".$adduserfname." ".$addusermi."', now(), ".$_SESSION['bu'].")") or die(mysqli_error());
+		$adduserpass = "password" . date("Y");
+		mysqli_query($conn, "INSERT INTO users_mst(fname, mi, lname, bu, level, email, user_email, status, date_created, gender, contact, changepass, password) VALUES('" . $adduserfname . "', '" . $addusermi . "', '" . $adduserlname . "', '" . $adduserbu . "', '" . $adduserlevel . "', '" . $adduserusername . "', '" . $adduseremail . "', 'Active', now(), '" . $addusergender . "', '" . $addusercontact . "', 1, '" . md5($adduserpass) . "')") or die(mysqli_error($conn));
+		mysqli_query($conn, "INSERT INTO system_log (uid, log, datetime, bu_id) VALUES ('" . $_SESSION['id'] . "', 'Added user " . $adduserlname . ", " . $adduserfname . " " . $addusermi . "', now(), " . $_SESSION['bu'] . ")") or die(mysqli_error());
 		header("Location: user-superadmin.php?last=Users");
-		
-	}
-	elseif(!empty($_POST['btnedituser'])){
+	} 
+	elseif (!empty($_POST['btnedituser'])) {
 		$adduserlname = mysqli_real_escape_string($conn, $_POST['userslastname']);
 		$adduserfname = mysqli_real_escape_string($conn, $_POST['usersfirstname']);
 		$addusermi = mysqli_real_escape_string($conn, $_POST['usersmi']);
 		$addusergender = $_POST['selugender'];
 		$adduserusername = mysqli_real_escape_string($conn, $_POST['usersusername']);
+		$adduseremail = mysqli_real_escape_string($conn, $_POST['user_email']);
 		$adduserlevel = $_POST['selaccess'];
 		$addusercontact = mysqli_real_escape_string($conn, $_POST['userscontact']);
 		$adduserid = $_POST['usersid'];
 		$adduserbu = $_POST['seluserbu'];
-		mysqli_query($conn, "UPDATE users_mst SET fname='".$adduserfname."', mi='".$addusermi."', lname='".$adduserlname."', bu='".$adduserbu."', level='".$adduserlevel."', email='".$adduserusername."', status='Active', date_created=now(), gender='".$addusergender."', contact='".$addusercontact."' WHERE id='".$adduserid."' ") or die(mysqli_error($conn));
-		mysqli_query($conn, "INSERT INTO system_log (uid, log, datetime, bu_id) VALUES ('".$_SESSION['id']."', 'Updated user ".$adduserlname.", ".$adduserfname." ".$addusermi."', now(), ".$_SESSION['bu'].")") or die(mysqli_error());
+		mysqli_query($conn, "UPDATE users_mst SET fname='" . $adduserfname . "', mi='" . $addusermi . "', lname='" . $adduserlname . "', bu='" . $adduserbu . "', level='" . $adduserlevel . "', email='" . $adduserusername . "', user_email='" . $adduseremail . "', status='Active', date_created=now(), gender='" . $addusergender . "', contact='" . $addusercontact . "' WHERE id='" . $adduserid . "' ") or die(mysqli_error($conn));
+		mysqli_query($conn, "INSERT INTO system_log (uid, log, datetime, bu_id) VALUES ('" . $_SESSION['id'] . "', 'Updated user " . $adduserlname . ", " . $adduserfname . " " . $addusermi . "', now(), " . $_SESSION['bu'] . ")") or die(mysqli_error());
 		header("Location: user-superadmin.php?last=Users");
-		
-	}
+	} 
 	elseif(!empty($_POST['btndisporev'])){
 		$newdisposition = mysqli_real_escape_string($conn, $_POST['txtdisporev']);
 		$dispoticketid = $_POST['hidticketid'];

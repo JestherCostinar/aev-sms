@@ -157,6 +157,15 @@ function toggleMe3(section2, list2, usertype){
 		x2[i2].style.backgroundColor = 'initial';
 		x2[i2].style.color = 'initial';
 	}
+
+	if(usertype == 'Admin') {
+		document.getElementById("user_email_tr").style.display = "table-row";
+	} else if(usertype == 'Super Admin') {
+		document.getElementById("user_email_tr").style.display = "table-row";
+	}else {
+		document.getElementById("user_email_tr").style.display = "none";
+	}
+	
 	document.getElementById(list2).style.textDecoration = 'underline';
 	document.getElementById(list2).style.backgroundColor = '#000000';
 	document.getElementById(list2).style.color = '#FFF';
@@ -1828,12 +1837,13 @@ function editUser(ulname, ufname, umi, ugender, uusername, ulevel, ucontact, uui
 	$( "#adduserdiv" ).dialog( "open" );
 }
 
-function editUserSA(ulname, ufname, umi, ugender, uusername, ulevel, ucontact, uuid, ubu){
+function editUserSA(ulname, ufname, umi, ugender, uusername, uemail, ulevel, ucontact, uuid, ubu){
 	document.getElementById("userslastname").value = ulname;
 	document.getElementById("usersfirstname").value = ufname;
 //	document.getElementById("usersmi").value = umi;
 //	document.getElementById("selugender").value = ugender;
 	document.getElementById("usersusername").value = uusername;
+	document.getElementById("user_email").value = uemail;
 	document.getElementById("selaccess").value = ulevel;
 //	document.getElementById("userscontact").value = ucontact;
 	document.getElementById("usersid").value = uuid;

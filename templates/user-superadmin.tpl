@@ -3001,10 +3001,14 @@
       <div id="divUsersDisplay">
         <table width="95%" border="1" align="center" style="border-collapse:collapse">
                 <tr>
-                    <th class="acctab" id="acctabuser" width="33%" bgcolor="#000000" style="color:#FFF; cursor:pointer" onclick="toggleMe3('divuseracc', 'acctabuser', 'User');">Users</th>
+                    <!-- <th class="acctab" id="acctabuser" width="33%" bgcolor="#000000" style="color:#FFF; cursor:pointer" onclick="toggleMe3('divuseracc', 'acctabuser', 'User');">Users</th>
                     <th class="acctab" id="acctabadmin" width="33%" style="cursor:pointer;" onclick="toggleMe3('divadminacc', 'acctabadmin', 'Admin');">Admins</th>
-                    <th class="acctab" id="acctabsuper" width="34%" style="cursor:pointer;" onclick="toggleMe3('divsuperacc', 'acctabsuper', 'Super Admin');">Super Admins</th>
-                </tr>
+                    <th class="acctab" id="acctabsuper" width="34%" style="cursor:pointer;" onclick="toggleMe3('divsuperacc', 'acctabsuper', 'Super Admin');">Super Admins</th> -->
+					<th class="acctab" id="acctabuser" width="25%" bgcolor="#000000" style="color:#FFF; cursor:pointer" onclick="toggleMe3('divuseracc', 'acctabuser', 'User');">Security Guard</th>
+                    <th class="acctab" id="acctabheadguard" width="25%" style="cursor:pointer;" onclick="toggleMe3('divheadguardacc', 'acctabheadguard', 'Head Guard');">Head Guard</th>
+					<th class="acctab" id="acctabadmin" width="25%" style="cursor:pointer;" onclick="toggleMe3('divadminacc', 'acctabadmin', 'Admin');">BU Security Head</th>
+                    <th class="acctab" id="acctabsuper" width="25%" style="cursor:pointer;" onclick="toggleMe3('divsuperacc', 'acctabsuper', 'Super Admin');">Super Admins</th>               
+				</tr>
             </table>
             <table width="95%" align="center">
                   <tr>
@@ -3032,6 +3036,22 @@
                       $userstable
                 </table>
             </div>
+			<div id="divheadguardacc" class="accdiv" style="display:none">
+                <table width="90%" align="center" border="1" style="border-collapse:collapse">
+                      <tr class="whiteonblack">
+                          
+                          <th>Name</th>
+                          <th>Gender</th>
+                          <th>Username</th>
+                          <th>Access Level</th>
+                          <th>Business Unit</th>
+                          <th>Contact</th>
+                          <th>Status</th>                
+                          <th colspan="2" width="5%">Controls</th>
+                      </tr>
+                      $headguardtable
+                </table>
+            </div>
             <div id="divadminacc" class="accdiv" style="display:none">
                 <table width="90%" align="center" border="1" style="border-collapse:collapse">
                       <tr class="whiteonblack">
@@ -3039,6 +3059,7 @@
                           <th>Name</th>
                           <th>Gender</th>
                           <th>Username</th>
+						  <th>Email</th>
                           <th>Access Level</th>
                           <th>Business Unit</th>
                           <th>Contact</th>
@@ -3055,6 +3076,7 @@
                           <th>Name</th>
                           <th>Gender</th>
                           <th>Username</th>
+						  <th>Email</th>
                           <th>Access Level</th>
                           <th>Business Unit</th>
                           <th>Contact</th>
@@ -3160,6 +3182,10 @@
                 	<label id="lbluserstat"></label>
                 </td>
             </tr>
+			<tr id="user_email_tr" name="user_email_tr" style="display: none">
+            	<td>Email</td>
+                <td><input type="text" id="user_email" name="user_email" required="required" /></td>
+			</tr>
             <tr>
             	<td>Business Unit</td>
                 <td>
