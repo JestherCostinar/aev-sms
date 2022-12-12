@@ -1,0 +1,51 @@
+----- Start SMS Changelog ------
+v.1.0.17 (160822)
+1. Activity Monitoring Form CSV download.
+2. Activity Monitoring Form URC search
+
+v.1.0.16 (160822)
+1. quick fix for CSV files displaying only one or incomplete record(s).
+
+v.1.0.15 (160819)
+1. Guard Personnel Edit Fix.
+2. Incident Ticket Header Color
+3. Contract Compliance Tables
+
+v.1.0.14 (160818)
+1. added CSV button
+2. expro dashboard fix
+
+v.1.0.13 (160817)
+1. Monitoring Form CSV download
+2. Security Agency editing bug ifx.
+
+v.1.0.12 (160811)
+1. Security Agency edit fix
+
+v.1.0.11 (160808)
+1. log revisions time stamp fix
+
+v.1.0.10 (160805)
+1. Edit logs - timestamp fix.
+2. Ticket ID search
+
+v.1.0.9 additional (160804)
+1. Display ñ in emails.
+2. Timestamp fix.
+
+v.1.0.9 (160804)
+1. date fix.
+
+v.1.0.8 (160803)
+1. bu logo fix.
+2. date closed display fix.
+
+v.1.0.7 (160802)
+1. display date closed fix.
+2. bu logos applied to monitoring form.
+
+----- End SMS Changelog ------
+Reminders:
+1. Latest changes should be on top
+2. Please include version of the patch
+3. Please include changes in detail
