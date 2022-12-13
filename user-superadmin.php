@@ -3007,6 +3007,21 @@ while ($biddingtemplate = mysqli_fetch_assoc($biddingtemplatesql)) {
 	$biddingtemplatenum++;
 }
 
+// BIDDING DOCUMENTS
+$biddingdocstable = "";
+$biddingdocsnum = 1;
+$biddingdocssql = mysqli_query($conn, "SELECT * FROM bidding_docs");
+while ($biddingdocsresult = mysqli_fetch_assoc($biddingdocssql)) {
+	$biddingdocstable .= "<tr align=\"center\">" .
+		"<td>" . $biddingdocsnum . "</td>" .
+		"<td>" . $biddingdocsresult['file_name'] . "</td>" .
+		"<td>" . strtoupper($biddingdocsresult['type']) . "</td>" .
+		"<td><a target=\"_blank\" href=\"" . $biddingdocsresult['file_path'] . "\"><img src=\"images/view.png\" height=\"24px\" style=\"cursor:pointer;\" ]\"><a/></td>" .
+	"<td><img src=\"images/edit2.png\" height=\"24px\" style=\"cursor:pointer;\" onclick=\"addBiddingDocument('" . $biddingdocsresult['id'] . "', 'Edit', 'Group');\"></td>" .
+		"<td><img src=\"images/delete.png\" height=\"20px\" title=\"Delete Location\" style=\"cursor:pointer;\" onclick=\"deleteItem('" . $biddingdocsresult['id'] . "', 'BidDocs');\" /></td>" .
+		"</tr>";
+	$biddingdocsnum++;
+}
 
 $incidentcount = 0;
 $incidentcountsql = mysqli_query($conn,"SELECT COUNT(id) AS Incident_Count FROM ticket WHERE ticket_type = 1 AND MONTH(dateadded) = MONTH(now()) AND YEAR(dateadded) = YEAR(now());");

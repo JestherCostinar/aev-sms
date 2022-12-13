@@ -106,6 +106,21 @@ function editBiddingClose() {
 	$( "#editBiddingModal" ).dialog("close");
 }
 
+// BIDDING DOCUMENTS
+function addBiddingDocument(id, clicktype)
+{
+	$( "#addBiddingDocument" ).dialog("open");
+	$( "#divBiddingDocument" ).load("bidding_document.php?id="+ id +"&click="+ clicktype);
+}
+
+// Return button for modal of Add bidding Template
+function biddingdocumentback()
+{
+	event.preventDefault();
+	$( "#addBiddingDocument" ).dialog( "close" );	
+	document.getElementById("biddingDocument").reset();
+}
+
 // -------------------------- END OF BIDDING JS ----------------------------
 
 function evaluateForm(btn){
@@ -5629,7 +5644,16 @@ $(document).ready(function() {
 		autoOpen: false,
 		width: 850,
 		position: {my: "top", at: "center", of: "#topbar"}
-  	});  
+  	}); 
+	$( "#addBiddingDocument" ).dialog({
+		dialogClass: "no-close",		
+		modal: true,
+		closeOnEscape: false,
+		resizable: false,
+		autoOpen: false,
+		width: 500,
+		position: {my: "top", at: "center", of: "#topbar"}
+  	}); 
 	$( "#AddActivity" ).dialog({
 		dialogClass: "no-close",
 		width: 800,

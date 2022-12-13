@@ -130,6 +130,12 @@ else
 		$table =  "bidding_template_item";
 		$item_type = "BidReq";
 	}
+
+	// BIDDING ITEM REQUIREMENTS
+	elseif ($item_type == 'BidDocs') {
+		$table =  "bidding_docs";
+		$item_type = "BidDocs";
+	}
 	
 	elseif($item_type == 'Regions')
 	{

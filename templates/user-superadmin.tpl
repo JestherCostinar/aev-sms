@@ -2040,6 +2040,41 @@
 		</div>
 	</div>
 
+	<!-- ------------------- BIDDING DOCUMENTS -------------------- -->
+	<div id="BidDocs" class="section">
+    	<table width="90%" align="center">
+        	<tr>                
+            	<td width="100%" valign="top">
+                	<table width="90%" align="center" >
+                		<tr>
+							<td align="left" style="font-weight:bold">Documents</td>
+                        	<td align="right">                    			
+                    			<img id="imgaddnda" name="imgaddnda" src="images/add_item.png" height="32px" style="cursor:pointer; vertical-align:middle;" onclick="addBiddingDocument(0, 'Add');" /> 
+                			</td>
+                        </tr>
+                    </table>
+                	<table width="90%" align="center" border="1" style="border-collapse:collapse">
+                    	<tr class="whiteonblack">
+                        	<th width="5%">#</th>
+                        	<th>Document</th>
+							<th width="10%">Type</th>
+                            <td colspan="3" width="8%"></td>                            
+                        </tr>
+                        $biddingdocstable                        
+                    </table>                    
+                </td>
+            </tr>
+        </table>
+    </div>
+
+	<!-- ------------------- Add Bidding Documents-------------------- -->
+	<div id="addBiddingDocument" style="display:none;">
+		<div id="divBiddingDocument">
+
+		</div>
+    </div> 
+
+
 	<div id="Audit" class="section" style="overflow-x:auto;">
 	
 	</div>
