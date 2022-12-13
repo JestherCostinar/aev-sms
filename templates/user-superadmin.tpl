@@ -89,6 +89,12 @@
 							<li class="lists" id="listconcomcons" onclick="toggleMe('ConCompConsolidation', 'listconcomcons')">Summary</li>
 						</ul>
 					</ul>
+				<li class="lists" onclick="toggleMenu('subBidding');">Bidding</li>
+					<ul id="subBidding" style="display:none; list-style-type:none;">
+						<li class="lists" id="listbidreq" onclick="toggleMe('BidReq', 'listbidreq')">Bidding Template</li>
+						<li class="lists" id="listbiddoc" onclick="toggleMe('BidDocs', 'listbiddoc')">Documents</li>
+						<li class="lists" id="listbiddoc" onclick="toggleMe('Bidding', 'listbiddoc')">Bidding</li>
+					</ul>
 				<li class="lists" onclick="toggleMenu('subRequests');">Requests</li>
 					<ul id="subRequests" style="display:none; list-style-type:none;">
 						<li class="lists" id="listretractions" onclick="toggleMe('divRequests', 'listretractions')">Retractions</li>
@@ -1990,6 +1996,50 @@
 		</div>
 	</div>
 	
+	<!-- -------------------- BIDDING REQUIREMENT TEMPLATES ----------------- -->
+	<div id="BidReq" class="section">
+      <table width="95%" align="center">
+      	<tr>
+        	<td align="left" style="font-weight:bold">Bidding Requirements</td>
+        	<td align="right" width="65px" align="right">
+            	<img src="images/add_item.png" height="30px" id="btnaddbiddingtemplate" name="btnaddbiddingtemplate" title="Add Bidding Template" style="cursor:pointer;" onclick="addBiddingTemplate('0', 'Add');" />
+            </td>
+        </tr>
+      </table>
+      <table width="95%" border="1" align="center" style="border-collapse:collapse;">
+      <thead>      
+      <tr class="whiteonblack">
+      	<th width="5%">#</th>
+        <th>Bidding Requirements Name</th>
+        <th width="15%">Status</th>
+        <td width="10%">Action</td>
+      </tr>
+      </thead>
+      <tbody>
+        $biddingtemplatetable
+      </tbody>
+      </table>
+    </div>
+
+	<!-- ------------------ BIDDING REQUIREMENT ---------------- -->
+	<div id="BidReqItem" class="section">
+
+	</div>
+
+	<!-- ------------------- Add Bidding -------------------- -->
+	<div id="addBiddingDiv" style="display:none;">
+		<div id="divBiddingTemplateContent">
+
+		</div>
+    </div> 
+
+	<!-- ------------------- Edit Bidding Item -------------------- -->
+	<div id="editBiddingModal" style="display:none;">
+		<div id="editBiddingModalHolder" name="editBiddingModalHolder">
+
+		</div>
+	</div>
+
 	<div id="Audit" class="section" style="overflow-x:auto;">
 	
 	</div>

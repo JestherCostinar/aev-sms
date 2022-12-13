@@ -118,6 +118,19 @@ else
 		$table =  "cluster_group";
 		$item_type = "Groups";
 	}
+
+	// BIDDING
+	elseif ($item_type == 'BidReq') {
+		$table = "bidding_template";
+		$item_type = "BidReq";
+	}
+
+	// BIDDING ITEM REQUIREMENTS
+	elseif ($item_type == 'Bidding Item') {
+		$table =  "bidding_template_item";
+		$item_type = "BidReq";
+	}
+	
 	elseif($item_type == 'Regions')
 	{
 		$table =  "regional_group";

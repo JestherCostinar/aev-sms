@@ -12,6 +12,102 @@ $(document).on("keydown", function (e) {
         e.preventDefault();
     }
 });
+
+// ----------------------- BIDDING ----------------------------
+// JS function for Bidding
+function addBiddingTemplate(id, clicktype)
+{
+	$( "#addBiddingDiv" ).dialog("open");
+	$( "#divBiddingTemplateContent" ).load("biddingtemplate.php?id="+ id +"&click="+ clicktype);
+}
+
+// Return button for modal of Add bidding Template
+function biddingback()
+{
+	event.preventDefault();
+	$( "#addBiddingDiv" ).dialog( "close" );	
+	document.getElementById("biddingTemplate").reset();
+}
+
+function showBiddingItem(id)
+{
+	// alert(id);
+	$( "#BidReqItem" ).load("biddingtemplateitem.php?id=" + id);
+	$( "#BidReqItem" ).show();
+	$( "#BidReq" ).hide();
+
+}
+
+function addBiddingEntry() {
+	var biddingcount = 1;
+	if((document.getElementById("txtRequirementName").value) && (document.getElementById("txtCategory").value) && (document.getElementById("txtExpiry").value))
+		{
+			$( "#tblbiddingitem tbody" ).append("<tr align='center' valign='top'>" +
+				"<td class='rowbiddingcount' style='display: none'>" + document.getElementById("counthide").value++ + "</td>" +
+				"<td class='rowNumber'>#</td>" +
+				"<td class='rowRequirementName'>" + document.getElementById("txtRequirementName").value + "</td>" +
+			  	"<td class='rowCategory' style='display: none'>" + document.getElementById("txtCategory").value + "</td>" +
+			  	"<td class='rowExpiry' style='display: none'>" + document.getElementById("txtExpiry").value + "</td>" +
+				"<td class='rowPercentage' >" + document.getElementById("txtweightpercentage").value + "</td>" +
+				"<td class='rowTotal' style='display: none'>" + document.getElementById("txttotal").value + "</td>" +
+				"<td class='rowRating' style='display: none'>" + document.getElementById("txtrating").value + "</td>" +
+				"<td class='rowRemarks' style='display: none'>" + document.getElementById("txtRemarks").value + "</td>" +
+			  	"<td><img src='images/delete.png' style='cursor:pointer;' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode)' /></td>" +
+			"</tr>" );
+			document.getElementById("txtRequirementName").value = "";
+			document.getElementById("txtCategory").value = "";
+			document.getElementById("txtExpiry").value = "";
+			document.getElementById("txtweightpercentage").value = "";
+			document.getElementById("txttotal").value = "";
+			document.getElementById("txtrating").value = "";
+			document.getElementById("txtRemarks").value = "";
+			$( "#tblbiddingitem" ).show();
+			$( "#btnSaveBiddingItem" ).show();		
+		}
+}
+
+
+function saveBiddingItem() {
+	var biddingrowcount = document.getElementsByClassName("rowbiddingcount");	
+	var biddingReqName = document.getElementsByClassName("rowRequirementName");	
+	var biddingCat = document.getElementsByClassName("rowCategory");
+	var biddingExp = document.getElementsByClassName("rowExpiry");
+	var biddingPer = document.getElementsByClassName("rowPercentage");	
+	var biddingTot = document.getElementsByClassName("rowTotal");
+	var biddingRat = document.getElementsByClassName("rowRating");
+	var biddingRem = document.getElementsByClassName("rowRemarks");
+
+	var i;
+	for (i = 0; i < biddingrowcount.length; i++)
+	{
+	document.getElementById("biddingName").value += "*~" + biddingReqName[i].innerHTML;
+	document.getElementById("biddingCategory").value += "*~" + biddingCat[i].innerHTML;		
+	document.getElementById("biddingexpiry").value += "*~" + biddingExp[i].innerHTML;
+	document.getElementById("biddingPercentage").value += "*~" + biddingPer[i].innerHTML;
+	document.getElementById("biddingTotal").value += "*~" + biddingTot[i].innerHTML;		
+	document.getElementById("biddingRating").value += "*~" + biddingRat[i].innerHTML;
+	document.getElementById("biddingRemarks").value += "*~" + biddingRem[i].innerHTML;
+
+	}
+
+	if((document.getElementById("biddingName").value) && (document.getElementById("biddingCategory").value) && (document.getElementById("biddingexpiry").value))
+	{
+		document.getElementById("formbiddingitem").submit();
+	}
+}
+
+
+function editbiddingshow(biddingid) {
+	$( "#editBiddingModalHolder" ).load("bidding_item_edit.php?id=" + biddingid);
+	$( "#editBiddingModal" ).dialog("open");	
+}
+
+function editBiddingClose() {
+	$( "#editBiddingModal" ).dialog("close");
+}
+
+// -------------------------- END OF BIDDING JS ----------------------------
+
 function evaluateForm(btn){
 	event.preventDefault();
 	if(!(document.getElementById('txturc').value && document.getElementById('date').value && document.getElementById('time').value && document.getElementById('txtlocation').value && document.getElementById('txtguard').value && document.getElementById('remarks').value)){
@@ -5514,7 +5610,26 @@ $(document).ready(function() {
   });
  
  $(document).ready(function() {
-	  
+	  // ------------------ MODAL FOR BIDDING -----------------
+	$( "#addBiddingDiv" ).dialog({
+		dialogClass: "no-close",		
+		modal: true,
+		closeOnEscape: false,
+		resizable: false,
+		autoOpen: false,
+		width: 650,
+		position: {my: "top", at: "center", of: "#topbar"}
+  	});
+
+	$( "#editBiddingModal" ).dialog({
+		dialogClass: "no-close",		
+		modal: true,
+		closeOnEscape: false,
+		resizable: false,
+		autoOpen: false,
+		width: 850,
+		position: {my: "top", at: "center", of: "#topbar"}
+  	});  
 	$( "#AddActivity" ).dialog({
 		dialogClass: "no-close",
 		width: 800,

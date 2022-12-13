@@ -2100,6 +2100,21 @@ if($_POST)
 		}	
 		
 		header("location:user-superadmin.php?last=ConComp");
+	} 
+	elseif ((isset($_POST['biddingName'])) && (isset($_POST['biddingCategory'])) && (isset($_POST['biddingexpiry']))) {
+		$postBiddingName = explode("*~", mysqli_real_escape_string($conn, $_POST['biddingName']));
+		$postBiddingCategory = explode("*~", $_POST['biddingCategory']);
+		$postBiddingExpiry = explode("*~", $_POST['biddingexpiry']);
+		$postBiddingWeightPercentage = explode("*~", $_POST["biddingPercentage"]);
+		$postBiddingRating = explode("*~", $_POST["biddingRating"]);
+		$postBiddingTotal = explode("*~", $_POST["biddingTotal"]);
+		$postBiddingRemarks = explode("*~", mysqli_real_escape_string($conn, $_POST["biddingRemarks"]));
+
+		$postTemplateID = $_POST['templateid'];
+		for ($i = 1, $count = count($postBiddingName); $i < $count; $i++) {
+			mysqli_query($conn, "INSERT INTO bidding_template_item (requirement_name, category, has_expiry, weight_percentage, remarks, rating, total, template_id) VALUES('" . $postBiddingName[$i] . "', '" . $postBiddingCategory[$i] . "', '" . $postBiddingExpiry[$i] . "', '" . $postBiddingWeightPercentage[$i] . "', '" . $postBiddingRemarks[$i] . "', '" . $postBiddingRating[$i] . "', '" . $postBiddingTotal[$i] . "', '" . $postTemplateID . "')") or die(mysqli_error($conn));
+		}
+		header("Location: user-superadmin.php?last=BidReq");
 	}
 	elseif((isset($_POST['CCEditID'])) && !empty($_POST['CCEditID']))
 	{
@@ -2339,7 +2354,21 @@ if($_POST)
 		mysqli_query($conn, "UPDATE cc_template SET goal = '".$editCCGoal."', subgoal = '".$editCCSubGoal."', number = ".$editCCNumber.", frequency = '".$editCCFrequency."', standard = '".$editCCStandard."', details = '".$editCCDetails."', deduction = ".$editCCDeduction.", hovertext = '".$editCCHover."' WHERE id = ".$editCCID)or die(mysqli_error($conn));
 		
 		header("location:user-superadmin.php?last=ConComp");
-	}
+	} 
+	elseif (!empty($_POST['btnEditBiddingSave'])) {
+		$editBiddingExpiry = $_POST["txtEditBDExpiry"];
+		$editBiddingCategory = $_POST["txtEditBDCategory"];
+		$editBiddingRequirements = mysqli_real_escape_string($conn, $_POST["txtEditBDRequirement"]);
+		$editBiddingWeightPercentage = $_POST["txtweightpercentage"];
+		$editBiddingRating = $_POST["txtrating"];
+		$editBiddingTotal = $_POST["txttotal"];
+		$editBiddingRemarks = mysqli_real_escape_string($conn, $_POST["txtRemarks"]);
+		$editBiddingID = $_POST["txtBiddingEditID"];
+
+		mysqli_query($conn, "UPDATE bidding_template_item SET requirement_name = '" . $editBiddingRequirements . "', category = '" . $editBiddingCategory . "', has_expiry = '" . $editBiddingExpiry . "', weight_percentage = '" . $editBiddingWeightPercentage . "', rating = '" . $editBiddingRating . "', total = '" . $editBiddingTotal . "', remarks = '" . $editBiddingRemarks . "' WHERE id = " . $editBiddingID) or die(mysqli_error($conn));
+
+		header("Location: user-superadmin.php?last=BidReq");
+	} 
 	elseif(!empty($_POST['btnSubmitClassification']))
 	{
 		$mainclasses = array();
@@ -2960,7 +2989,23 @@ for($i = ($currentyear-25), $j = ($currentyear+25); $i <= $j; $i++)
 }
 
 
-
+// BIDDING TEMPLATE
+$biddingtemplatenum = 1;
+$biddingtemplatetable = '';
+$biddingtemplatesql = mysqli_query($conn, "SELECT * FROM bidding_template ORDER BY created_at");
+while ($biddingtemplate = mysqli_fetch_assoc($biddingtemplatesql)) {
+	$biddingtemplatetable .= "<tr align=\"center\">
+							<td>" . $biddingtemplatenum . "</td>
+							<td align=\"center\" >" . $biddingtemplate['bidding_name'] . "</td>
+							<td align=\"center\" >" . $biddingtemplate['status'] . "</td>
+							<td>
+								<a href=\"javascript:void(0)\" style=\"color: green\" onclick=\"showBiddingItem('" . $biddingtemplate['id'] . "');\">Edit</a> | 
+								
+								<a href=\"javascript:void(0)\" style=\"color: red\" onclick=\"deleteItem('" . $biddingtemplate['id'] . "','BidReq');\" >Delete</a>
+							</td>
+						 </tr>";
+	$biddingtemplatenum++;
+}
 
 
 $incidentcount = 0;
