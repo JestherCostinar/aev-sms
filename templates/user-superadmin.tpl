@@ -2042,10 +2042,10 @@
 
 	<!-- ------------------- BIDDING DOCUMENTS -------------------- -->
 	<div id="BidDocs" class="section">
-    	<table width="90%" align="center">
+    	<table width="100%" align="center">
         	<tr>                
             	<td width="100%" valign="top">
-                	<table width="90%" align="center" >
+                	<table width="95%" align="center" >
                 		<tr>
 							<td align="left" style="font-weight:bold">Documents</td>
                         	<td align="right">                    			
@@ -2053,7 +2053,7 @@
                 			</td>
                         </tr>
                     </table>
-                	<table width="90%" align="center" border="1" style="border-collapse:collapse">
+                	<table width="95%" align="center" border="1" style="border-collapse:collapse">
                     	<tr class="whiteonblack">
                         	<th width="5%">#</th>
                         	<th>Document</th>
