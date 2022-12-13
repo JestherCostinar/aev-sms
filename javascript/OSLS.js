@@ -3374,6 +3374,8 @@ function addBUrow()
 		  "<td>" + $("#seladdbugroup option:selected").text() + "</td>" +
 		  "<td class='rowburegion' style='display:none;'>" + document.getElementById("seladdburegion").value + "</td>" +
 		  "<td>" + $("#seladdburegion option:selected").text() + "</td>" +
+		  "<td class='rowbucluster' style='display:none;'>" + document.getElementById("seladdbucluster").value + "</td>" +
+		  "<td>" + $("#seladdbucluster option:selected").text() + "</td>" +
 		  "<td class='rowexprogroup' style='display:none;'>" + document.getElementById("selexprogroup").value + "</td>" +
 		  "<td>" + $("#selexprogroup option:selected").text() + "</td>" +
           "<td><img src='images/delete.png' style='cursor:pointer;' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode)' /></td>" +
@@ -3381,6 +3383,7 @@ function addBUrow()
 		document.getElementById("txtaddbuname").value = "";
 		document.getElementById("txtaddbucode").value = "";
 		document.getElementById("seladdbugroup").value = "";
+		document.getElementById("seladdbucluster").value = "";
 		document.getElementById("seladdburegion").value = "";
 		document.getElementById("txtaddbuname").focus();
 	}
@@ -3397,6 +3400,7 @@ function saveBUrow()
 	var x3 = document.getElementsByClassName('rowburegion');
 	var x4 = document.getElementsByClassName('rowbucode');
 	var x5 = document.getElementsByClassName('rowexprogroup');
+	var x6 = document.getElementsByClassName('rowbucluster');
 	var i;
 	for (i = 0; i < x.length; i++) {
 		document.getElementById("txtaddbunameall").value += "*~" + x[i].innerHTML;
@@ -3404,8 +3408,9 @@ function saveBUrow()
 		document.getElementById("txtaddburegionall").value += "*~" + x3[i].innerHTML;
 		document.getElementById("txtaddbucodeall").value += "*~" + x4[i].innerHTML;
 		document.getElementById("txtexprogroupall").value += "*~" + x5[i].innerHTML;
+		document.getElementById("txtaddbuclusterall").value += "*~" + x6[i].innerHTML;
 	}
-	if((document.getElementById("txtaddbunameall").value) && (document.getElementById("txtaddbugroupall").value) && (document.getElementById("txtaddburegionall").value) && (document.getElementById("txtexprogroupall").value))
+	if((document.getElementById("txtaddbunameall").value) && (document.getElementById("txtaddbugroupall").value) && (document.getElementById("txtaddburegionall").value) && (document.getElementById("txtaddbuclusterall").value) && (document.getElementById("txtexprogroupall").value))
 	{
 		document.getElementById("txtactivityname").value = "";
 		document.getElementById("txtincidentname").value = "";
@@ -3417,13 +3422,14 @@ function saveBUrow()
 	}
 }
 
-function editBU(id, bu, bu_code, group, region, expro, bulogo)
+function editBU(id, bu, bu_code, group, region, cluster, expro, bulogo)
 {
 	document.getElementById("txtaddbuid").value = id;
 	document.getElementById("txtaddbuname").value = bu;
 	document.getElementById("txtaddbucode").value = bu_code;
 	document.getElementById("seladdbugroup").value = group;
 	document.getElementById("seladdburegion").value = region;
+	document.getElementById("seladdbucluster").value = cluster;
 	document.getElementById("selexprogroup").value = expro;
 	document.getElementById("btnaddburow").style.display = "none";
 	document.getElementById("btnsavebu").style.display = "none";
@@ -3436,8 +3442,7 @@ function editBU(id, bu, bu_code, group, region, expro, bulogo)
 
 function updateBU()
 {
-	if((document.getElementById("txtaddbuname").value) && (document.getElementById("seladdbugroup").value) && (document.getElementById("seladdburegion").value) && (document.getElementById("selexprogroup").value))
-	{
+	if((document.getElementById("txtaddbuname").value) && (document.getElementById("seladdbugroup").value) && (document.getElementById("seladdburegion").value) && (document.getElementById("seladdbucluster").value) && (document.getElementById("selexprogroup").value))	{
 		document.getElementById("frmBU").submit();
 	}
 	else

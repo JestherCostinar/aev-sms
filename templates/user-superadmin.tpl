@@ -2487,6 +2487,7 @@
                 <th>BU Code</th>
                 <th>Group</th>
                 <th>Region</th>
+				<th>Cluster</th>
                 <th>EXPRO</th>
                 <th colspan="2" width="5%"></th>
             </tr>
@@ -2510,6 +2511,7 @@
                   <th>BU Code</th>
                   <th>Group</th>
                   <th>Region</th>
+				  <th>Cluster</th>
                   <th>EXPRO</th>
                   <td></td>
               </tr>
@@ -2539,6 +2541,13 @@
                             $buregionaldatalist
                         </select>
                         <input type="hidden" id="txtaddburegionall" name="txtaddburegionall" />
+                    </td>
+					<td>
+                    	<select id="seladdbucluster" name="seladdbucluster">
+                        	<option value=""></option>
+                            $buclusterdatalist
+                        </select>
+                        <input type="hidden" id="txtaddbuclusterall" name="txtaddbuclusterall" />
                     </td>
                     <td>
                     	<select id="selexprogroup" name="selexprogroup">

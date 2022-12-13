@@ -309,6 +309,8 @@ while($bulistres = mysqli_fetch_assoc($bulistsql))
 	$bumaingroup = mysqli_fetch_assoc($bumaingroupsql);
 	$buregionalsql = mysqli_query($conn, "SELECT * FROM regional_group WHERE id = ". $bulistres['regional_group']);
 	$buregionalgroup = mysqli_fetch_assoc($buregionalsql);
+	$buclustergroupsql = mysqli_query($conn, "SELECT * FROM cluster_group WHERE id = " . $bulistres['cluster_group']);
+	$buclustergroup = mysqli_fetch_assoc($buclustergroupsql);
 	if($bulistres['expro'] == 1)
 	{
 		$exprobu = "Yes";
@@ -323,8 +325,9 @@ while($bulistres = mysqli_fetch_assoc($bulistsql))
 				"<td>".$bulistres['bu_code']."</td>" .
 				"<td>".$bumaingroup['name']."</td>" .
 				"<td>".$buregionalgroup['name']."</td>" .
+				"<td>".$buclustergroup['name']."</td>" .
 				"<td>".$exprobu."</td>" .
-				"<td><img src=\"images/edit2.png\" height=\"24px\" style=\"cursor:pointer;\" onclick=\"editBU('".$bulistres['id']."', '".$bulistres['bu']."', '".$bulistres['bu_code']."', '".$bulistres['main_group']."', '".$bulistres['regional_group']."', '".$bulistres['expro']."', '".$bulistres['bu_logo']."');\"></td>" .
+				"<td><img src=\"images/edit2.png\" height=\"24px\" style=\"cursor:pointer;\" onclick=\"editBU('" . $bulistres['id'] . "', '" . $bulistres['bu'] . "', '" . $bulistres['bu_code'] . "', '" . $bulistres['main_group'] . "', '" . $bulistres['regional_group'] . "', '" . $bulistres['cluster_group'] . "', '" . $bulistres['expro'] . "', '" . $bulistres['bu_logo'] . "');\"></td>" .				
 				"<td><img src=\"images/delete.png\" height=\"20px\" title=\"Delete Location\" style=\"cursor:pointer;\" onclick=\"deleteItem('".$bulistres['id']."', 'BUs');\" /></td>" .
 				"</tr>";
 	$bunumber++;
@@ -1107,45 +1110,40 @@ if($_POST)
 		$addbucodes = explode("*~", $_POST['txtaddbucodeall']);
 		$addbugroups = explode("*~", $_POST['txtaddbugroupall']);
 		$addburegions = explode("*~", $_POST['txtaddburegionall']);
+		$addbucluster = explode("*~", $_POST['txtaddbuclusterall']);
 		$addexprogroups = explode("*~", $_POST['txtexprogroupall']);
 		for($i=1, $count = count($addbunames);$i<$count;$i++) {
-			mysqli_query($conn, "INSERT INTO bu_mst(bu, bu_code, main_group, regional_group, expro) VALUES('". mysqli_real_escape_string($conn,$addbunames[$i]) ."', '". mysqli_real_escape_string($conn,$addbucodes[$i]) ."', '". mysqli_real_escape_string($conn, $addbugroups[$i]) ."', ". mysqli_real_escape_string($conn, $addburegions[$i]) .", ". mysqli_real_escape_string($conn, $addexprogroups[$i]) .")");
+			mysqli_query($conn, "INSERT INTO bu_mst(bu, bu_code, main_group, regional_group, cluster_group, expro) VALUES('" . mysqli_real_escape_string($conn, $addbunames[$i]) . "', '" . mysqli_real_escape_string($conn, $addbucodes[$i]) . "', '" . mysqli_real_escape_string($conn, $addbugroups[$i]) . "', " . mysqli_real_escape_string($conn, $addburegions[$i]) . ", " . mysqli_real_escape_string($conn, $addbucluster[$i]) . ", " . mysqli_real_escape_string($conn, $addexprogroups[$i]) . ")");
 		}
 		mysqli_query($conn, "INSERT INTO system_log (uid, log, datetime, bu_id) VALUES ('".$_SESSION['id']."', 'Added BU', now(), 0)") or die(mysqli_error());
 		header("Location: user-superadmin.php?last=BUs");
 	}
 	elseif((isset($_POST['txtaddbuname'])) && !empty($_POST['txtaddbuname']))
 	{
-		foreach($_FILES['bulogo']['name'] as $attach)			
-		{
-			if($attach == ""){
-				$path = "" ;
-			}
-			else{
-				$path =  "bulogos/".$_POST['txtaddbuid']."-".$attach;
-			}
-				
-			if($path)
-			{
-				$unlinksql = mysqli_query($conn, "SELECT * FROM bu_mst WHERE id = ".$_POST['txtaddbuid']);
-				$unlinkres = mysqli_fetch_assoc($unlinksql);
-				unlink($unlinkres['bu_logo']);
-				
-				if(@copy($_FILES['bulogo']['tmp_name'][$i2],$path))
-				{
-					mysqli_query($conn, "update bu_mst set bu_logo = 'bulogos/".$handle2->file_dst_name."' where id = '".$_POST['txtaddbuid']."'") or die(mysqli_error($conn));
+		if (empty($_FILES['bulogo']['name'])) {
+			mysqli_query($conn, "UPDATE bu_mst SET bu = '" . $_POST['txtaddbuname'] . "', bu_code = '" . $_POST['txtaddbucode'] . "', main_group = '" . $_POST['seladdbugroup'] . "', regional_group = '" . $_POST['seladdburegion'] . "', cluster_group = '" . $_POST['seladdbucluster'] . "', expro = '" . $_POST['selexprogroup'] . "' WHERE id = '" . $_POST['txtaddbuid'] . "'");
+			$catch = "catchelse";
+		} else {
+			foreach ($_FILES['bulogo']['name'] as $attach) {
+				if ($attach == "") {
+					$path = "";
+				} else {
+					$path =  "bulogos/" . $_POST['txtaddbuid'] . "-" . $attach;
 				}
-				else
-				{					
-					$catch = "uploadfail ".$_FILES['userfile']['error'];
+
+				if ($path) {
+					$unlinksql = mysqli_query($conn, "SELECT * FROM bu_mst WHERE id = " . $_POST['txtaddbuid']);
+					$unlinkres = mysqli_fetch_assoc($unlinksql);
+					unlink($unlinkres['bu_logo']);
+
+					if (@copy($_FILES['bulogo']['tmp_name'][$i2], $path)) {
+						mysqli_query($conn, "update bu_mst set bu_logo = 'bulogos/" . $handle2->file_dst_name . "' where id = '" . $_POST['txtaddbuid'] . "'") or die(mysqli_error($conn));
+					} else {
+						$catch = "uploadfail " . $_FILES['userfile']['error'];
+					}
+				} else {
 				}
 			}
-			else
-			{
-				mysqli_query($conn, "UPDATE bu_mst SET bu = '".$_POST['txtaddbuname']."', bu_code = '".$_POST['txtaddbucode']."', main_group = '".$_POST['seladdbugroup']."', regional_group = '".$_POST['seladdburegion']."', expro = '".$_POST['selexprogroup']."' WHERE id = '".$_POST['txtaddbuid']."'");
-				$catch = "catchelse";
-			}			
-			
 		}
 		header("Location: user-superadmin.php?last=BUs&catch=".$catch);
 		/* mysqli_query($conn, "UPDATE bu_mst SET bu = '".$_POST['txtaddbuname']."', bu_code = '".$_POST['txtaddbucode']."', main_group = '".$_POST['seladdbugroup']."', regional_group = '".$_POST['seladdburegion']."', expro = '".$_POST['selexprogroup']."' WHERE id = '".$_POST['txtaddbuid']."'");
