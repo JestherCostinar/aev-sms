@@ -113,7 +113,11 @@ else
 	{
 		$table =  "main_groups";
 	}
-
+	// CLUSTER
+	elseif ($item_type == 'Cluster') {
+		$table =  "cluster_group";
+		$item_type = "Groups";
+	}
 	elseif($item_type == 'Regions')
 	{
 		$table =  "regional_group";

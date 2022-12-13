@@ -362,6 +362,21 @@ while($buregionallistres = mysqli_fetch_assoc($buregionallistsql))
 	$buregionalnum++;
 }
 
+$buclusterdatalist = "";
+$buclustertable = "";
+$buclusternum = 1;
+$buclusterlistsql = mysqli_query($conn, "SELECT * FROM cluster_group ORDER BY name");
+while ($buclusterlistres = mysqli_fetch_assoc($buclusterlistsql)) {
+	$buclusterdatalist .= "<option value=\"" . $buclusterlistres['id'] . "\">" . $buclusterlistres['name'] . "</option>";
+	$buclustertable .= "<tr align=\"center\">" .
+		"<td>" . $buclusternum . "</td>" .
+		"<td>" . $buclusterlistres['name'] . "</td>" .
+		"<td><img src=\"images/edit2.png\" height=\"24px\" style=\"cursor:pointer;\" onclick=\"editGroup('" . $buclusterlistres['id'] . "', '" . $buclusterlistres['name'] . "', 'Cluster');\"></td>" .
+		"<td><img src=\"images/delete.png\" height=\"20px\" title=\"Delete Location\" style=\"cursor:pointer;\" onclick=\"deleteItem('" . $buclusterlistres['id'] . "', 'Cluster');\" /></td>" .
+		"</tr>";
+	$buclusternum++;
+}
+
 $activityentriesdatalist = "";
 $activityentriestable = "";
 $activityentriesnum = 1;
@@ -1165,6 +1180,9 @@ if($_POST)
 		elseif($addbuitemtype == 'Region')
 		{
 			$buitemtbl = "regional_group";			
+		} 
+		elseif ($addbuitemtype == 'Cluster') {
+			$buitemtbl = "cluster_group";
 		}			
 		for($i=1, $count = count($addbuitem);$i<$count;$i++)
 		{
@@ -1185,6 +1203,9 @@ if($_POST)
 		elseif($addbuitemtype == 'Region')
 		{
 			$buitemtbl = "regional_group";			
+		} 
+		elseif ($addbuitemtype == 'Cluster') {
+			$buitemtbl = "cluster_group";
 		}	
 		mysqli_query($conn, "UPDATE ". $buitemtbl ." SET name = '".$editbuitem."' WHERE id = '".$addbuitemid."'");
 		mysqli_query($conn, "INSERT INTO system_log (uid, log, datetime, bu_id) VALUES ('".$_SESSION['id']."', 'Updated BU', now(), ".$_SESSION['bu'].")") or die(mysqli_error());

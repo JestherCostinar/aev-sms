@@ -101,7 +101,7 @@
 						<li class="lists" id="listlocs" onclick="toggleMe('Locs', 'listlocs')">Location</li>
 						<li class="lists" id="listbus" onclick="toggleMe('BUs', 'listbus')">Business Unit</li>
 							<ul style="list-style-type:none;">
-								<li class="lists" id="listgroup" onclick="toggleMe('Groups', 'listgroup')" >Groups / Regions</li>
+								<li class="lists" id="listgroup" onclick="toggleMe('Groups', 'listgroup')" >Groups / Regions / Cluster</li>
 								<!--<li class="lists" id="listregion" onclick="toggleMe('Regions', 'listregion')" >Region</li>-->
 							</ul>
 						<li class="lists" id="listsecalert" onclick="toggleMe('SecAlert', 'listsecalert')">Security Alert Recipients</li>          
@@ -2614,7 +2614,7 @@
     <div id="Groups" class="section">
     	<table width="90%" align="center">
         	<tr>                
-            	<td width="50%" valign="top">
+            	<td width="33%" valign="top">
                 	<table width="90%" align="center" >
                 		<tr>
                         	<td align="right">                    			
@@ -2632,7 +2632,7 @@
                         $bugrouptable                        
                     </table>                    
                 </td>
-                <td width="50%" valign="top">
+                <td width="33%" valign="top">
                 	<table width="90%" align="center" >
                 		<tr>
                         	<td align="right">
@@ -2648,6 +2648,24 @@
                             <td colspan="2" width="5%"></td>                            
                         </tr>
                         $buregionaltable
+                    </table>
+                </td>
+				<td width="34%" valign="top">
+                	<table width="90%" align="center" >
+                		<tr>
+                        	<td align="right">
+
+                    			<img id="imgaddburegion" name="imgaddburegion" src="images/add_item.png" height="32px" style="cursor:pointer; vertical-align:middle;" onclick="addBUgroupregion('Cluster');" /> 
+                			</td>
+                        </tr>
+                    </table>
+                	<table width="90%" align="center" border="1" style="border-collapse:collapse">
+                    	<tr class="whiteonblack">
+                        	<th>#</th>
+                        	<th>Cluster</th>
+                            <td colspan="2" width="5%"></td>                            
+                        </tr>
+                        $buclustertable
                     </table>
                 </td>
             </tr>
