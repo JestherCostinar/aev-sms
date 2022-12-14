@@ -244,11 +244,12 @@ while($usersres = mysqli_fetch_assoc($userssql))
 	}
 }
 
-$secagencytable = "";
+// ACTIVE AGENCY
+$secactiveagencytable = "";
 $secagencynum = 1;
 $secagencyrow = 1;
 $secagencydatalist = "";
-$secagencysql = mysqli_query($conn,"SELECT * FROM agency_mst ORDER BY agency_name");
+$secagencysql = mysqli_query($conn, "SELECT * FROM agency_mst WHERE contract_status = 'Active' ORDER BY agency_name");
 while($secagencyres = mysqli_fetch_assoc($secagencysql)){
 	$secagencydatalist .= "<option value=\"".$secagencyres['id']."\">".$secagencyres['agency_name']."</option>";
 	if($secagencyrow==1){
@@ -281,7 +282,7 @@ while($secagencyres = mysqli_fetch_assoc($secagencysql)){
 	}
 	$secagencybunames = implode(", ", $secagencybulist);
 //	$secagencybulist = implode(", ", $secagencybures);
-	$secagencytable .= "<tr align=\"center\" ".$secagerowclass.">" .
+	$secactiveagencytable .= "<tr align=\"center\" ".$secagerowclass.">" .
 							"<td>".$secagencynum."</td>" .
 							"<td>".$secagencyname."</td>" .
 							"<td>".$secagencyaddress."</td>" .
@@ -291,6 +292,104 @@ while($secagencyres = mysqli_fetch_assoc($secagencysql)){
 							"<td>".$secagencycontract."</td>" .
 							"<td><img src=\"images/edit2.png\" height=\"24px\" style=\"cursor:pointer;\" onclick=\"viewAgencySA('".$secagencyid."', '".str_replace("'", "\\\'", str_replace('"', '&quot',$secagencyname))."', '".str_replace("'", "\\\'", str_replace('"', '&quot',$secagencyaddress))."', '".str_replace("'", "\\\'", str_replace('"', '&quot',$secagencyoic))."', '".str_replace("'", "\\\'", str_replace('"', '&quot',$secagencycontact))."', '".str_replace("'", "\\\'", str_replace('"', '&quot',$secagencyres['license_number']))."', '".$secagencyres['license_issued']."', '".$secagencyres['license_expiration']."', '".str_replace("'", "\\\'", str_replace('"', '&quot',$secagencyprofile))."', '".$secagencyres['contract_status']."')\"></td>";
 	$secagencynum++;					
+}
+
+// INACTIVE AGENCY
+$secinactiveagencytable = "";
+$secagencynum = 1;
+$secagencyrow = 1;
+$secagencydatalist = "";
+$secagencysql = mysqli_query($conn, "SELECT * FROM agency_mst WHERE contract_status = 'Inactive' ORDER BY agency_name");
+while($secagencyres = mysqli_fetch_assoc($secagencysql)){
+	$secagencydatalist .= "<option value=\"".$secagencyres['id']."\">".$secagencyres['agency_name']."</option>";
+	if($secagencyrow==1){
+		$secagerowclass = "class=\"altrows\"";
+		$secagencyrow = 0;
+	}
+	elseif($secagencyrow==0){
+		$secagerowclass = "";
+		$secagencyrow = 1;
+	}
+	$secagencyid = $secagencyres['id'];
+	$secagencyname = $secagencyres['agency_name'];
+	$secagencyaddress = $secagencyres['address'];
+	$secagencyoic = $secagencyres['oic'];
+	$secagencycontact = $secagencyres['contact_number'];
+	$secagencylicensenum = $secagencyres['license)number'];
+	$secagencylicenseissued = $secagencyres['license_issued'];
+	$secagencylicenseexpiration = $secagencyres['license_expiration'];
+//	$secagencyprofile = $secagencyres['company_profile'];
+	$secagencyprofile = preg_replace( "/\r|\n/", "<br>", $secagencyres['company_profile'] );
+	$secagencycontract = $secagencyres['contract_status'];
+	$secagencybulist = array();
+	$secagencybunames = "";
+	$secagencybusql = mysqli_query($conn, "SELECT * FROM agency_bu WHERE agency_id = ".$secagencyid);
+	while($secagencybures = mysqli_fetch_assoc($secagencybusql))
+	{
+		$agencybunamesql = mysqli_query($conn, "SELECT bu FROM bu_mst WHERE id = ".$secagencybures['bu_id']);
+		$agencybuname = mysqli_fetch_assoc($agencybunamesql);
+		$secagencybulist[] = $agencybuname['bu'];
+	}
+	$secagencybunames = implode(", ", $secagencybulist);
+	//	$secagencybulist = implode(", ", $secagencybures);
+	$secinactiveagencytable .= "<tr align=\"center\" ".$secagerowclass.">" .
+							"<td>".$secagencynum."</td>" .
+							"<td>".$secagencyname."</td>" .
+							"<td>".$secagencyaddress."</td>" .
+							"<td>".$secagencyoic."</td>" .
+							"<td>".$secagencycontact."</td>" .
+							"<td>".$secagencybunames."</td>" .
+							"<td>".$secagencycontract."</td>" .
+							"<td><img src=\"images/edit2.png\" height=\"24px\" style=\"cursor:pointer;\" onclick=\"viewAgencySA('".$secagencyid."', '".str_replace("'", "\\\'", str_replace('"', '&quot',$secagencyname))."', '".str_replace("'", "\\\'", str_replace('"', '&quot',$secagencyaddress))."', '".str_replace("'", "\\\'", str_replace('"', '&quot',$secagencyoic))."', '".str_replace("'", "\\\'", str_replace('"', '&quot',$secagencycontact))."', '".str_replace("'", "\\\'", str_replace('"', '&quot',$secagencyres['license_number']))."', '".$secagencyres['license_issued']."', '".$secagencyres['license_expiration']."', '".str_replace("'", "\\\'", str_replace('"', '&quot',$secagencyprofile))."', '".$secagencyres['contract_status']."')\"></td>";
+	$secagencynum++;					
+}
+
+// POOL AGENCY
+$poolsecagencytable = "";
+$secagencynum = 1;
+$secagencyrow = 1;
+$secagencydatalist = "";
+$secagencysql = mysqli_query($conn, "SELECT * FROM agency_mst WHERE contract_status = 'Active' ORDER BY agency_name");
+while ($secagencyres = mysqli_fetch_assoc($secagencysql)) {
+	$secagencydatalist .= "<option value=\"" . $secagencyres['id'] . "\">" . $secagencyres['agency_name'] . "</option>";
+	if ($secagencyrow == 1) {
+		$secagerowclass = "class=\"altrows\"";
+		$secagencyrow = 0;
+	} elseif ($secagencyrow == 0) {
+		$secagerowclass = "";
+		$secagencyrow = 1;
+	}
+	$secagencyid = $secagencyres['id'];
+	$secagencyname = $secagencyres['agency_name'];
+	$secagencyaddress = $secagencyres['address'];
+	$secagencyoic = $secagencyres['oic'];
+	$secagencycontact = $secagencyres['contact_number'];
+	$secagencylicensenum = $secagencyres['license)number'];
+	$secagencylicenseissued = $secagencyres['license_issued'];
+	$secagencylicenseexpiration = $secagencyres['license_expiration'];
+	//	$secagencyprofile = $secagencyres['company_profile'];
+	$secagencyprofile = preg_replace("/\r|\n/", "<br>", $secagencyres['company_profile']);
+	$secagencycontract = $secagencyres['contract_status'];
+	$secagencybulist = array();
+	$secagencybunames = "";
+	$secagencybusql = mysqli_query($conn, "SELECT * FROM agency_bu WHERE agency_id = " . $secagencyid);
+	while ($secagencybures = mysqli_fetch_assoc($secagencybusql)) {
+		$agencybunamesql = mysqli_query($conn, "SELECT bu FROM bu_mst WHERE id = " . $secagencybures['bu_id']);
+		$agencybuname = mysqli_fetch_assoc($agencybunamesql);
+		$secagencybulist[] = $agencybuname['bu'];
+	}
+	$secagencybunames = implode(", ", $secagencybulist);
+	//	$secagencybulist = implode(", ", $secagencybures);
+	$poolsecagencytable .= "<tr align=\"center\" " . $secagerowclass . ">" .
+		"<td>" . $secagencynum . "</td>" .
+		"<td>" . $secagencyname . "</td>" .
+		"<td>" . $secagencyaddress . "</td>" .
+		"<td>" . $secagencyoic . "</td>" .
+		"<td>" . $secagencycontact . "</td>" .
+		"<td>" . $secagencycontract . "</td>" .
+		"<td><a href=\"javascript:void(0)\" style=\"color: blue\" onclick=\"poolAgency('" . $pollsecagencyid . "');\">POOL</a></td>" .
+		"<td><img src=\"images/edit2.png\" height=\"24px\" style=\"cursor:pointer;\" onclick=\"viewAgencySA('" . $secagencyid . "', '" . str_replace("'", "\\\'", str_replace('"', '&quot', $secagencyname)) . "', '" . str_replace("'", "\\\'", str_replace('"', '&quot', $secagencyaddress)) . "', '" . str_replace("'", "\\\'", str_replace('"', '&quot', $secagencyoic)) . "', '" . str_replace("'", "\\\'", str_replace('"', '&quot', $secagencycontact)) . "', '" . str_replace("'", "\\\'", str_replace('"', '&quot', $secagencyres['license_number'])) . "', '" . $secagencyres['license_issued'] . "', '" . $secagencyres['license_expiration'] . "', '" . str_replace("'", "\\\'", str_replace('"', '&quot', $secagencyprofile)) . "', '" . $secagencyres['contract_status'] . "')\"></td>";
+	$secagencynum++;
 }
 
 $contractcompliancelist = "";

@@ -1166,27 +1166,101 @@
         	<td align="right" width="65px" align="right">
             	<img src="images/Search-icon.png" height="30px" id="btnShowSearchAgency" name="btnShowSearchAgency" title="Search Agency" style="cursor:pointer;" onclick="toggleSearch('divSearchAgency');" />
                 <!--<img src="images/refresh.png"  style="height:26px; cursor:pointer;" onclick="refreshPage('SecAgency', 'user-superadmin');" />-->
-            	<img src="images/add_guard.png" height="30px" id="btnaddsecagency" name="btnaddsecagency" title="Add Security Agency" style="cursor:pointer;" onclick="addAgency();" />
             </td>
         </tr>
       </table>
-      <table width="95%" align="center" border="1" style="border-collapse:collapse">
-      		<thead
-        	<tr class="whiteonblack">
-            	<th>#</th>
-                <th>Name</th>
-                <th>Address</th>
-                <th>President/General Manager</th>
-                <th>Contact Number</th>
-                <th>Business Unit(s)</th>
-                <th>Status</th>
-                <td></td>
-            </tr>
-            </thead>
-            <tbody id="tbodySecAgency">
-            	$secagencytable
-            </tbody>
-        </table>
+	  <div id="divAgencyDisplay">
+        <table width="95%" border="1" align="center" style="border-collapse:collapse">
+                <tr>
+					<th class="acctab" id="acctabuser" width="25%" bgcolor="#000000" style="color:#FFF; cursor:pointer" onclick="toggleMe3('divactiveagency', 'acctabuser', 'User');">Active</th>
+                    <th class="acctab" id="acctabheadguard" width="25%" style="cursor:pointer;" onclick="toggleMe3('divinactiveagency', 'acctabheadguard', 'Head Guard');">Inactive</th>
+					<th class="acctab" id="acctabadmin" width="25%" style="cursor:pointer;" onclick="toggleMe3('divpoolagency', 'acctabadmin', 'Admin');">Pool</th>
+				</tr>
+            </table>
+            <table width="95%" align="center">
+                  <tr>
+                      <td align="right">
+                        <img src="images/add_guard.png" height="30px" id="btnaddsecagency" name="btnaddsecagency" title="Add Security Agency" style="cursor:pointer;" onclick="addAgency();" />
+                      </td>
+                  </tr>
+                </table>
+            <div id="divactiveagency" class="accdiv">        	
+                <table width="95%" align="center" border="1" style="border-collapse:collapse">
+					<thead
+					<tr class="whiteonblack">
+						<th>#</th>
+						<th>Name</th>
+						<th>Address</th>
+						<th>President/General Manager</th>
+						<th>Contact Number</th>
+						<th>Business Unit(s)</th>
+						<th>Status</th>
+						<td></td>
+					</tr>
+					</thead>
+					<tbody >
+						$secactiveagencytable
+					</tbody>
+				</table>
+            </div>
+			<div id="divinactiveagency" class="accdiv" style="display:none">
+                <table width="95%" align="center" border="1" style="border-collapse:collapse">
+					<thead
+					<tr class="whiteonblack">
+						<th>#</th>
+						<th>Name</th>
+						<th>Address</th>
+						<th>President/General Manager</th>
+						<th>Contact Number</th>
+						<th>Business Unit(s)</th>
+						<th>Status</th>
+						<td></td>
+					</tr>
+					</thead>
+					<tbody>
+						$secinactiveagencytable
+					</tbody>
+				</table>
+            </div>
+            <div id="divpoolagency" class="accdiv" style="display:none">
+                <table width="95%" align="center" border="1" style="border-collapse:collapse">
+					<thead
+					<tr class="whiteonblack">
+						<th>#</th>
+						<th>Name</th>
+						<th>Address</th>
+						<th>President/General Manager</th>
+						<th>Contact Number</th>
+						<th>Status</th>
+						<td></td>
+						<td></td>
+					</tr>
+					</thead>
+					<tbody>
+						$poolsecagencytable
+					</tbody>
+				</table>
+            </div>
+      </div>
+	  	  
+	  	<div id="divSecAgencySearch" style="display:none;">
+			<table width="95%" align="center" border="1" style="border-collapse:collapse">
+				<thead
+				<tr class="whiteonblack">
+					<th>#</th>
+					<th>Name</th>
+					<th>Address</th>
+					<th>President/General Manager</th>
+					<th>Contact Number</th>
+					<th>Business Unit(s)</th>
+					<th>Status</th>
+					<td></td>
+				</tr>
+				</thead>
+				<tbody id="tbodySecAgency">
+				</tbody>
+			</table>
+		</div>
     </div>
 	<div id="secagencymodal" style="display:none; padding-top:28px;" >
 	<img src="images/x_mark_red.png" height="24px" style="cursor:pointer; position:absolute; right:10px; top:5px;" onclick="closeSecAgencySA();" />

@@ -290,7 +290,7 @@ function toggleMe3(section2, list2, usertype){
 	document.getElementById(list2).style.backgroundColor = '#000000';
 	document.getElementById(list2).style.color = '#FFF';
 	document.getElementById(section2).style.display = 'block';
-	document.getElementById("txtAcctType").value = usertype;
+	document.getElementById("txttablelist").value = usertype;
 //	document.getElementById("txtcodetypedisplay").value = codedisplay;	
 }
 
@@ -2649,6 +2649,11 @@ function toggleSearch(divname)
 			$('#divUsersDisplay').hide();
 			$('#divUserDisplaySearch').show();
 		}
+		else if(divname == "divSearchAgency")
+		{
+			$('#divAgencyDisplay').hide();
+			$('#divSecAgencySearch').show();
+		}
 	}
 	else if(document.getElementById(divname).style.display != 'none')
 	{
@@ -2663,6 +2668,11 @@ function toggleSearch(divname)
 		{
 			$('#divUsersDisplay').show();
 			$('#divUserDisplaySearch').hide();
+		}
+		else if(divname == "divSearchAgency")
+		{
+			$('#divAgencyDisplay').show();
+			$('#divSecAgencySearch').hide();
 		}
 	}
 	
