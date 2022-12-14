@@ -2091,7 +2091,7 @@
       <table class="table" width="95%" align="center" border="1" style="border-collapse:collapse; border: 1px solid #ccc;">
       		<thead class="table__thead" style="background-color: #e0e0e0; " height="30px">
 				<tr >
-					<th class="table__th" width="5%">Name</th>
+					<th class="table__th" width="5%">#</th>
 					<th class="table__th">Bidding Name</th>
 					<th class="table__th" width="15%">Cluster</th>
 					<th class="table__th" width="8%">Nomination Status</th>

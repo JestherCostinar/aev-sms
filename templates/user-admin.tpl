@@ -40,6 +40,8 @@
 </style>
 
 <link href="styles.css" rel="stylesheet" />
+<link href="biddingtable.css" rel="stylesheet" />
+
 <script src="javascript/OSLS.js?v=$jsrefresh"></script>
 </head>
 
@@ -81,6 +83,10 @@
 			<!-- <li class="lists" id="listidp" onclick="toggleMe('IDP', 'listidp'); showIDP();">IDP</li> -->
 			<li class="lists" id="listconcom" onclick="toggleMe('ConComp', 'listconcom');">Contract Compliance</li>
 			$custom_cc_list
+		</ul>
+      <li class="lists" onclick="toggleMenu('subBidding');">Bidding</li>
+		<ul id="subBidding" style="display:none; list-style-type:none;">
+			<li class="lists" id="listbidding" onclick="toggleMe('Bidding', 'listbidding')">Nominate Agency</li>
 		</ul>
       <li class="lists" onclick="toggleMenu('subTools');">Tools</li>
     	<ul id="subTools" style="display:none;">
@@ -1130,6 +1136,45 @@
 	</div>
 	$custom_cc_cons
 	
+    <!-- --------------------- BID TRACKER --------------------- -->
+   	<div id="Bidding" class="section">
+    	<table width="95%" align="center">
+      	<tr>
+        	<td align="left" style="font-weight:bold">Automated Bidding</td>
+        	<td align="right">
+            	<div id="divSearchLocs" style="display:none;">
+                <form id="frmSearchLocs" name="frmSearchLocs" action="user-admin.php" method="post">
+                	<label style="text-decoration:underline; color:#00F; cursor:pointer" onclick="refreshPage('Locs', 'user-admin');">Refresh</label>
+                	<input type="text" id="txtSearchLocs" name="txtSearchLocs" />                                       
+                    <img src="images/Search_btn.png" width="80px" id="btnsearchlocs" name="btnsearchlocs" style="cursor:pointer; vertical-align:middle;" onclick="searchItem(document.getElementById('txtSearchLocs').value, 'location',  'location_mst');" />
+                </form>    
+                </div>
+            </td>
+        	<td align="right" width="65px">
+            	<img src="images/Search-icon.png" height="30px" id="btnshowsearchlocs" name="btnshowsearchlocs" title="Search Locations" style="cursor:pointer;" onclick="toggleSearch('divSearchLocs');" />
+                <!--<img src="images/refresh.png"  style="height:26px; cursor:pointer;" onclick="refreshPage('Locs', 'user-admin');" />-->
+            </td>
+        </tr>
+      </table>
+	  
+      <table class="table" width="95%" align="center" border="1" style="border-collapse:collapse; border: 1px solid #ccc;">
+      		<thead class="table__thead" style="background-color: #e0e0e0; " height="30px">
+				<tr >
+					<th class="table__th" width="5%">#</th>
+					<th class="table__th">Bidding Name</th>
+					<th class="table__th" width="15%">Cluster</th>
+					<th class="table__th" width="8%">Nomination Status</th>
+					<th class="table__th" width="10%">Bidding Requirement</th>
+					<th class="table__th" width="8%">Bidding Status</th>
+					<th class="table__th" colspan="2" width="20%">Action</th>
+				</tr>
+            </thead>
+            <tbody class="table__tbody">
+				$biddingtable
+            </tbody>
+        </table>
+    </div>
+
 	<div id="Audit" class="section" style="overflow-x:auto;">
 	
 	</div>

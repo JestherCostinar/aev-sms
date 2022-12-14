@@ -3512,6 +3512,67 @@ for($i = ($currentyear-25), $j = ($currentyear+25); $i <= $j; $i++)
 	
 }
 
+// NOMINATE AGENCY IN BIDDING 
+$biddingnum = 1;
+$biddingtable = '';
+$nomination_color = '';
+$nomination_style = '';
+$bidding_status_style = '';
+$bidding_status_color = '';
+$tr_color = '';
+$tr_row_start = '';
+$getClusterQuery = mysqli_query($conn, "SELECT bu_mst.cluster_group FROM `users_mst` INNER JOIN bu_mst ON users_mst.bu = bu_mst.id WHERE users_mst.id = " . $_SESSION['id']);
+$getCluster = mysqli_fetch_assoc($getClusterQuery);
+
+$biddingsql = mysqli_query($conn, "SELECT bidding.*, cluster_group.name as cluster FROM bidding INNER JOIN cluster_group ON bidding.cluster_id = cluster_group.id WHERE bidding.cluster_id = " . $getCluster['cluster_group'] . " ORDER BY bidding_status DESC");
+while ($bidding = mysqli_fetch_assoc($biddingsql)) {
+	if ($bidding['nomination_status'] == 'Closed') {
+		$nomination_color = '#dc3545';
+		$nomination_style = 'status--red';
+	} elseif ($bidding['nomination_status'] == 'Ongoing') {
+		$nomination_color = '#28a745';
+		$nomination_style = 'status--green';
+	} else {
+		$nomination_color = '#28a745';
+		$nomination_style = 'status--blue';
+	}
+
+	if ($bidding['bidding_status'] == 'Closed') {
+		$bidding_status_color = '#dc3545';
+		$bidding_status_style = 'status--red';
+	} else {
+		$bidding_status_color = '#28a745';
+		$bidding_status_style = 'status--green';
+	}
+
+	if (($bidding['bidding_status'] == 'Closed') && ($bidding['nomination_status'] == 'Closed')) {
+		$tr_color = 'table-row--red';
+		$tr_row_start = '<div class="table-row--overdue"></div>';
+	}
+	// 	<td align=\"center\" ><span style=\"background-color: " . $bidding_status_color . ";color: white; padding: 1px 8px;text-align: center; border-radius: 5px; font-size: 13px;\">" . $bidding['bidding_status'] . "</span></td>
+
+	$biddingtable .= "<tr align=\"center\" height=\"25px\" style=\"font-weight: 500;\" class=\"table-row " . $tr_color . " \" >
+							<td  class=\"table-row__td\">" . $tr_row_start . $biddingnum . "</td>
+							<td align=\"center\"  class=\"table-row__td\"><div class=\"table-row__info\"><p class=\"table-row__name\">" . $bidding['bidding_name'] . "</p></div></td>
+							<td align=\"center\" class=\"table-row__td\"><div><p class=\"table-row__policy\">" . $bidding['cluster'] . "</p></div></td>
+							<td align=\"center\" class=\"table-row__td\">
+								<p class=\"table-row__p-status " . $nomination_style . " status\">" . $bidding['nomination_status'] . "</p>
+							</td>
+							<td align=\"center\" class=\"table-row__td\">36 Points Requirement</td>
+							<td data-column=\"Policy status\" class=\"table-row__td\">
+								<p class=\"table-row__p-status " . $bidding_status_style . " status\">" . $bidding['bidding_status'] .  "</p>
+							</td>	
+							<td data-column=\"Progress\" class=\"table-row__td\">
+								<a href=\"\">Nominate Security Agency</a>
+							</td>
+							<td data-column=\"Progress\" class=\"table-row__td\">
+								<a href=\"\">Evaluate Agency</a>
+							</td>
+							
+						 </tr>";
+	$nomination_color = '';
+	$biddingnum++;
+}
 
 $incidentcount = 0;
 $incidentcountsql = mysqli_query($conn,"SELECT COUNT(id) AS Incident_Count FROM ticket WHERE ticket_type = 1 AND bu = $bu AND MONTH(dateadded) = MONTH(now()) AND YEAR(dateadded) = YEAR(now());");
