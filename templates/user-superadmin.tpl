@@ -43,6 +43,8 @@
 }
 </style>
 <link href="styles.css" rel="stylesheet" />
+<link href="biddingtable.css" rel="stylesheet" />
+
 <script src="javascript/OSLS.js?v=$jsrefresh"></script>
 </head>
 
@@ -93,7 +95,7 @@
 					<ul id="subBidding" style="display:none; list-style-type:none;">
 						<li class="lists" id="listbidreq" onclick="toggleMe('BidReq', 'listbidreq')">Bidding Template</li>
 						<li class="lists" id="listbiddoc" onclick="toggleMe('BidDocs', 'listbiddoc')">Documents</li>
-						<li class="lists" id="listbiddoc" onclick="toggleMe('Bidding', 'listbiddoc')">Bidding</li>
+						<li class="lists" id="listbidding" onclick="toggleMe('Bidding', 'listbidding')">Bidding</li>
 					</ul>
 				<li class="lists" onclick="toggleMenu('subRequests');">Requests</li>
 					<ul id="subRequests" style="display:none; list-style-type:none;">
@@ -2073,6 +2075,36 @@
 
 		</div>
     </div> 
+
+	<!-- -------------------------------------- BIDDING MODULE -------------------------- -->
+	<div id="Bidding" class="section">
+    	<table width="95%" align="center">
+      	<tr>
+        	<td align="left" style="font-weight:bold">Nominated Agency</td>
+        	<td align="right" width="130px" align="right">
+				<a href="javascript:void(0)" style="font-weight: 700; color: red; line-height: 2rem" onclick="initializeBidding();"> [ Start a bidding ] </a>
+            </td>
+        </tr>
+      </table>
+	  
+      <table class="table" width="95%" align="center" border="1" style="border-collapse:collapse; border: 1px solid #ccc;">
+      		<thead class="table__thead" style="background-color: #e0e0e0; " height="30px">
+				<tr >
+					<th class="table__th" width="5%">Name</th>
+					<th class="table__th">Bidding Name</th>
+					<th class="table__th" width="15%">Cluster</th>
+					<th class="table__th" width="8%">Nomination Status</th>
+					<th class="table__th" width="10%">Bidding Requirement</th>
+					<th class="table__th" width="8%">Bidding Status</th>
+					<th class="table__th" colspan="3" width="30%">Action</th>
+					<th class="table__th" width="5%"></th>
+				</tr>
+            </thead>
+            <tbody class="table__tbody">
+				$biddingtable
+            </tbody>
+        </table>
+    </div>
 
 
 	<div id="Audit" class="section" style="overflow-x:auto;">
