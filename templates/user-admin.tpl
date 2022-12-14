@@ -871,27 +871,97 @@
             </td>
             <td width="30px" align="right">
             	<img src="images/Search-icon.png" height="30px" id="btnShowSearchAgency" name="btnShowSearchAgency" title="Search Agency" style="cursor:pointer;" onclick="toggleSearch('divSearchAgency');" />
-                
             </td>	          
         </tr>
       </table>
-      <table width="95%" align="center" border="1" style="border-collapse:collapse">
-      	<thead>
-        	<tr class="whiteonblack">
-            	<th>#</th>
-                <th>Name</th>
-                <th>Address</th>
-                <th>President/General Manager</th>
-                <th>Contact Number</th>
-                <th>Business Unit(s)</th>
-                <th>Status</th>
-                <td></td>
-            </tr>
-        </thead>
-        <tbody id="tbodySecAgency">
-            $secagencytable
-        </tbody>    
+      <div id="divAgencyDisplay">
+        <table width="95%" border="1" align="center" style="border-collapse:collapse">
+                <tr>
+					<th class="accsectab" id="acctabuser" width="25%" bgcolor="#000000" style="color:#FFF; cursor:pointer" onclick="toggleMe4('divactiveagency', 'acctabuser', 'User');">Active</th>
+                    <th class="accsectab" id="acctabheadguard" width="25%" style="cursor:pointer;" onclick="toggleMe4('divinactiveagency', 'acctabheadguard', 'Head Guard');">Inactive</th>
+					<th class="accsectab" id="acctabadmin" width="25%" style="cursor:pointer;" onclick="toggleMe4('divpoolagency', 'acctabadmin', 'Admin');">Pool</th>
+				</tr>
+            </table>
+            <br>
+            <div id="divactiveagency" class="accsecdiv">        	
+                <table width="95%" align="center" border="1" style="border-collapse:collapse">
+                    <thead>
+                        <tr class="whiteonblack">
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>President/General Manager</th>
+                            <th>Contact Number</th>
+                            <th>Business Unit(s)</th>
+                            <th>Status</th>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        $secactiveagencytable
+                    </tbody>    
+                </table>
+            </div>
+			<div id="divinactiveagency" class="accsecdiv" style="display:none">
+                <table width="95%" align="center" border="1" style="border-collapse:collapse">
+                    <thead>
+                        <tr class="whiteonblack">
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>President/General Manager</th>
+                            <th>Contact Number</th>
+                            <th>Business Unit(s)</th>
+                            <th>Status</th>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        $secinactiveagencytable
+                    </tbody>    
+                </table>
+            </div>
+            <div id="divpoolagency" class="accsecdiv" style="display:none">
+                <table width="95%" align="center" border="1" style="border-collapse:collapse">
+                    <thead>
+                        <tr class="whiteonblack">
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>President/General Manager</th>
+                            <th>Contact Number</th>
+                            <th>Business Unit(s)</th>
+                            <th>Status</th>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        $secpoolagencytable
+                    </tbody>    
+                </table>
+            </div>
+      </div>
+
+      <div id="divSecAgencySearch" style="display:none;">
+        <table width="95%" align="center" border="1" style="border-collapse:collapse">
+            <thead>
+                <tr class="whiteonblack">
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>President/General Manager</th>
+                    <th>Contact Number</th>
+                    <th>Business Unit(s)</th>
+                    <th>Status</th>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody id="tbodySecAgency">
+                $secagencytable
+            </tbody>    
         </table>
+       </div>
     </div>
     <div id="secagencymodal" style="display:none; padding-top:24px;" >
     <img src="images/x_mark_red.png" height="24px" style="cursor:pointer; position:absolute; right:10px; top:5px;" onclick="closeSecAgency();" />

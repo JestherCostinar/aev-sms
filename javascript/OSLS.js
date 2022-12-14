@@ -290,7 +290,28 @@ function toggleMe3(section2, list2, usertype){
 	document.getElementById(list2).style.backgroundColor = '#000000';
 	document.getElementById(list2).style.color = '#FFF';
 	document.getElementById(section2).style.display = 'block';
-	document.getElementById("txttablelist").value = usertype;
+	document.getElementById("txtAcctType").value = usertype;
+//	document.getElementById("txtcodetypedisplay").value = codedisplay;	
+}
+
+function toggleMe4(section2, list2, usertype){
+	var x = document.getElementsByClassName('accsecdiv');
+	var i;
+	for (i = 0; i < x.length; i++) {
+		x[i].style.display = "none";
+	}
+	var x2 = document.getElementsByClassName('accsectab');
+	var i2;
+	for (i2 = 0; i2 < x2.length; i2++) {
+		x2[i2].style.textDecoration = 'none';
+		x2[i2].style.backgroundColor = 'initial';
+		x2[i2].style.color = 'initial';
+	}
+	
+	document.getElementById(list2).style.textDecoration = 'underline';
+	document.getElementById(list2).style.backgroundColor = '#000000';
+	document.getElementById(list2).style.color = '#FFF';
+	document.getElementById(section2).style.display = 'block';
 //	document.getElementById("txtcodetypedisplay").value = codedisplay;	
 }
 
