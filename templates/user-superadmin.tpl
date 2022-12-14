@@ -2080,9 +2080,10 @@
 	<div id="Bidding" class="section">
     	<table width="95%" align="center">
       	<tr>
-        	<td align="left" style="font-weight:bold">Nominated Agency</td>
-        	<td align="right" width="130px" align="right">
-				<a href="javascript:void(0)" style="font-weight: 700; color: red; line-height: 2rem" onclick="initializeBidding();"> [ Start a bidding ] </a>
+        	<td align="left" style="font-weight:bold">Automated Bidding</td>
+        	<td align="right" width="200px" align="right">
+				<a href="javascript:void(0)" style="font-weight: 700; color: #2b68f1; line-height: 2rem; margin-right: 5px" onclick="initializeBidding();"> Search </a> |
+				<a href="javascript:void(0)" style="font-weight: 700; color: red; line-height: 2rem; margin-left: 5px" onclick="initializeBidding();"> Start a bidding </a>
             </td>
         </tr>
       </table>
@@ -2106,6 +2107,60 @@
         </table>
     </div>
 
+	<!-- ------------------------- INITIALIZE BIDDING  -------------------------- -->
+	<div id="initializeBiddingSection" style="display:none;">
+		<form id="biddingStart" name="biddingStart" method="post" action="user-superadmin.php">
+			<table width="75%" align="center" bgcolor="#ededed" border="1px">
+				<tr valign="top">
+					<td style="border-width:0px;">
+						<fieldset class="guardmaintabs" id="guardpersonaltab" style="border-width:thin">					
+							<legend style="font-weight:bold">Bidding Requirements Information</legend>
+							<table>
+								<tr>
+									<tr>
+										<td width='20%'>Bidding Name:</td>
+										<td width='80%'><input type='text' id='bidding_name' name='bidding_name'></td>
+									</tr>
+								</tr>
+								<tr>
+									<td width="20%">Cluster:</td>
+									<td width="80%">								
+										<select id="txtbiddingCluster" name="txtbiddingCluster" >
+											<option value="None">- Cluster -</option>
+											"' . $buclusterdatalist . '"
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">Requirements template:</td>
+									<td width="80%">								
+										<select id="txtBiddingRequirements" name="txtBiddingRequirements" >
+											<option value="None">- Requirements template -</option>
+											"' . $biddingrequirementlist . '"
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">Bidding Proposal Message:</td>
+									<td width="50%"><textarea id="txtBiddingMessage" row="100" style="height: 150px" cols="80" name="txtBiddingMessage"></textarea></td>
+								</tr>
+							</table>
+						</fieldset>													
+					</td>					
+				</tr>
+				<tr>
+					<td colspan="100%" style="border-width:0px;">
+						<table align="right">
+							<tr>
+								<td colspan="100%" align="center"><button onclick="closeInitializeBidding()" name="gback" id="gback" class="redbutton" >Cancel</button></td>
+								<td colspan="100%" align="center"><button type="submit" name="btn_bidding_start" id="btn_bidding_start" class="redbutton" >Send</button></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
 
 	<div id="Audit" class="section" style="overflow-x:auto;">
 	

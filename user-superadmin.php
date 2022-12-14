@@ -511,6 +511,25 @@ if($_POST)
 			}
 		header("Location: user-superadmin.php?last=GuardMgt");
 		;
+	} 
+	elseif ((!empty($_POST['bidding_name'])) and (!empty($_POST['txtbiddingCluster'])) and (!empty($_POST['txtBiddingRequirements']))) {
+		$biddingName = mysqli_real_escape_string($conn, $_POST['bidding_name']);
+		$biddingCluster = $_POST['txtbiddingCluster'];
+		$biddingRequirements = $_POST['txtBiddingRequirements'];
+		$biddingMessage = mysqli_real_escape_string($conn, $_POST['txtBiddingMessage']);
+
+		mysqli_query($conn, "INSERT INTO bidding (bidding_name, bidding_status, nomination_status, created_at, cluster_id, bidding_requirement_id) VALUES('" . $biddingName . "', 'Ongoing', 'Ongoing', '" . date("Y-m-d") . "', '" . $biddingCluster . "', '" . $biddingRequirements . "')");
+		if (!empty($biddingMessage)) {
+			$clusterReceiver = '';
+			$getReceiverOfClusterQuery = mysqli_query($conn, "SELECT users_mst.user_email FROM `users_mst` INNER JOIN bu_mst ON users_mst.bu = bu_mst.id WHERE bu_mst.cluster_group = " . $biddingCluster);
+			while ($getReceiverOfCluster = mysqli_fetch_assoc($getReceiverOfClusterQuery)) {
+				$clusterReceiver .= $getReceiverOfCluster['user_email'] . ',';
+			}
+
+			$mail = send_bidding_invitation($clusterReceiver, $biddingMessage);
+		}
+
+		header("Location: user-superadmin.php?last=Bidding");
 	}
 	elseif((!empty($_POST['editguardstat'])) and ($_POST['editguardstat'] == "Edit")){
 		$glname = mysqli_real_escape_string($conn, $_POST['txtglname']);
@@ -2992,8 +3011,10 @@ for($i = ($currentyear-25), $j = ($currentyear+25); $i <= $j; $i++)
 // BIDDING TEMPLATE
 $biddingtemplatenum = 1;
 $biddingtemplatetable = '';
+$biddingrequirementlist = '';
 $biddingtemplatesql = mysqli_query($conn, "SELECT * FROM bidding_template ORDER BY created_at");
 while ($biddingtemplate = mysqli_fetch_assoc($biddingtemplatesql)) {
+	$biddingrequirementlist .= "<option value=\"" . $biddingtemplate['id'] . "\">" . $biddingtemplate['bidding_name'] . "</option>";
 	$biddingtemplatetable .= "<tr align=\"center\">
 							<td>" . $biddingtemplatenum . "</td>
 							<td align=\"center\" >" . $biddingtemplate['bidding_name'] . "</td>

@@ -121,6 +121,15 @@ function biddingdocumentback()
 	document.getElementById("biddingDocument").reset();
 }
 
+// START BIDDING
+function initializeBidding() {
+	$("#initializeBiddingSection").dialog("open");
+}
+
+function closeInitializeBidding() {
+	$("#initializeBiddingSection").dialog("close");
+}
+
 // -------------------------- END OF BIDDING JS ----------------------------
 
 function evaluateForm(btn){
@@ -5654,6 +5663,17 @@ $(document).ready(function() {
 		width: 500,
 		position: {my: "top", at: "center", of: "#topbar"}
   	}); 
+	$( "#initializeBiddingSection" ).dialog({
+		dialogClass: "no-close",	
+		width: 800,	
+		maxHeight: 600,
+		modal: true,
+		closeOnEscape: false,
+		resizable: false,
+		autoOpen: false,
+
+  	});
+	
 	$( "#AddActivity" ).dialog({
 		dialogClass: "no-close",
 		width: 800,
