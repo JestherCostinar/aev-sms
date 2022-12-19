@@ -1214,7 +1214,7 @@
         	<td align="right">
             	<div id="divSearchLocs" style="display:none;">
                 <form id="frmSearchLocs" name="frmSearchLocs" action="user-admin.php" method="post">
-                	<label style="text-decoration:underline; color:#00F; cursor:pointer" onclick="refreshPage('Locs', 'user-admin');">Refresh</label>
+                	<label style="text-decoration:underline; color:#00F; cursor:pointer" onclick="refreshPage('Bidding', 'user-admin');">Refresh</label>
                 	<input type="text" id="txtSearchLocs" name="txtSearchLocs" />                                       
                     <img src="images/Search_btn.png" width="80px" id="btnsearchlocs" name="btnsearchlocs" style="cursor:pointer; vertical-align:middle;" onclick="searchItem(document.getElementById('txtSearchLocs').value, 'location',  'location_mst');" />
                 </form>    
@@ -1244,6 +1244,170 @@
             </tbody>
         </table>
     </div>
+
+    <div id="viewsecagencymodal" style="display:none; padding-top:24px;" >
+        <img src="images/x_mark_red.png" height="24px" style="cursor:pointer; position:absolute; right:10px; top:5px;" onclick="closeBiddingSecAgencyModal();" />
+    	<table align="center" width="100%" border="1" style="border-collapse:collapse;">
+			<tr>
+				<th style="cursor:pointer;" onclick="toggleTabs('nominatedSecAgencyDiv', 'biddingsecagencydivs');">Nominated Security Agency</th>
+				<th style="cursor:pointer;" onclick="toggleTabs('evaluateSecAgencyDiv', 'biddingsecagencydivs');">Evaluate Agency</th>
+			</tr>
+			<tr>
+				<td colspan="100%">
+					<div id="nominatedSecAgencyDiv" name="nominatedSecAgencyDiv" class="biddingsecagencydivs" style="cursor:pointer; padding: 10px">
+                         <table width="100%" align="center"  width="100%" border="1" style="border-collapse:collapse; padding: 10px">
+                            <thead>
+                                <tr class="whiteonblack">
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Address</th>
+                                    <th>President/General Manager</th>
+                                    <th>Email</th>
+                                    <th>Contact Number</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyNominatedAgency">
+                            </tbody>    
+                        </table>
+					</div>
+					<div id="evaluateSecAgencyDiv" name="evaluateSecAgencyDiv" style="display:none; padding: 10px" class="biddingsecagencydivs">
+						<table width="100%" align="center"  width="100%" border="1" style="border-collapse:collapse; padding: 10px">
+                            <thead>
+                                <tr class="whiteonblack">
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Address</th>
+                                    <th>President/General Manager</th>
+                                    <th>Email</th>
+                                    <th>Contact Number</th>
+                                    <td></td>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyEvaluateNominatedAgency">
+                            </tbody>    
+                        </table>
+					</div>
+				</td>
+			</tr>
+		</table>
+          <table align="center" width="95%">
+            
+            <tr>
+            	<td align="right" colspan="2">
+                	
+					
+                	<img src="images/update.png" id="btnupdateagency" name="btnupdateagency" width="100px" style="display:none; cursor:pointer;" onclick="saveSecAgency();" />
+                    <img src="images/save.png" id="btnsaveagency" name="btnsaveagency" width="100px" style="display:none; cursor:pointer;" onclick="saveSecAgency();" />
+                    <input type="hidden" id="txtagencyid" name="txtagencyid" />
+                    <input type="hidden" id="txtagencyaddedit" name="txtagencyaddedit" />
+                </td>
+            </tr>
+          </table> 
+    </div>
+
+    <div id="addsecagencymodal" style="display:none; padding-top:24px;" >
+        <img src="images/x_mark_red.png" height="24px" style="cursor:pointer; position:absolute; right:10px; top:5px;" onclick="closeBiddingAddSecAgencyModal();" />
+        <table align="center" width="100%" border="1" style="border-collapse:collapse;">
+			<tr>
+				<th style="cursor:pointer;" onclick="toggleTabs('poolSecAgencyDiv', 'biddingaddsecagencydivs');">Pool Security Agency</th>
+				<th style="cursor:pointer;" onclick="toggleTabs('addSecAgencyDiv', 'biddingaddsecagencydivs');">Add Security Agency</th>
+			</tr>
+			<tr>
+				<td colspan="100%">
+					<div id="poolSecAgencyDiv" name="poolSecAgencyDiv" style="padding: 10px" class="biddingaddsecagencydivs">
+						<table width="100%" align="center"  width="100%" border="1" style="border-collapse:collapse; padding: 10px">
+                            <thead>
+                                <tr class="whiteonblack">
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Address</th>
+                                    <th>President/General Manager</th>
+                                    <th>Email</th>
+                                    <th>Contact Number</th>
+                                    <td></td>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyAddSecAgency">
+                            </tbody>    
+                        </table>
+					</div>
+                    <div id="addSecAgencyDiv" name="addSecAgencyDiv" class="biddingaddsecagencydivs" style="cursor:pointer; display:none; padding: 10px">
+                        <form id="frmAddAgency" name="frmAddAgency" method="post" action="user-admin.php">
+                         <table id="tblAddSecAgency" width="100%" align="center"  width="100%" border="1" style="border-collapse:collapse">
+                            <thead>
+                                <tr class="whiteonblack">
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Address</th>
+                                    <th>President/General Manager</th>
+                                    <th>Email</th>
+                                    <th>Contact Number</th>
+                                    <td></td>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyPoolSecAgency">
+                            </tbody>
+                            <tfoot>
+                                <tr  align="center" bgcolor="#CCCCCC">
+                                    <td></td>
+                                    <td>
+                                        <input type="text" id="txtaddnominatedagencyname" name="txtaddnominatedagencyname" style="text-align:center" /> 
+                                        <input type="hidden" id="txtaddnominatedagencynameall" name="txtaddnominatedagencynameall" />                       
+                                    </td>
+                                    <td>
+                                        <input type="text" id="txtaddnominatedagencyaddress" name="txtaddnominatedagencyaddress" style="text-align:center" /> 
+                                        <input type="hidden" id="txtaddnominatedagencyaddressall" name="txtaddnominatedagencyaddressall" />                       
+                                    </td>
+                                    <td>
+                                        <input type="text" id="txtaddnominatedagencyoic" name="txtaddnominatedagencyoic" style="text-align:center" /> 
+                                        <input type="hidden" id="txtaddnominatedagencyoicall" name="txtaddnominatedagencyoicall" />                       
+                                    </td>
+                                    <td>
+                                        <input type="text" id="txtaddnominatedagencyemail" name="txtaddnominatedagencyemail" style="text-align:center" /> 
+                                        <input type="hidden" id="txtaddnominatedagencyemailall" name="txtaddnominatedagencyemailall" />                       
+                                    </td>
+                                    <td>
+                                        <input type="text" id="txtaddnominatedagencyphone" name="txtaddnominatedagencyphone" style="text-align:center" /> 
+                                        <input type="hidden" id="txtaddnominatedagencyphoneall" name="txtaddnominatedagencyphoneall" />                       
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="100%" align="center">
+                                        <img id="btnaddburow" name="btnaddburow" src="images/add_btn.png" width="80px" onclick="addNominatedAgencyRow();" style="cursor:pointer;" />
+                                    </td>
+                                </tr>
+                            </tfoot>    
+                        </table>
+                        <table width="100%" align="center">
+                            <tr>
+                                <td align="right">
+                                    <input type="hidden" id="txtbiddingidall" name="txtbiddingidall" />
+                                    <img id="btnsavebu" name="btnsavebu" src="images/confirm_btn.png" width="100px" onclick="saveNominatedAgencyRow();" style="cursor:pointer;" />
+                                    
+                                </td>
+                            </tr>
+                        </table>
+                        </form>
+					</div>
+				</td>
+			</tr>
+		</table>
+          <table align="center" width="95%">
+            
+            <tr>
+            	<td align="right" colspan="2">
+                	
+					
+                	<img src="images/update.png" id="btnupdateagency" name="btnupdateagency" width="100px" style="display:none; cursor:pointer;" onclick="saveSecAgency();" />
+                    <img src="images/save.png" id="btnsaveagency" name="btnsaveagency" width="100px" style="display:none; cursor:pointer;" onclick="saveSecAgency();" />
+                    <input type="hidden" id="txtagencyid" name="txtagencyid" />
+                    <input type="hidden" id="txtagencyaddedit" name="txtagencyaddedit" />
+                </td>
+            </tr>
+          </table> 
+    </div>
+
 
 	<div id="Audit" class="section" style="overflow-x:auto;">
 	

@@ -2085,6 +2085,28 @@ if($_POST)
 		}
 		mysqli_query($conn, "INSERT INTO system_log (uid, log, datetime, bu_id) VALUES ('".$_SESSION['id']."', 'Added dropdown entry', now(), ".$_SESSION['bu'].")") or die(mysqli_error());
 		header("Location: user-admin.php?last=Entries");
+	} 
+	elseif ((isset($_POST['txtaddnominatedagencynameall'])) && !empty($_POST['txtaddnominatedagencynameall'])) {
+		$addagencynames = explode("*~", $_POST['txtaddnominatedagencynameall']);
+		$addagencyaddress = explode("*~", $_POST['txtaddnominatedagencyaddressall']);
+		$addagencyoics = explode("*~", $_POST['txtaddnominatedagencyoicall']);
+		$addagencyemails = explode("*~", $_POST['txtaddnominatedagencyemailall']);
+		$addagencyphones = explode("*~", $_POST['txtaddnominatedagencyphoneall']);
+		$addbiddingids = explode("*~", $_POST['txtbiddingidall']);
+		$notcountme = 0;		
+		for ($i = 1, $count = count($addagencynames); $i < $count; $i++) {
+			$emailcheckquery = mysqli_query($conn, "SELECT * FROM agency_mst WHERE email LIKE '%" .$addagencyemails[$i] . "%' " ) or die(mysqli_error($conn));
+			$emailcheck = mysqli_fetch_assoc($emailcheckquery);
+			if (!$emailcheck) {
+				mysqli_query($conn, "INSERT INTO agency_mst (agency_name, address, oic, contact_number, email, contract_status) VALUES ('" . $addagencynames[$i] . "', '" . $addagencyaddress[$i] . "', '" . $addagencyoics[$i] . "', '" . $addagencyphones[$i] . "', '" . $addagencyemails[$i] . "', 'Active')") or die(mysqli_error());
+				$get_last_agencyid = mysqli_fetch_array(mysqli_query($conn, "Select id from agency_mst order by id desc"));
+				$lagencyid = $get_last_agencyid['id'];
+				mysqli_query($conn, "INSERT INTO bidding_agency (agency_id, bidding_id) VALUES ('" . $lagencyid . "', '" . $addbiddingids[$i] . "')") or die(mysqli_error());
+			}
+		}
+
+		mysqli_query($conn, "INSERT INTO system_log (uid, log, datetime, bu_id) VALUES ('" . $_SESSION['id'] . "', 'Nominate Security Agency', now(), 0)") or die(mysqli_error());
+		header("Location: user-admin.php?last=Bidding");
 	}
 	elseif((isset($_POST['txtAddEntries'])) && !empty($_POST['txtAddEntries']))
 	{
@@ -3658,10 +3680,10 @@ while ($bidding = mysqli_fetch_assoc($biddingsql)) {
 								<p class=\"table-row__p-status " . $bidding_status_style . " status\">" . $bidding['bidding_status'] .  "</p>
 							</td>	
 							<td data-column=\"Progress\" class=\"table-row__td\">
-								<a href=\"\">Nominate Security Agency</a>
+								<a href=\"javascript:void(0)\" style=\"cursor:pointer;\" onclick=\"biddingAddSecAgencyModal('" . $bidding['id'] . "');\">Add Security Agency</a>
 							</td>
 							<td data-column=\"Progress\" class=\"table-row__td\">
-								<a href=\"\">Evaluate Agency</a>
+								<a href=\"javascript:void(0)\" style=\"cursor:pointer;\" onclick=\"biddingSecAgencyModal('" . $bidding['id'] . "');\">View / Evaluate Agency</a>
 							</td>
 							
 						 </tr>";

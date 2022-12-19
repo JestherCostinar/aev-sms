@@ -130,6 +130,83 @@ function closeInitializeBidding() {
 	$("#initializeBiddingSection").dialog("close");
 }
 
+// Open Modal
+function biddingSecAgencyModal(id)
+{
+	$("#tbodyNominatedAgency").load("getinfo.php?type=nominatedsecagency&id=" + id);
+	$("#tbodyEvaluateNominatedAgency").load("getinfo.php?type=evaluatenominatedsecagency&id=" + id);
+	$("#viewsecagencymodal").dialog("open");
+}
+
+function closeBiddingSecAgencyModal() {
+	$("#viewsecagencymodal").dialog("close");
+}
+
+// Open Modal to Nominate Agency
+function biddingAddSecAgencyModal(id)
+{
+	$("#tbodyPoolSecAgency").load("getinfo.php?type=nominatedpoolsecagency&id=" + id);
+	$("#tbodyAddSecAgency").load("getinfo.php?type=evaluatenominatedsecagency&id=" + id);
+	$("#addsecagencymodal").dialog("open");
+}
+
+function closeBiddingAddSecAgencyModal() {
+	$("#addsecagencymodal").dialog("close");
+}
+
+function addNominatedAgencyRow()
+{
+	if((document.getElementById("txtaddnominatedagencyname").value) && (document.getElementById("txtaddnominatedagencyaddress").value) && (document.getElementById("txtaddnominatedagencyoic").value) && (document.getElementById("txtaddnominatedagencyemail").value) && (document.getElementById("txtaddnominatedagencyphone").value))
+	{
+		$( "#tblAddSecAgency tbody" ).append( "<tr align='center'>" +
+		 "<td></td>" +
+          "<td class='rowaddagencyname'>" + document.getElementById("txtaddnominatedagencyname").value + "</td>" +
+		  "<td class='rowaddagencyaddress'>" + document.getElementById("txtaddnominatedagencyaddress").value + "</td>" +		  
+         "<td class='rowaddagencyoic'>" + document.getElementById("txtaddnominatedagencyoic").value + "</td>" +
+		  "<td class='rowaddagencyemail'>" + document.getElementById("txtaddnominatedagencyemail").value + "</td>" +
+		  "<td class='rowaddagencyphone'>" + document.getElementById("txtaddnominatedagencyphone").value + "</td>" +
+		  "<td class='rowaddbiddingid'  style='display:none;'>" + document.getElementById("txtbiddingid").value + "</td>" +		  
+          "<td><img src='images/delete.png' style='cursor:pointer;' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode)' /></td>" +
+        "</tr>" );
+		document.getElementById("txtaddnominatedagencyname").value = "";
+		document.getElementById("txtaddnominatedagencyaddress").value = "";
+		document.getElementById("txtaddnominatedagencyoic").value = "";
+		document.getElementById("txtaddnominatedagencyemail").value = "";
+		document.getElementById("txtaddnominatedagencyphone").value = "";
+		document.getElementById("txtaddnominatedagencyname").focus();
+	}
+	else
+	{
+		alert("Incomplete information");
+	}
+}
+
+function saveNominatedAgencyRow()
+{
+	var x = document.getElementsByClassName('rowaddagencyname');
+	var x2 = document.getElementsByClassName('rowaddagencyaddress');
+	var x3 = document.getElementsByClassName('rowaddagencyoic');
+	var x4 = document.getElementsByClassName('rowaddagencyemail');
+	var x5 = document.getElementsByClassName('rowaddagencyphone');
+	var x6 = document.getElementsByClassName('rowaddbiddingid');
+	var i;
+	for (i = 0; i < x.length; i++) {
+		document.getElementById("txtaddnominatedagencynameall").value += "*~" + x[i].innerHTML;
+		document.getElementById("txtaddnominatedagencyaddressall").value += "*~" + x2[i].innerHTML;
+		document.getElementById("txtaddnominatedagencyoicall").value += "*~" + x3[i].innerHTML;
+		document.getElementById("txtaddnominatedagencyemailall").value += "*~" + x4[i].innerHTML;
+		document.getElementById("txtaddnominatedagencyphoneall").value += "*~" + x5[i].innerHTML;
+		document.getElementById("txtbiddingidall").value += "*~" + x6[i].innerHTML;
+	}
+	if((document.getElementById("txtaddnominatedagencynameall").value) && (document.getElementById("txtaddnominatedagencyaddressall").value) && (document.getElementById("txtaddnominatedagencyoicall").value) && (document.getElementById("txtaddnominatedagencyemailall").value) && (document.getElementById("txtaddnominatedagencyphoneall").value))
+	{
+		document.getElementById("frmAddAgency").submit();
+	}
+	else
+	{
+		alert("No security agency to add.");
+	}
+}
 // -------------------------- END OF BIDDING JS ----------------------------
 
 function evaluateForm(btn){
@@ -5704,7 +5781,26 @@ $(document).ready(function() {
 		autoOpen: false,
 
   	});
-	
+	$( "#viewsecagencymodal" ).dialog({
+		dialogClass: "no-close",	
+		width: 1200,
+		maxHeight: 800,
+		modal: true,
+		closeOnEscape: false,
+		resizable: false,
+		autoOpen: false,
+		position: {my: "top", at: "center", of: "#topbar"}
+  	});
+	$( "#addsecagencymodal" ).dialog({
+		dialogClass: "no-close",	
+		width: 1200,
+		maxHeight: 800,
+		modal: true,
+		closeOnEscape: false,
+		resizable: false,
+		autoOpen: false,
+		position: {my: "top", at: "center", of: "#topbar"}
+  	});
 	$( "#AddActivity" ).dialog({
 		dialogClass: "no-close",
 		width: 800,

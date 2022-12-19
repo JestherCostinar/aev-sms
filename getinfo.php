@@ -726,7 +726,58 @@ elseif($type == "viewAuditDisposition")
 elseif($type == "newTicketFilters")
 {
 	
+} elseif ($type == "nominatedsecagency") {
+	$biddingnum = 1;
+	$result = mysqli_query($conn, "SELECT * FROM bidding_agency INNER JOIN agency_mst ON bidding_agency.agency_id = agency_mst.id WHERE bidding_agency.bidding_id = " . $id) or die(mysqli_error($conn));
+	while ($row = mysqli_fetch_assoc($result)) {
+		$resulttable .= "<tr>
+							<td align='center'>" . $biddingnum . "</td>
+							<td align='center'>" . $row['agency_name'] . "</td>
+							<td align='center'>" . $row['address'] . "</td>
+							<td align='center'>" . $row['oic'] . "</td>
+							<td align='center'>" . $row['email'] . "</td>
+							<td align='center'>" . $row['contact_number'] . "</td>
+						</tr>";
+		$biddingnum++;
+	}
 }
+
+elseif ($type == "evaluatenominatedsecagency") {
+	$biddingnum = 1;
+	$result = mysqli_query($conn, "SELECT * FROM bidding_agency INNER JOIN agency_mst ON bidding_agency.agency_id = agency_mst.id WHERE bidding_agency.bidding_id = " . $id) or die(mysqli_error($conn));
+	while ($row = mysqli_fetch_assoc($result)) {
+		$resulttable .= "<tr>
+							<td align='center'>" . $biddingnum . "</td>
+							<td align='center'>" . $row['agency_name'] . "</td>
+							<td align='center'>" . $row['address'] . "</td>
+							<td align='center'>" . $row['oic'] . "</td>
+							<td align='center'>" . $row['email'] . "</td>
+							<td align='center'>" . $row['contact_number'] . "</td>
+							<td align='center'><img src=\"images/View_Details.png\" height=\"24px\" style=\"cursor:pointer;\" onclick=\"viewAgency()\"></td>
+						</tr>";
+		$biddingnum++;
+	}
+}
+
+elseif ($type == "nominatedpoolsecagency") {
+	$biddingnum = 1;
+	$result = mysqli_query($conn, "SELECT * FROM bidding_agency INNER JOIN agency_mst ON bidding_agency.agency_id = agency_mst.id WHERE bidding_agency.bidding_id = " . $id) or die(mysqli_error($conn));
+	while ($row = mysqli_fetch_assoc($result)) {
+		$resulttable .= "<tr>
+							<input type='hidden' id='txtbiddingid' name='txtbiddingid'  value=" . $row['bidding_id'] . " /> 
+							<td align='center'>" . $biddingnum . "</td>
+							<td align='center'>" . $row['agency_name'] . "</td>
+							<td align='center'>" . $row['address'] . "</td>
+							<td align='center'>" . $row['oic'] . "</td>
+							<td align='center'>" . $row['email'] . "</td>
+							<td align='center'>" . $row['contact_number'] . "</td>
+							<td  align='center'><img src=\"images/delete.png\" height=\"20px\" style=\"cursor:pointer;\" onclick=\"deleteItem('5','Nominate Agency');\" /></td>
+						</tr>";
+		$biddingnum++;
+	}
+}
+
+
 
 
 
