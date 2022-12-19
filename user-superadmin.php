@@ -1306,6 +1306,15 @@ if($_POST)
 		}
 		mysqli_query($conn, "INSERT INTO system_log (uid, log, datetime, bu_id) VALUES ('".$_SESSION['id']."', 'Added group', now(), ".$_SESSION['bu'].")") or die(mysqli_error());
 		header("Location: user-superadmin.php?last=Groups");
+	} 
+	elseif ((isset($_POST['poolAgencyID'])) && !empty($_POST['poolAgencyID'])) {
+		$bid_ids = $_POST['txtbiddingid'];
+		for ($i = 0, $count = count($_POST['poolAgencyID']); $i < $count; $i++) {
+			mysqli_query($conn, "INSERT INTO bidding_agency (agency_id, bidding_id) VALUES ('" . $_POST['poolAgencyID'][$i] . "', '" . $bid_ids . "')") or die(mysqli_error());
+		}
+
+		mysqli_query($conn, "INSERT INTO system_log (uid, log, datetime, bu_id) VALUES ('" . $_SESSION['id'] . "', 'Nominate Security Agency', now(), 0)") or die(mysqli_error());
+		header("Location: user-superadmin.php?last=Bidding");
 	}
 	elseif((isset($_POST['txtaddbuitementry'])) && !empty($_POST['txtaddbuitementry']))
 	{
@@ -3191,7 +3200,7 @@ while ($bidding = mysqli_fetch_assoc($biddingsql)) {
 								<p class=\"table-row__p-status " . $bidding_status_style . " status\">" . $bidding['bidding_status'] .  "</p>
 							</td>	
 							<td data-column=\"Progress\" class=\"table-row__td\">
-								<a href=\"\">View Security Agency</a>
+								<a href=\"javascript:void(0)\" style=\"cursor:pointer;\" onclick=\"biddingAddSecAgencyModal('" . $bidding['id'] . "');\">View Security Agency</a>
 							</td>
 							<td data-column=\"Progress\" class=\"table-row__td\">
 								<a href=\"\">Monitor Bidding</a>
