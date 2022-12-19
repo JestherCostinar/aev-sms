@@ -136,6 +136,13 @@ else
 		$table =  "bidding_docs";
 		$item_type = "BidDocs";
 	}
+
+	// DELETE NOMINATED AGENCY BY ADD
+	elseif ($item_type == 'Add Nominated Agency') {
+		$table =  "bidding_agency";
+		$item_type = "Bidding";
+	}
+	
 	
 	elseif($item_type == 'Regions')
 	{

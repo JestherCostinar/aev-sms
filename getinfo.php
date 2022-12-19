@@ -761,7 +761,7 @@ elseif ($type == "evaluatenominatedsecagency") {
 
 elseif ($type == "nominatedpoolsecagency") {
 	$biddingnum = 1;
-	$result = mysqli_query($conn, "SELECT * FROM bidding_agency INNER JOIN agency_mst ON bidding_agency.agency_id = agency_mst.id WHERE bidding_agency.bidding_id = " . $id) or die(mysqli_error($conn));
+	$result = mysqli_query($conn, "SELECT bidding_agency.id as bid_agency_id, bidding_agency.*, agency_mst.* FROM bidding_agency INNER JOIN agency_mst ON bidding_agency.agency_id = agency_mst.id WHERE bidding_agency.bidding_id = " . $id) or die(mysqli_error($conn));
 	while ($row = mysqli_fetch_assoc($result)) {
 		$resulttable .= "<tr>
 							<input type='hidden' id='txtbiddingid' name='txtbiddingid'  value=" . $row['bidding_id'] . " /> 
@@ -771,7 +771,7 @@ elseif ($type == "nominatedpoolsecagency") {
 							<td align='center'>" . $row['oic'] . "</td>
 							<td align='center'>" . $row['email'] . "</td>
 							<td align='center'>" . $row['contact_number'] . "</td>
-							<td  align='center'><img src=\"images/delete.png\" height=\"20px\" style=\"cursor:pointer;\" onclick=\"deleteItem('5','Nominate Agency');\" /></td>
+							<td  align='center'><img src=\"images/delete.png\" height=\"20px\" style=\"cursor:pointer;\" onclick=\"deleteItem(" . $row['bid_agency_id'] . ",'Add Nominated Agency');\" /></td>
 						</tr>";
 		$biddingnum++;
 	}
