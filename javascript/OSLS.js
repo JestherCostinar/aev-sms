@@ -146,7 +146,7 @@ function closeBiddingSecAgencyModal() {
 function biddingAddSecAgencyModal(id)
 {
 	$("#tbodyPoolSecAgency").load("getinfo.php?type=nominatedpoolsecagency&id=" + id);
-	$("#tbodyAddSecAgency").load("getinfo.php?type=evaluatenominatedsecagency&id=" + id);
+	$("#tbodyAddSecAgency").load("getinfo.php?type=nominatedpoolsecagency&id=" + id);
 	$("#tbodypoolSecAgencyTable").load("getinfo.php?type=poolAgencyListTable&id=" + id);
 	$("#addsecagencymodal").dialog("open");
 }

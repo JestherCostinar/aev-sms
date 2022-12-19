@@ -142,6 +142,12 @@ else
 		$table =  "bidding_agency";
 		$item_type = "Bidding";
 	}
+
+	// DELETE NOMINATED AGENCY BY POOL
+	elseif ($item_type == 'Pool Nominated Agency') {
+		$table =  "bidding_agency";
+		$item_type = "Bidding";
+	}
 	
 	
 	elseif($item_type == 'Regions')
