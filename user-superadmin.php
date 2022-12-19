@@ -1307,13 +1307,113 @@ if($_POST)
 		mysqli_query($conn, "INSERT INTO system_log (uid, log, datetime, bu_id) VALUES ('".$_SESSION['id']."', 'Added group', now(), ".$_SESSION['bu'].")") or die(mysqli_error());
 		header("Location: user-superadmin.php?last=Groups");
 	} 
-	elseif ((isset($_POST['poolAgencyID'])) && !empty($_POST['poolAgencyID'])) {
+	elseif ((isset($_POST['btnsavepoolagency']))) {
 		$bid_ids = $_POST['txtbiddingid'];
 		for ($i = 0, $count = count($_POST['poolAgencyID']); $i < $count; $i++) {
 			mysqli_query($conn, "INSERT INTO bidding_agency (agency_id, bidding_id) VALUES ('" . $_POST['poolAgencyID'][$i] . "', '" . $bid_ids . "')") or die(mysqli_error());
 		}
 
 		mysqli_query($conn, "INSERT INTO system_log (uid, log, datetime, bu_id) VALUES ('" . $_SESSION['id'] . "', 'Nominate Security Agency', now(), 0)") or die(mysqli_error());
+		header("Location: user-superadmin.php?last=Bidding");
+	} 
+	elseif ((isset($_POST['btnstartbidding']))) {
+		$bid_id = $_POST['txtbiddingid'];
+		$templateID = $_POST['txtbiddingrequirements'];
+
+		$getBiddingTemplateQuery = mysqli_query($conn, "SELECT * FROM bidding_template WHERE id = " . $templateID);
+		$getBiddingTemplate = mysqli_fetch_assoc($getBiddingTemplateQuery);
+
+		$biddingItemQuery = mysqli_query($conn, "SELECT * FROM bidding_template_item WHERE template_id = " . $templateID);
+		$counter = 1;
+		while ($getBiddingItems = mysqli_fetch_assoc($biddingItemQuery)) {
+
+			if ($getBiddingItems['category'] == "Legal") {
+				$legaltable .= "<tr align=\"center\">" .
+				"<td align=\"right\" width=\"3%\">" . $counter++ . "</td>" .
+				"<td align=\"center\" style=\"background-color: #f9c8c8\">" . $getBiddingItems['requirement_name'] . "</td>" .
+				"</tr>";
+			} else if ($getBiddingItems['category'] == "Technical") {
+				$technicaltable
+					.= "<tr align=\"center\">" .
+					"<td align=\"right\" width=\"3%\">" . $counter++ . "</td>" .
+					"<td align=\"center\" style=\"background-color: rgb(198,217,240)\">" . $getBiddingItems['requirement_name'] . "</td>" .
+					"</tr>";
+			} else if ($getBiddingItems['category'] == "Financial") {
+				$financialtable
+					.= "<tr align=\"center\">" .
+					"<td align=\"right\" width=\"3%\">" . $counter++ . "</td>" .
+					"<td align=\"center\" style=\"background-color: rgb(234,241,221)\">" . $getBiddingItems['requirement_name'] . "</td>" .
+					"</tr>";
+			}
+		}
+
+		$requirementsTable = "<table width='95%' border='1' height='50px' align='center' style=' border-collapse:collapse; font-family: Calibri, Candara, Segoe, Optima, Arial, sans-serif;'>
+		<thead >
+			<tr style='background-color: #dfdfdf';>
+				<th>" . $getBiddingTemplate['bidding_name'] . " </th>
+			</tr>
+		</thead>
+		</table>
+		<table width='95%' border='1' align='center' style=' border-collapse:collapse; font-family: Calibri, Candara, Segoe, Optima, Arial, sans-serif;'>
+			<thead >
+				<tr style='background-color: red';>
+					<th align='left'>I. LEGAL</th>														
+				</tr>
+			</thead>
+		</table>
+		<table width='95%' border='1' align='center' style='border-collapse:collapse; font-family: Calibri, Candara, Segoe, Optima, Arial, sans-serif;'>
+			<tbody id='tbodyNewCC' name='tbodyNewCC'>
+				$legaltable
+			</tbody>
+		</table>
+		<table width='95%' border='1' align='center' style=' border-collapse:collapse; font-family: Calibri, Candara, Segoe, Optima, Arial, sans-serif;'>
+			<thead >
+				<tr style='background-color: rgb(0,112,192)';>
+					<th align='left'>II. TECHNICAL</th>														
+				</tr>
+			</thead>
+		</table>
+		<table width='95%' border='1' align='center' style='border-collapse:collapse; font-family: Calibri, Candara, Segoe, Optima, Arial, sans-serif;'>
+			<tbody id='tbodyNewCC' name='tbodyNewCC'>
+				$technicaltable
+			</tbody>
+		</table>
+		<table width='95%' border='1' align='center' style=' border-collapse:collapse; font-family: Calibri, Candara, Segoe, Optima, Arial, sans-serif;'>
+			<thead >
+				<tr style='background-color: rgb(146,208,80)';>
+					<th align='left'>III. FINANCIAL</th>														
+				</tr>
+			</thead>
+		</table>
+		<table width='95%' border='1' align='center' style='border-collapse:collapse; font-family: Calibri, Candara, Segoe, Optima, Arial, sans-serif;' id='tblbiddingitem' name='tblbiddingitem'>
+			<tbody id='tbodyNewCC' name='tbodyNewCC'>
+				$financialtable
+			</tbody>
+		</table>";
+
+		$mainbody = "<table width='95%' align='center' style='font-family: Calibri, Candara, Segoe, Optima, Arial, sans-serif;'> 
+                    <tr> 
+                        <td>
+                            Nomination of Security Agency.<br><br> 
+                            To upload requirements, PLEASE CLICK <a href='http://localhost/aev-sms-bidding/bidding_agency_upload.php' target='_blank'>HERE</a><br><br> 
+                            If you have any questions or clarifications, PLEASE REPLY TO THIS EMAIL.    
+                        </td>
+                    </tr>
+                </table>";
+
+		$mainbody .= $requirementsTable;
+
+
+		$updateStatus = mysqli_query($conn, "UPDATE bidding SET nomination_status ='Closed' WHERE id = " . $bid_id) or die(mysqli_error($conn));
+
+		if($updateStatus){
+			$getAgencyEmailQuery = mysqli_query($conn, "SELECT agency_mst.email FROM bidding_agency INNER JOIN bidding ON bidding_agency.bidding_id = bidding.id INNER JOIN agency_mst ON bidding_agency.agency_id = agency_mst.id WHERE bidding.id = " . $bid_id);
+			while ($getAgencyEmail = mysqli_fetch_assoc($getAgencyEmailQuery)) {
+				$mail = send_bidding_requirements($getAgencyEmail['email'], $mainbody);
+			}
+		}
+
+		mysqli_query($conn, "INSERT INTO system_log (uid, log, datetime, bu_id) VALUES ('" . $_SESSION['id'] . "', 'Start Bidding', now(), 0)") or die(mysqli_error());
 		header("Location: user-superadmin.php?last=Bidding");
 	}
 	elseif((isset($_POST['txtaddbuitementry'])) && !empty($_POST['txtaddbuitementry']))
