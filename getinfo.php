@@ -753,7 +753,7 @@ elseif ($type == "evaluatenominatedsecagency") {
 							<td align='center'>" . $row['oic'] . "</td>
 							<td align='center'>" . $row['email'] . "</td>
 							<td align='center'>" . $row['contact_number'] . "</td>
-							<td align='center'><img src=\"images/View_Details.png\" height=\"24px\" style=\"cursor:pointer;\" onclick=\"viewAgency()\"></td>
+							<td  align='center'><img src=\"images/delete.png\" height=\"20px\" style=\"cursor:pointer;\" onclick=\"deleteItem(" . $row['bid_agency_id'] . ",'Add Nominated Agency');\" /></td>
 						</tr>";
 		$biddingnum++;
 	}
@@ -775,7 +775,22 @@ elseif ($type == "nominatedpoolsecagency") {
 						</tr>";
 		$biddingnum++;
 	}
+} 
+elseif ($type == "poolAgencyListTable") {
+	$result = mysqli_query($conn, "SELECT * FROM agency_mst WHERE id NOT IN (SELECT agency_mst.id FROM agency_mst INNER JOIN bidding_agency ON agency_mst.id = bidding_agency.agency_id WHERE bidding_agency.bidding_id = '" . $id . "')") or die(mysqli_error($conn));
+	while ($poolSecAgency = mysqli_fetch_assoc($result)) {
+		$resulttable .= "<tr align=\"center\" class=\"table-row--red\">" .
+		"<input type='hidden' id='txtbiddingid' name='txtbiddingid'  value=" . $id . " /> " .
+		"<td>" . $poolSecAgency['agency_name'] . "</td>" .
+		"<td>" . $poolSecAgency['address'] . "</td>" .
+		"<td>" . $poolSecAgency['oic'] . "</td>" .
+		"<td>" . $poolSecAgency['email'] . "</td>" .
+		"<td>" . $poolSecAgency['contact_number'] . "</td>" .
+			"<td><input type=\"checkbox\" id=\"poolAgencyID[]\" name=\"poolAgencyID[]\" value=" . $poolSecAgency['id'] . "></td>" .
+		"</tr>";
+	}
 }
+
 
 
 

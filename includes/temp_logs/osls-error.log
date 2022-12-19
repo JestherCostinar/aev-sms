@@ -5810,3 +5810,9 @@ Stack trace:
 Stack trace:
 #0 {main}
   thrown in C:\xampp\htdocs\aev-sms\user-admin.php on line 2099
+[19-Dec-2022 21:25:51 Asia/Manila] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, null given in C:\xampp\htdocs\aev-sms\getinfo.php on line 781
+[19-Dec-2022 22:47:35 Asia/Manila] PHP Warning:  implode(): Invalid arguments passed in C:\xampp\htdocs\aev-sms\user-admin.php on line 2112
+[19-Dec-2022 22:50:58 Asia/Manila] PHP Warning:  explode() expects parameter 2 to be string, array given in C:\xampp\htdocs\aev-sms\user-admin.php on line 2112
+[19-Dec-2022 22:52:49 Asia/Manila] PHP Warning:  explode() expects parameter 2 to be string, array given in C:\xampp\htdocs\aev-sms\user-admin.php on line 2112
+[19-Dec-2022 22:53:01 Asia/Manila] PHP Warning:  explode() expects parameter 2 to be string, array given in C:\xampp\htdocs\aev-sms\user-admin.php on line 2112
+[19-Dec-2022 22:54:19 Asia/Manila] PHP Warning:  implode(): Invalid arguments passed in C:\xampp\htdocs\aev-sms\user-admin.php on line 2112

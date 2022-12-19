@@ -2107,6 +2107,15 @@ if($_POST)
 
 		mysqli_query($conn, "INSERT INTO system_log (uid, log, datetime, bu_id) VALUES ('" . $_SESSION['id'] . "', 'Nominate Security Agency', now(), 0)") or die(mysqli_error());
 		header("Location: user-admin.php?last=Bidding");
+	} 
+	elseif ((isset($_POST['poolAgencyID'])) && !empty($_POST['poolAgencyID'])) {
+		$bid_ids = $_POST['txtbiddingid'];
+		for ($i = 0, $count = count($_POST['poolAgencyID']); $i < $count; $i++) {
+			mysqli_query($conn, "INSERT INTO bidding_agency (agency_id, bidding_id) VALUES ('" . $_POST['poolAgencyID'][$i] . "', '" . $bid_ids . "')") or die(mysqli_error());
+		}
+
+		mysqli_query($conn, "INSERT INTO system_log (uid, log, datetime, bu_id) VALUES ('" . $_SESSION['id'] . "', 'Nominate Security Agency', now(), 0)") or die(mysqli_error());
+		header("Location: user-admin.php?last=Bidding");
 	}
 	elseif((isset($_POST['txtAddEntries'])) && !empty($_POST['txtAddEntries']))
 	{

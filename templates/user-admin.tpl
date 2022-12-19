@@ -1315,6 +1315,7 @@
 			<tr>
 				<td colspan="100%">
 					<div id="poolSecAgencyDiv" name="poolSecAgencyDiv" style="padding: 10px" class="biddingaddsecagencydivs">
+                        <form id="frmPoolAgency" name="frmPoolAgency" method="post" action="user-admin.php">
 						<table width="100%" align="center"  width="100%" border="1" style="border-collapse:collapse; padding: 10px">
                             <thead>
                                 <tr class="whiteonblack">
@@ -1330,6 +1331,28 @@
                             <tbody id="tbodyAddSecAgency">
                             </tbody>    
                         </table>
+                        
+                        <br>
+                        <table width="100%" align="center"  width="100%" border="1" style="border-collapse:collapse; padding: 10px">
+                            <tr style="background: #ffffd4">
+                                <th>List of Security Agency available to Pool</th>
+                            </tr>
+                        </table>
+
+                        <table width="100%" align="center"  width="100%" border="1" style="border-collapse:collapse; padding: 10px">
+                            <tbody id="tbodypoolSecAgencyTable">
+                                $poolSecAgencyTable
+                            </tbody>    
+                        </table>
+                        <table width="100%" align="center">
+                            <tr>
+                                <td align="right">
+        
+                                    <input type="submit" id="btnsavepoolagency" name="btnsavepoolagency" class="redbutton" value="Save" />
+                                </td>
+                            </tr>
+                        </table>
+                        </form>
 					</div>
                     <div id="addSecAgencyDiv" name="addSecAgencyDiv" class="biddingaddsecagencydivs" style="cursor:pointer; display:none; padding: 10px">
                         <form id="frmAddAgency" name="frmAddAgency" method="post" action="user-admin.php">
@@ -1384,7 +1407,6 @@
                                 <td align="right">
                                     <input type="hidden" id="txtbiddingidall" name="txtbiddingidall" />
                                     <img id="btnsavebu" name="btnsavebu" src="images/confirm_btn.png" width="100px" onclick="saveNominatedAgencyRow();" style="cursor:pointer;" />
-                                    
                                 </td>
                             </tr>
                         </table>
