@@ -5783,7 +5783,7 @@ $(document).ready(function() {
   	});
 	$( "#viewsecagencymodal" ).dialog({
 		dialogClass: "no-close",	
-		width: 1200,
+		width: 900,
 		maxHeight: 800,
 		modal: true,
 		closeOnEscape: false,

@@ -2168,9 +2168,9 @@
 					<th class="table__th" width="5%">#</th>
 					<th class="table__th">Bidding Name</th>
 					<th class="table__th" width="15%">Cluster</th>
-					<th class="table__th" width="8%">Nomination Status</th>
-					<th class="table__th" width="10%">Bidding Requirement</th>
 					<th class="table__th" width="8%">Bidding Status</th>
+					<th class="table__th" width="10%">Bidding Requirement</th>
+					<th class="table__th" width="8%">Nomination Status</th>
 					<th class="table__th" colspan="3" width="30%">Action</th>
 					<th class="table__th" width="5%"></th>
 				</tr>
@@ -2234,6 +2234,32 @@
 				</tr>
 			</table>
 		</form>
+	</div>
+	
+	<div id="viewsecagencymodal" style="display:none; padding-top:24px;" >
+			<img src="images/x_mark_red.png" height="24px" style="cursor:pointer; position:absolute; right:10px; top:5px;" onclick="closeBiddingSecAgencyModal();" />
+			<table align="center" width="100%" border="1" style="border-collapse:collapse;">
+				<tr>
+					<td colspan="100%">
+						<div id="nominatedSecAgencyDiv" name="nominatedSecAgencyDiv" class="biddingsecagencydivs" style="cursor:pointer; padding: 10px">
+							<table width="100%" align="center"  width="100%" border="1" style="border-collapse:collapse; padding: 10px">
+								<thead>
+									<tr class="whiteonblack">
+										<th>#</th>
+										<th>Name</th>
+										<th>Address</th>
+										<th>President/General Manager</th>
+										<th>Email</th>
+										<th>Contact Number</th>
+									</tr>
+								</thead>
+								<tbody id="tbodyNominatedAgency">
+								</tbody>    
+							</table>
+						</div>
+					</td>
+				</tr>
+			</table>
 	</div>
 
 	<div id="addsecagencymodal" style="display:none; padding-top:24px;" >

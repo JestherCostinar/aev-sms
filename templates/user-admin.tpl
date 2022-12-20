@@ -1266,19 +1266,6 @@
 				</td>
 			</tr>
 		</table>
-          <table align="center" width="95%">
-            
-            <tr>
-            	<td align="right" colspan="2">
-                	
-					
-                	<img src="images/update.png" id="btnupdateagency" name="btnupdateagency" width="100px" style="display:none; cursor:pointer;" onclick="saveSecAgency();" />
-                    <img src="images/save.png" id="btnsaveagency" name="btnsaveagency" width="100px" style="display:none; cursor:pointer;" onclick="saveSecAgency();" />
-                    <input type="hidden" id="txtagencyid" name="txtagencyid" />
-                    <input type="hidden" id="txtagencyaddedit" name="txtagencyaddedit" />
-                </td>
-            </tr>
-          </table> 
     </div>
 
     <div id="addsecagencymodal" style="display:none; padding-top:24px;" >
