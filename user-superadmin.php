@@ -1392,23 +1392,36 @@ if($_POST)
 			</tbody>
 		</table>";
 
-		$mainbody = "<table width='95%' align='center' style='font-family: Calibri, Candara, Segoe, Optima, Arial, sans-serif;'> 
+
+		$updateStatus = mysqli_query($conn, "UPDATE bidding SET nomination_status ='Closed' WHERE id = " . $bid_id) or die(mysqli_error($conn));
+		
+		if($updateStatus){
+			$getAgencyEmailQuery = mysqli_query($conn, "SELECT agency_mst.email, agency_mst.password FROM bidding_agency INNER JOIN bidding ON bidding_agency.bidding_id = bidding.id INNER JOIN agency_mst ON bidding_agency.agency_id = agency_mst.id WHERE bidding.id = " . $bid_id);
+			while ($getAgencyEmail = mysqli_fetch_assoc($getAgencyEmailQuery)) {
+				$passwordText = '';
+
+				if(md5('Password2022') == $getAgencyEmail['password']) {
+					$passwordText = 'Password2022';
+				}
+
+				$mainbody = "<table width='95%' align='center' style='font-family: Calibri, Candara, Segoe, Optima, Arial, sans-serif;'> 
                     <tr> 
                         <td>
                             Nomination of Security Agency.<br><br> 
-                            To upload requirements, PLEASE CLICK <a href='http://localhost/aev-sms-bidding/bidding_agency_upload.php' target='_blank'>HERE</a><br><br> 
+                            To upload requirements, PLEASE CLICK <a href='http://localhost/aev-sms-agency/' target='_blank'>HERE</a>
+							<br><br>
+							<strong>Login Credentials:</strong><br>
+							Email:  " . $getAgencyEmail['email'] . "<br>
+							Password:  " . $passwordText . "
+							<br><br> 
                             If you have any questions or clarifications, PLEASE REPLY TO THIS EMAIL.    
                         </td>
                     </tr>
                 </table>";
 
-		$mainbody .= $requirementsTable;
 
-		$updateStatus = mysqli_query($conn, "UPDATE bidding SET nomination_status ='Closed' WHERE id = " . $bid_id) or die(mysqli_error($conn));
+				$mainbody .= $requirementsTable;
 
-		if($updateStatus){
-			$getAgencyEmailQuery = mysqli_query($conn, "SELECT agency_mst.email FROM bidding_agency INNER JOIN bidding ON bidding_agency.bidding_id = bidding.id INNER JOIN agency_mst ON bidding_agency.agency_id = agency_mst.id WHERE bidding.id = " . $bid_id);
-			while ($getAgencyEmail = mysqli_fetch_assoc($getAgencyEmailQuery)) {
 				$mail = send_bidding_requirements($getAgencyEmail['email'], $mainbody);
 			}
 
