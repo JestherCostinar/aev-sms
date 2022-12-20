@@ -84,10 +84,7 @@
 			<li class="lists" id="listconcom" onclick="toggleMe('ConComp', 'listconcom');">Contract Compliance</li>
 			$custom_cc_list
 		</ul>
-      <li class="lists" onclick="toggleMenu('subBidding');">Bidding</li>
-		<ul id="subBidding" style="display:none; list-style-type:none;">
-			<li class="lists" id="listbidding" onclick="toggleMe('Bidding', 'listbidding')">Nominate Agency</li>
-		</ul>
+      <li class="lists" id="listbidding" onclick="toggleMe('Bidding', 'listbidding')">Bidding</li>
       <li class="lists" onclick="toggleMenu('subTools');">Tools</li>
     	<ul id="subTools" style="display:none;">
           <li class="lists" id="listcmgt" onclick="toggleMe('CodeMgt', 'listcmgt');">Code Management</li>
@@ -1233,9 +1230,9 @@
 					<th class="table__th" width="5%">#</th>
 					<th class="table__th">Bidding Name</th>
 					<th class="table__th" width="15%">Cluster</th>
-					<th class="table__th" width="8%">Nomination Status</th>
+                    <th class="table__th" width="8%">Bidding Status</th>
 					<th class="table__th" width="10%">Bidding Requirement</th>
-					<th class="table__th" width="8%">Bidding Status</th>
+                    <th class="table__th" width="8%">Nomination Status</th>
 					<th class="table__th" colspan="2" width="20%">Action</th>
 				</tr>
             </thead>
@@ -1248,10 +1245,6 @@
     <div id="viewsecagencymodal" style="display:none; padding-top:24px;" >
         <img src="images/x_mark_red.png" height="24px" style="cursor:pointer; position:absolute; right:10px; top:5px;" onclick="closeBiddingSecAgencyModal();" />
     	<table align="center" width="100%" border="1" style="border-collapse:collapse;">
-			<tr>
-				<th style="cursor:pointer;" onclick="toggleTabs('nominatedSecAgencyDiv', 'biddingsecagencydivs');">Nominated Security Agency</th>
-				<th style="cursor:pointer;" onclick="toggleTabs('evaluateSecAgencyDiv', 'biddingsecagencydivs');">Evaluate Agency</th>
-			</tr>
 			<tr>
 				<td colspan="100%">
 					<div id="nominatedSecAgencyDiv" name="nominatedSecAgencyDiv" class="biddingsecagencydivs" style="cursor:pointer; padding: 10px">
@@ -1267,23 +1260,6 @@
                                 </tr>
                             </thead>
                             <tbody id="tbodyNominatedAgency">
-                            </tbody>    
-                        </table>
-					</div>
-					<div id="evaluateSecAgencyDiv" name="evaluateSecAgencyDiv" style="display:none; padding: 10px" class="biddingsecagencydivs">
-						<table width="100%" align="center"  width="100%" border="1" style="border-collapse:collapse; padding: 10px">
-                            <thead>
-                                <tr class="whiteonblack">
-                                    <th>#</th>
-                                    <th>Name</th>
-                                    <th>Address</th>
-                                    <th>President/General Manager</th>
-                                    <th>Email</th>
-                                    <th>Contact Number</th>
-                                    <td></td>
-                                </tr>
-                            </thead>
-                            <tbody id="tbodyEvaluateNominatedAgency">
                             </tbody>    
                         </table>
 					</div>

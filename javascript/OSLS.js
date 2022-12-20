@@ -131,10 +131,9 @@ function closeInitializeBidding() {
 }
 
 // Open Modal
-function biddingSecAgencyModal(id)
+function viewBiddingSecAgencyModal(id)
 {
 	$("#tbodyNominatedAgency").load("getinfo.php?type=nominatedsecagency&id=" + id);
-	$("#tbodyEvaluateNominatedAgency").load("getinfo.php?type=evaluatenominatedsecagency&id=" + id);
 	$("#viewsecagencymodal").dialog("open");
 }
 
