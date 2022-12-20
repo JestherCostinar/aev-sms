@@ -761,9 +761,10 @@ elseif ($type == "evaluatenominatedsecagency") {
 
 elseif ($type == "nominatedpoolsecagency") {
 	$biddingnum = 1;
-	$result = mysqli_query($conn, "SELECT bidding_agency.id as bid_agency_id, bidding_agency.*, agency_mst.*, bidding.bidding_requirement_id FROM bidding_agency INNER JOIN agency_mst ON bidding_agency.agency_id = agency_mst.id INNER JOIN bidding ON bidding.id = bidding_agency.bidding_id WHERE bidding_agency.bidding_id = " . $id) or die(mysqli_error($conn));
+	$result = mysqli_query($conn, "SELECT bidding_agency.id as bid_agency_id, bidding_agency.*, agency_mst.*, bidding.* FROM bidding_agency INNER JOIN agency_mst ON bidding_agency.agency_id = agency_mst.id INNER JOIN bidding ON bidding.id = bidding_agency.bidding_id WHERE bidding_agency.bidding_id = " . $id) or die(mysqli_error($conn));
 	while ($row = mysqli_fetch_assoc($result)) {
 		$resulttable .= "<tr>
+							<input type='hidden' id='txtbidclust' name='txtbidclust'  value=" . $row['cluster_id'] . " /> 
 							<input type='hidden' id='txtbiddingrequirements' name='txtbiddingrequirements'  value=" . $row['bidding_requirement_id'] . " /> 
 							<input type='hidden' id='txtbiddingid' name='txtbiddingid'  value=" . $row['bidding_id'] . " /> 
 							<td align='center'>" . $biddingnum . "</td>

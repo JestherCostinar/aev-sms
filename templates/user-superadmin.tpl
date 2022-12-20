@@ -2240,13 +2240,13 @@
     	<img src="images/x_mark_red.png" height="24px" style="cursor:pointer; position:absolute; right:10px; top:5px;" onclick="closeBiddingAddSecAgencyModal();" />
         <table align="center" width="100%" border="1" style="border-collapse:collapse;">
 			<tr>
-				<th style="cursor:pointer;" onclick="toggleTabs('poolSecAgencyDiv', 'biddingaddsecagencydivs');">Nominated Security Agency</th>
+				<th onclick="toggleTabs('poolSecAgencyDiv', 'biddingaddsecagencydivs');">Nominated Security Agency</th>
 			</tr>
 			<tr>
 				<td colspan="100%">
 					<div id="poolSecAgencyDiv" name="poolSecAgencyDiv" style="padding: 10px" class="biddingaddsecagencydivs">
                         <form id="frmPoolAgency" name="frmPoolAgency" method="post" action="user-superadmin.php">
-						<table width="100%" align="center"  width="100%" border="1" style="border-collapse:collapse; padding: 10px">
+						<table width="100%" align="center" border="1" style="border-collapse:collapse; padding: 10px">
                             <thead>
                                 <tr class="whiteonblack">
                                     <th>#</th>
@@ -2287,19 +2287,6 @@
 				</td>
 			</tr>
 		</table>
-          <table align="center" width="95%">
-            
-            <tr>
-            	<td align="right" colspan="2">
-                	
-					
-                	<img src="images/update.png" id="btnupdateagency" name="btnupdateagency" width="100px" style="display:none; cursor:pointer;" onclick="saveSecAgency();" />
-                    <img src="images/save.png" id="btnsaveagency" name="btnsaveagency" width="100px" style="display:none; cursor:pointer;" onclick="saveSecAgency();" />
-                    <input type="hidden" id="txtagencyid" name="txtagencyid" />
-                    <input type="hidden" id="txtagencyaddedit" name="txtagencyaddedit" />
-                </td>
-            </tr>
-          </table> 
     </div>
 
 	<div id="Audit" class="section" style="overflow-x:auto;">

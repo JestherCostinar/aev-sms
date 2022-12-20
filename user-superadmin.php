@@ -1318,12 +1318,13 @@ if($_POST)
 	} 
 	elseif ((isset($_POST['btnstartbidding']))) {
 		$bid_id = $_POST['txtbiddingid'];
-		$templateID = $_POST['txtbiddingrequirements'];
-
-		$getBiddingTemplateQuery = mysqli_query($conn, "SELECT * FROM bidding_template WHERE id = " . $templateID);
+		$req_id = $_POST['txtbiddingrequirements'];
+		$clust_id = $_POST['txtbidclust'];
+		
+		$getBiddingTemplateQuery = mysqli_query($conn, "SELECT * FROM bidding_template WHERE id = " . $req_id);
 		$getBiddingTemplate = mysqli_fetch_assoc($getBiddingTemplateQuery);
 
-		$biddingItemQuery = mysqli_query($conn, "SELECT * FROM bidding_template_item WHERE template_id = " . $templateID);
+		$biddingItemQuery = mysqli_query($conn, "SELECT * FROM bidding_template_item WHERE template_id = " . $req_id);
 		$counter = 1;
 		while ($getBiddingItems = mysqli_fetch_assoc($biddingItemQuery)) {
 
@@ -1403,7 +1404,6 @@ if($_POST)
 
 		$mainbody .= $requirementsTable;
 
-
 		$updateStatus = mysqli_query($conn, "UPDATE bidding SET nomination_status ='Closed' WHERE id = " . $bid_id) or die(mysqli_error($conn));
 
 		if($updateStatus){
@@ -1411,8 +1411,28 @@ if($_POST)
 			while ($getAgencyEmail = mysqli_fetch_assoc($getAgencyEmailQuery)) {
 				$mail = send_bidding_requirements($getAgencyEmail['email'], $mainbody);
 			}
-		}
 
+			$resulttable = "<div style='font-family: Calibri, Candara, Segoe, Optima, Arial, sans-serif;'><h2>List of Participant</h2>
+			<table style='width:30%; border:1px solid black;'>
+				<tr >
+					<th align='left' style='border:1px solid black; background: red; color: white'>Agency Name</th>
+				</tr>";
+			$resultQuery = mysqli_query($conn, "SELECT * FROM bidding_agency INNER JOIN agency_mst ON bidding_agency.agency_id = agency_mst.id WHERE bidding_agency.bidding_id = " . $bid_id) or die(mysqli_error($conn));
+			while ($row = mysqli_fetch_assoc($resultQuery)) {
+				$resulttable .= "<tr>
+									<td style='border:1px solid black;'>" . $row['agency_name'] . "</td>
+								</tr>";
+			}
+			$resulttable .= "</table>";
+			$clusterReceiverForBiddingClose = '';
+			$getReceiverOfClusterCloseBiddingQuery = mysqli_query($conn, "SELECT users_mst.user_email FROM `users_mst` INNER JOIN bu_mst ON users_mst.bu = bu_mst.id WHERE bu_mst.cluster_group = " . $clust_id);
+			while ($getReceiverOfClusterCloseBidding = mysqli_fetch_assoc($getReceiverOfClusterCloseBiddingQuery)) {
+				$clusterReceiverForBiddingClose .= $getReceiverOfClusterCloseBidding['user_email'] . ',';
+			}
+
+			$mail = send_bidding_notification($clusterReceiverForBiddingClose, $resulttable);
+		}
+		
 		mysqli_query($conn, "INSERT INTO system_log (uid, log, datetime, bu_id) VALUES ('" . $_SESSION['id'] . "', 'Start Bidding', now(), 0)") or die(mysqli_error());
 		header("Location: user-superadmin.php?last=Bidding");
 	}

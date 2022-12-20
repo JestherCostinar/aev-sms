@@ -5794,7 +5794,7 @@ $(document).ready(function() {
   	});
 	$( "#addsecagencymodal" ).dialog({
 		dialogClass: "no-close",	
-		width: 1200,
+		width: 1400,
 		maxHeight: 800,
 		modal: true,
 		closeOnEscape: false,
