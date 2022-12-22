@@ -617,7 +617,7 @@ if($_POST)
 		$biddingRequirements = $_POST['txtBiddingRequirements'];
 		$biddingMessage = mysqli_real_escape_string($conn, $_POST['txtBiddingMessage']);
 
-		mysqli_query($conn, "INSERT INTO bidding (bidding_name, bidding_status, nomination_status, created_at, cluster_id, bidding_requirement_id) VALUES('" . $biddingName . "', 'Ongoing', 'Ongoing', '" . date("Y-m-d") . "', '" . $biddingCluster . "', '" . $biddingRequirements . "')");
+		mysqli_query($conn, "INSERT INTO bidding (bidding_name, bidding_status, created_at, cluster_id, bidding_requirement_id) VALUES('" . $biddingName . "', 'Nomination', '" . date("Y-m-d") . "', '" . $biddingCluster . "', '" . $biddingRequirements . "')");
 		if (!empty($biddingMessage)) {
 			$clusterReceiver = '';
 			$getReceiverOfClusterQuery = mysqli_query($conn, "SELECT users_mst.user_email FROM `users_mst` INNER JOIN bu_mst ON users_mst.bu = bu_mst.id WHERE bu_mst.cluster_group = " . $biddingCluster);
@@ -1393,7 +1393,7 @@ if($_POST)
 		</table>";
 
 
-		$updateStatus = mysqli_query($conn, "UPDATE bidding SET nomination_status ='Closed' WHERE id = " . $bid_id) or die(mysqli_error($conn));
+		$updateStatus = mysqli_query($conn, "UPDATE bidding SET nomination_status = 'Assessment' WHERE id = " . $bid_id) or die(mysqli_error($conn));
 		
 		if($updateStatus){
 			$getAgencyEmailQuery = mysqli_query($conn, "SELECT agency_mst.email, agency_mst.password FROM bidding_agency INNER JOIN bidding ON bidding_agency.bidding_id = bidding.id INNER JOIN agency_mst ON bidding_agency.agency_id = agency_mst.id WHERE bidding.id = " . $bid_id);
@@ -3296,58 +3296,41 @@ $tr_color = '';
 $tr_row_start = '';
 $addAgencyStatus = '';
 
-$biddingsql = mysqli_query($conn, "SELECT bidding.*, cluster_group.name as cluster FROM bidding INNER JOIN cluster_group ON bidding.cluster_id = cluster_group.id ORDER BY bidding_status DESC");
+$biddingsql = mysqli_query($conn, "SELECT bidding.*, cluster_group.name as cluster FROM bidding INNER JOIN cluster_group ON bidding.cluster_id = cluster_group.id WHERE bidding_status != 'Closed' ORDER BY bidding_status DESC");
 while ($bidding = mysqli_fetch_assoc($biddingsql)) {
-	if ($bidding['nomination_status'] == 'Closed') {
-		$addAgencyStatus = "<td data-column=\"Progress\" class=\"table-row__td\">
-								<a href=\"javascript:void(0)\" style=\"cursor:pointer;\" onclick=\"viewBiddingSecAgencyModal('" . $bidding['id'] . "');\">View Security Agency</a>
-							</td>";
-		$nomination_color = '#dc3545';
-		$nomination_style = 'status--red';
-	} elseif ($bidding['nomination_status'] == 'Ongoing') {
+
+	if ($bidding['bidding_status'] == 'Nomination') {
 		$addAgencyStatus = "<td data-column=\"Progress\" class=\"table-row__td\">
 								<a href=\"javascript:void(0)\" style=\"cursor:pointer;\" onclick=\"biddingAddSecAgencyModal('" . $bidding['id'] . "');\">Add Security Agency</a>
 							</td>";
-		$nomination_color = '#28a745';
-		$nomination_style = 'status--green';
-	} else {
-		$nomination_color = '#28a745';
-		$nomination_style = 'status--blue';
+		$bidding_status_style = 'status--yellow';
+	
+	} elseif ($bidding['bidding_status'] == 'Assessment') {
+		$addAgencyStatus = "<td data-column=\"Progress\" class=\"table-row__td\">
+								<a href=\"javascript:void(0)\" style=\"cursor:pointer;\" onclick=\"viewBiddingSecAgencyModal('" . $bidding['id'] . "');\">View Security Agency</a>
+							</td>";
+		$bidding_status_style = 'status--blue';
 	}
 
-	if ($bidding['bidding_status'] == 'Closed') {
-		$bidding_status_color = '#dc3545';
-		$bidding_status_style = 'status--red';
-	} else {
-		$bidding_status_color = '#28a745';
-		$bidding_status_style = 'status--green';
-	}
-
-	if (($bidding['bidding_status'] == 'Closed') && ($bidding['nomination_status'] == 'Closed')) {
-		$tr_color = 'table-row--red';
-		$tr_row_start = '<div class="table-row--overdue"></div>';
-	}
 	// 	<td align=\"center\" ><span style=\"background-color: " . $bidding_status_color . ";color: white; padding: 1px 8px;text-align: center; border-radius: 5px; font-size: 13px;\">" . $bidding['bidding_status'] . "</span></td>
 
-	$biddingtable .= "<tr align=\"center\" height=\"25px\" style=\"font-weight: 500;\" class=\"table-row " . $tr_color . " \" >
+	$biddingtable .= "<tr align=\"center\" height=\"15px\" style=\"font-weight: 500;\" class=\"table-row \" >
 							<td  class=\"table-row__td\">" . $tr_row_start . $biddingnum . "</td>
 							<td align=\"center\"  class=\"table-row__td\"><div class=\"table-row__info\"><p class=\"table-row__name\">" . $bidding['bidding_name'] . "</p></div></td>
-							<td align=\"center\" class=\"table-row__td\"><div><p class=\"table-row__policy\">" . $bidding['cluster'] . "</p></div></td>
+							<td align=\"center\" class=\"table-row__td\"><div><p class=\"table-row__name\">" . $bidding['cluster'] . "</p></div></td>
 							<td data-column=\"Policy status\" class=\"table-row__td\">
 								<p class=\"table-row__p-status " . $bidding_status_style . " status\">" . $bidding['bidding_status'] .  "</p>
 							</td>
+							
 							<td align=\"center\" class=\"table-row__td\">36 Points Requirement</td>
-							<td align=\"center\" class=\"table-row__td\">
-								<p class=\"table-row__p-status " . $nomination_style . " status\">" . $bidding['nomination_status'] . "</p>
-							</td>	
+							
 							" . $addAgencyStatus .  "
 							<td data-column=\"Progress\" class=\"table-row__td\">
-								<a href=\"\">Monitor Bidding</a>
+								<a href=\"\">Evaluate Documents</a>
 							</td>
 							<td data-column=\"Progress\" class=\"table-row__td\">
 								<a href=\"\">View / Upload File(s)</a>
 							</td>
-							<td align=\"center\" class=\"table-row__td\" width=\"5%\"><img src='images/edit2.png' height='28px' style='cursor:pointer; vertical-align:middle;' onclick='editbiddingshow(" . $getBiddingItems['id'] . ");'></td>
 						 </tr>";
 	$nomination_color = '';
 	$biddingnum++;

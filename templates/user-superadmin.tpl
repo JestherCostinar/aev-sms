@@ -2170,9 +2170,7 @@
 					<th class="table__th" width="15%">Cluster</th>
 					<th class="table__th" width="8%">Bidding Status</th>
 					<th class="table__th" width="10%">Bidding Requirement</th>
-					<th class="table__th" width="8%">Nomination Status</th>
 					<th class="table__th" colspan="3" width="30%">Action</th>
-					<th class="table__th" width="5%"></th>
 				</tr>
             </thead>
             <tbody class="table__tbody">
