@@ -1393,7 +1393,7 @@ if($_POST)
 		</table>";
 
 
-		$updateStatus = mysqli_query($conn, "UPDATE bidding SET nomination_status = 'Assessment' WHERE id = " . $bid_id) or die(mysqli_error($conn));
+		$updateStatus = mysqli_query($conn, "UPDATE bidding SET bidding_status = 'Assessment' WHERE id = " . $bid_id) or die(mysqli_error($conn));
 		
 		if($updateStatus){
 			$getAgencyEmailQuery = mysqli_query($conn, "SELECT agency_mst.email, agency_mst.password FROM bidding_agency INNER JOIN bidding ON bidding_agency.bidding_id = bidding.id INNER JOIN agency_mst ON bidding_agency.agency_id = agency_mst.id WHERE bidding.id = " . $bid_id);

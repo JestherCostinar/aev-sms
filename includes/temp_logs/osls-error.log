@@ -5968,3 +5968,9 @@ Stack trace:
 [22-Dec-2022 02:01:50 Asia/Manila] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in C:\xampp\htdocs\aev-sms\user-superadmin.php on line 141
 [22-Dec-2022 14:52:44 Asia/Manila] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in C:\xampp\htdocs\aev-sms\user-superadmin.php on line 134
 [22-Dec-2022 14:52:44 Asia/Manila] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in C:\xampp\htdocs\aev-sms\user-superadmin.php on line 141
+[22-Dec-2022 22:42:05 Asia/Manila] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in C:\xampp\htdocs\aev-sms\user-superadmin.php on line 23
+[22-Dec-2022 22:42:05 Asia/Manila] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in C:\xampp\htdocs\aev-sms\user-superadmin.php on line 134
+[22-Dec-2022 22:42:05 Asia/Manila] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in C:\xampp\htdocs\aev-sms\user-superadmin.php on line 141
+[23-Dec-2022 06:43:10 Asia/Manila] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in C:\xampp\htdocs\aev-sms\user-superadmin.php on line 23
+[23-Dec-2022 06:43:10 Asia/Manila] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in C:\xampp\htdocs\aev-sms\user-superadmin.php on line 134
+[23-Dec-2022 06:43:10 Asia/Manila] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in C:\xampp\htdocs\aev-sms\user-superadmin.php on line 141
