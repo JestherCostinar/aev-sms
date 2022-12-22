@@ -3315,7 +3315,7 @@ while ($bidding = mysqli_fetch_assoc($biddingsql)) {
 	// 	<td align=\"center\" ><span style=\"background-color: " . $bidding_status_color . ";color: white; padding: 1px 8px;text-align: center; border-radius: 5px; font-size: 13px;\">" . $bidding['bidding_status'] . "</span></td>
 
 	$biddingtable .= "<tr align=\"center\" height=\"15px\" style=\"font-weight: 500;\" class=\"table-row \" >
-							<td  class=\"table-row__td\">" . $tr_row_start . $biddingnum . "</td>
+							<td  class=\"table-row__td\">" . $biddingnum . "</td>
 							<td align=\"center\"  class=\"table-row__td\"><div class=\"table-row__info\"><p class=\"table-row__name\">" . $bidding['bidding_name'] . "</p></div></td>
 							<td align=\"center\" class=\"table-row__td\"><div><p class=\"table-row__name\">" . $bidding['cluster'] . "</p></div></td>
 							<td data-column=\"Policy status\" class=\"table-row__td\">

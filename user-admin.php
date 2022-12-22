@@ -3646,57 +3646,38 @@ $nomination_style = '';
 $bidding_status_style = '';
 $bidding_status_color = '';
 $tr_color = '';
-$tr_row_start = '';
+$statusText = '';
 $getClusterQuery = mysqli_query($conn, "SELECT bu_mst.cluster_group FROM `users_mst` INNER JOIN bu_mst ON users_mst.bu = bu_mst.id WHERE users_mst.id = " . $_SESSION['id']);
 $getCluster = mysqli_fetch_assoc($getClusterQuery);
 $addAgencyStatus = '';
 $biddingsql = mysqli_query($conn, "SELECT bidding.*, cluster_group.name as cluster FROM bidding INNER JOIN cluster_group ON bidding.cluster_id = cluster_group.id WHERE bidding.cluster_id = " . $getCluster['cluster_group'] . " ORDER BY bidding_status DESC");
 while ($bidding = mysqli_fetch_assoc($biddingsql)) {
-	if ($bidding['nomination_status'] == 'Closed') {
-		$addAgencyStatus = "<td data-column=\"Progress\" class=\"table-row__td\">
-								<a href=\"javascript:void(0)\" style=\"cursor:pointer;\" onclick=\"viewBiddingSecAgencyModal('" . $bidding['id'] . "');\">View Security Agency</a>
-							</td>";
-		$nomination_color = '#dc3545';
-		$nomination_style = 'status--red';
-	} elseif ($bidding['nomination_status'] == 'Ongoing') {
+	if ($bidding['bidding_status'] == 'Nomination') {
 		$addAgencyStatus = "<td data-column=\"Progress\" class=\"table-row__td\">
 								<a href=\"javascript:void(0)\" style=\"cursor:pointer;\" onclick=\"biddingAddSecAgencyModal('" . $bidding['id'] . "');\">Add Security Agency</a>
 							</td>";
-		$nomination_color = '#28a745';
-		$nomination_style = 'status--green';
-	} else {
-		$nomination_color = '#28a745';
-		$nomination_style = 'status--blue';
-	}
-
-	if ($bidding['bidding_status'] == 'Closed') {
-		$bidding_status_color = '#dc3545';
-		$bidding_status_style = 'status--red';
-	} else {
-		$bidding_status_color = '#28a745';
 		$bidding_status_style = 'status--green';
-	}
-
-	if (($bidding['bidding_status'] == 'Closed') && ($bidding['nomination_status'] == 'Closed')) {
-		$tr_color = 'table-row--red';
-		$tr_row_start = '<div class="table-row--overdue"></div>';
+		$statusText = 'Ongoing';
+	} elseif ($bidding['bidding_status'] == 'Assessment') {
+		$addAgencyStatus = "<td data-column=\"Progress\" class=\"table-row__td\">
+								<a href=\"javascript:void(0)\" style=\"cursor:pointer;\" onclick=\"viewBiddingSecAgencyModal('" . $bidding['id'] . "');\">View Security Agency</a>
+							</td>";
+		$bidding_status_style = 'status--red';
+		$statusText = 'Closed';
 	}
 	// 	<td align=\"center\" ><span style=\"background-color: " . $bidding_status_color . ";color: white; padding: 1px 8px;text-align: center; border-radius: 5px; font-size: 13px;\">" . $bidding['bidding_status'] . "</span></td>
 
-	$biddingtable .= "<tr align=\"center\" height=\"25px\" style=\"font-weight: 500;\" class=\"table-row " . $tr_color . " \" >
-							<td  class=\"table-row__td\">" . $tr_row_start . $biddingnum . "</td>
+	$biddingtable .= "<tr align=\"center\" height=\"25px\" style=\"font-weight: 500;\" class=\"table-row \" >
+							<td  class=\"table-row__td\">" . $biddingnum . "</td>
 							<td align=\"center\"  class=\"table-row__td\"><div class=\"table-row__info\"><p class=\"table-row__name\">" . $bidding['bidding_name'] . "</p></div></td>
 							<td align=\"center\" class=\"table-row__td\"><div><p class=\"table-row__policy\">" . $bidding['cluster'] . "</p></div></td>
 							<td data-column=\"Policy status\" class=\"table-row__td\">
-								<p class=\"table-row__p-status " . $bidding_status_style . " status\">" . $bidding['bidding_status'] .  "</p>
+								<p class=\"table-row__p-status " . $bidding_status_style . " status\">" . $statusText .  "</p>
 							</td>
 							<td align=\"center\" class=\"table-row__td\">36 Points Requirement</td>
-							<td align=\"center\" class=\"table-row__td\">
-								<p class=\"table-row__p-status " . $nomination_style . " status\">" . $bidding['nomination_status'] . "</p>
-							</td>	
 							" . $addAgencyStatus .  "
 							<td data-column=\"Progress\" class=\"table-row__td\">
-								<a href=\"javascript:void(0)\" style=\"cursor:pointer;\" onclick=\"biddingSecAgencyModal('" . $bidding['id'] . "');\">View / Evaluate Agency</a>
+								<a href=\"javascript:void(0)\" style=\"cursor:pointer;\" onclick=\"biddingSecAgencyModal('" . $bidding['id'] . "');\">Evaluate Agency</a>
 							</td>
 							
 						 </tr>";
