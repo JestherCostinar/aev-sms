@@ -5974,3 +5974,21 @@ Stack trace:
 [23-Dec-2022 06:43:10 Asia/Manila] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in C:\xampp\htdocs\aev-sms\user-superadmin.php on line 23
 [23-Dec-2022 06:43:10 Asia/Manila] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in C:\xampp\htdocs\aev-sms\user-superadmin.php on line 134
 [23-Dec-2022 06:43:10 Asia/Manila] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in C:\xampp\htdocs\aev-sms\user-superadmin.php on line 141
+[23-Dec-2022 06:47:56 Asia/Manila] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in C:\xampp\htdocs\aev-sms\user-superadmin.php on line 1325
+[23-Dec-2022 06:47:56 Asia/Manila] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in C:\xampp\htdocs\aev-sms\user-superadmin.php on line 1329
+[23-Dec-2022 06:47:56 Asia/Manila] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in C:\xampp\htdocs\aev-sms\user-superadmin.php on line 1442
+[23-Dec-2022 10:00:29 Asia/Manila] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in C:\xampp\htdocs\aev-sms\user-superadmin.php on line 23
+[23-Dec-2022 10:00:30 Asia/Manila] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in C:\xampp\htdocs\aev-sms\user-superadmin.php on line 134
+[23-Dec-2022 10:00:30 Asia/Manila] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in C:\xampp\htdocs\aev-sms\user-superadmin.php on line 141
+[23-Dec-2022 10:43:26 Asia/Manila] PHP Fatal error:  Uncaught Error: Cannot use object of type mysqli_result as array in C:\xampp\htdocs\aev-sms\getinfo.php:807
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\aev-sms\getinfo.php on line 807
+[23-Dec-2022 10:44:59 Asia/Manila] PHP Fatal error:  Uncaught Error: Cannot use object of type mysqli_result as array in C:\xampp\htdocs\aev-sms\getinfo.php:807
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\aev-sms\getinfo.php on line 807
+[23-Dec-2022 11:08:32 Asia/Manila] PHP Warning:  A non-numeric value encountered in C:\xampp\htdocs\aev-sms\getinfo.php on line 812
+[23-Dec-2022 11:08:32 Asia/Manila] PHP Warning:  A non-numeric value encountered in C:\xampp\htdocs\aev-sms\getinfo.php on line 812
+[23-Dec-2022 11:09:09 Asia/Manila] PHP Warning:  A non-numeric value encountered in C:\xampp\htdocs\aev-sms\getinfo.php on line 812
+[23-Dec-2022 11:09:09 Asia/Manila] PHP Warning:  A non-numeric value encountered in C:\xampp\htdocs\aev-sms\getinfo.php on line 812

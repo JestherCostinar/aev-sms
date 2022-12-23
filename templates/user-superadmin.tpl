@@ -2313,6 +2313,48 @@
 		</table>
     </div>
 
+	<!-- ------------------- Evaluate Requirement -------------------- -->
+	<div id="evaluateRequirement" style="display:none; padding-top:24px;" >
+		<img src="images/x_mark_red.png" height="24px" style="cursor:pointer; position:absolute; right:10px; top:5px;" onclick="closeEvaluateAgency();" />
+		<table align="center" width="100%" border="1" style="border-collapse:collapse;">
+			<tr>
+				<td colspan="100%">
+					<div id="evaluateRequirementDiv" name="evaluateRequirementDiv" class="evaluateRequirementDivs" style="cursor:pointer; padding: 10px">
+						<table width="100%" align="center"  width="100%" border="1" style="border-collapse:collapse; padding: 10px; border: 1px solid #ddd !important;">
+						<caption class="text-center" style="margin-bottom: 10px; font-weight: 700;">Result based on security agency submitted documents</caption>
+							<br>
+							<thead>
+								<tr>
+									<th></th>
+									<th>#</th>
+									<th>Agency Name</th>
+									<th>Total Comply</th>
+									<th>Total Legal Score</th>
+									<th>Total Technical Score</th>
+									<th>Total Financial Score</th>
+									<th>Total</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody id="tbodyEvaluateAgency">
+								
+							</tbody>  
+							<tfoot>
+								<table width="100%" align="center">
+									<tr>
+										<td align="right">
+											<input type="submit" id="btnstartbidding" name="btnstartbidding" class="redbutton" style="margin-top: 5px" value="Start" />
+										</td>
+									</tr>
+								</table>
+							</tfoot>
+						</table>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+
 	<div id="Audit" class="section" style="overflow-x:auto;">
 	
 	</div>

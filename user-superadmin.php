@@ -3323,10 +3323,9 @@ while ($bidding = mysqli_fetch_assoc($biddingsql)) {
 							</td>
 							
 							<td align=\"center\" class=\"table-row__td\">36 Points Requirement</td>
-							
 							" . $addAgencyStatus .  "
 							<td data-column=\"Progress\" class=\"table-row__td\">
-								<a href=\"\">Evaluate Documents</a>
+								<a href=\"javascript:void(0)\" style=\"cursor:pointer;\" onclick=\"viewEvaluateAgency('" . $bidding['id'] . "');\">Evaluate Documents</a>
 							</td>
 							<td data-column=\"Progress\" class=\"table-row__td\">
 								<a href=\"\">View / Upload File(s)</a>

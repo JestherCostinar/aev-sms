@@ -791,7 +791,32 @@ elseif ($type == "poolAgencyListTable") {
 			"<td><input type=\"checkbox\" id=\"poolAgencyID[]\" name=\"poolAgencyID[]\" value=" . $poolSecAgency['id'] . "></td>" .
 		"</tr>";
 	}
+} 
+elseif ($type == "evaluateAgency") {
+	$evaluateAgencyNum = 1;
+	$result = mysqli_query($conn, "SELECT agency_mst.id, agency_mst.agency_name, COUNT(bidding_specific.file_path) as comply FROM `bidding_specific` INNER JOIN agency_mst ON agency_mst.id = bidding_specific.agency_id  WHERE bidding_specific.bidding_id = " . $id . " GROUP BY bidding_specific.agency_id") or die(mysqli_error($conn));
+
+	while ($evaluateAgency = mysqli_fetch_assoc($result)) {
+		$getLegalScore = mysqli_fetch_array(mysqli_query($conn, "SELECT SUM(score) as legalScore FROM `bidding_specific` INNER JOIN bidding_template_item ON bidding_specific.template_id = bidding_template_item.id WHERE bidding_template_item.category = 'Legal' and bidding_specific.agency_id = " . $evaluateAgency['id']));
+		$getTechnicalScore = mysqli_fetch_array(mysqli_query($conn, "SELECT SUM(score) as technicalScore FROM `bidding_specific` INNER JOIN bidding_template_item ON bidding_specific.template_id = bidding_template_item.id WHERE bidding_template_item.category = 'Technical' and bidding_specific.agency_id = " . $evaluateAgency['id']));
+		$getFinancialScore = mysqli_fetch_array(mysqli_query($conn, "SELECT SUM(score) as financialScore FROM `bidding_specific` INNER JOIN bidding_template_item ON bidding_specific.template_id = bidding_template_item.id WHERE bidding_template_item.category = 'Financial' and bidding_specific.agency_id = " . $evaluateAgency['id'])) ?? 0;
+
+		$totalPercentage = ($getLegalScore['legalScore'] * .40)  + ($getTechnicalScore['technicalScore'] * .40) + ($getFinancialScore['financialScore'] * .20);
+		$resulttable .= "<tr height='10px'>
+							<td align='center'><input type='checkbox' id='sendtobu' name='sendtobu' value='1'  /></td>
+							<td align='center'>" . $evaluateAgencyNum . "</td>
+							<td align='center'>" . $evaluateAgency['agency_name'] . "</td>
+							<td align='center'>" . $evaluateAgency['comply'] . "/36 Requirements</td>
+							<td align='center'>" . $getLegalScore['legalScore'] * .40 . "%</td>
+							<td align='center'>" . $getTechnicalScore['technicalScore'] * .40 . "%</td>
+							<td align='center'>" . $getFinancialScore['financialScore'] * .20 . "%</td>
+							<td align='center'>" . $totalPercentage . "%</td>
+							<td align='center'><a href='javascript:void(0)' style='cursor:pointer; color: blue' onclick='viewEvaluateAgency(" . $id . ");\'>Evaluate</a></td>
+						</tr>";
+		$evaluateAgencyNum++;
+	}
 }
+
 
 
 

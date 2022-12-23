@@ -207,6 +207,17 @@ function saveNominatedAgencyRow()
 		alert("No security agency to add.");
 	}
 }
+
+// Open Modal
+function viewEvaluateAgency(id)
+{
+	$("#tbodyEvaluateAgency").load("getinfo.php?type=evaluateAgency&id=" + id);
+	$("#evaluateRequirement").dialog("open");
+}
+
+function closeEvaluateAgency() {
+	$("#evaluateRequirement").dialog("close");
+}
 // -------------------------- END OF BIDDING JS ----------------------------
 
 function evaluateForm(btn){
@@ -5784,6 +5795,16 @@ $(document).ready(function() {
 	$( "#viewsecagencymodal" ).dialog({
 		dialogClass: "no-close",	
 		width: 900,
+		maxHeight: 800,
+		modal: true,
+		closeOnEscape: false,
+		resizable: false,
+		autoOpen: false,
+		position: {my: "top", at: "center", of: "#topbar"}
+  	});
+	$( "#evaluateRequirement" ).dialog({
+		dialogClass: "no-close",	
+		width: 1400,
 		maxHeight: 800,
 		modal: true,
 		closeOnEscape: false,
