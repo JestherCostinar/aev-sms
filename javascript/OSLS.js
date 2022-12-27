@@ -141,6 +141,7 @@ function closeBiddingSecAgencyModal() {
 	$("#viewsecagencymodal").dialog("close");
 }
 
+
 // Open Modal to Nominate Agency
 function biddingAddSecAgencyModal(id)
 {
@@ -217,6 +218,17 @@ function viewEvaluateAgency(id)
 
 function closeEvaluateAgency() {
 	$("#evaluateRequirement").dialog("close");
+}
+
+// Open Modal to View Only
+function viewBiddingSecAgencyModalPrebid(id)
+{
+	$("#tbodyViewEvaluateAgency").load("getinfo.php?type=viewEvaluateAgency&id=" + id);
+	$("#viewEvaluateRequirement").dialog("open");
+}
+
+function closeViewEvaluateAgency() {
+	$("#viewEvaluateRequirement").dialog("close");
 }
 
 // Open Modal
@@ -5806,6 +5818,16 @@ $(document).ready(function() {
 	$( "#viewsecagencymodal" ).dialog({
 		dialogClass: "no-close",	
 		width: 900,
+		maxHeight: 800,
+		modal: true,
+		closeOnEscape: false,
+		resizable: false,
+		autoOpen: false,
+		position: {my: "top", at: "center", of: "#topbar"}
+  	});
+	$( "#viewEvaluateRequirement" ).dialog({
+		dialogClass: "no-close",	
+		width: 1400,
 		maxHeight: 800,
 		modal: true,
 		closeOnEscape: false,

@@ -587,7 +587,7 @@ function send_bidding_notification($to, $message)
 	$mail->Port = 2525;
 
 	//Recipients
-	$mail->setFrom('jesther.jc15@gmail.com', 'Contract Compliance Alert');
+	$mail->setFrom('jesther.jc15@gmail.com', 'AEV-SMS');
 
 	//$mail->addReplyTo('no-reply@aboitiz.com', 'Aboitiz Foundation Team');
 
@@ -600,6 +600,51 @@ function send_bidding_notification($to, $message)
 
 	$mail->Subject = 'Nomination of Security Agency Closed';
 	$mail->msgHTML($message);
+
+
+	if (!$mail->send()) {
+		echo "Error";
+	} else {
+		echo "Yes";
+	}
+}
+
+function send_pre_bidding($to, $message, $attachment)
+{
+	$mail = new PHPMailer;
+	//$mail->isSendmail();
+	$mail->isSMTP();
+
+	//Set the SMTP server to send through
+	$mail->Host = 'smtp.mailtrap.io';
+
+	//Enable SMTP authentication
+	$mail->SMTPAuth = true;
+
+	//SMTP username
+	$mail->Username = 'aea8de017e2e93';
+
+	//SMTP password
+	$mail->Password = '489459a07fba68';
+
+
+	//TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+	$mail->Port = 2525;
+
+	//Recipients
+	$mail->setFrom('jesther.jc15@gmail.com', 'AEV-SMS');
+
+	//$mail->addReplyTo('no-reply@aboitiz.com', 'Aboitiz Foundation Team');
+
+	$tocc = explode(",", $to);
+	foreach ($tocc as $cc) {
+		$mail->addAddress($cc);
+	}
+
+
+	$mail->Subject = 'Pre-Bid Invitation';
+	$mail->msgHTML($message);
+	$mail->addAttachment($attachment);
 
 
 	if (!$mail->send()) {

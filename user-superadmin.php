@@ -1463,6 +1463,32 @@ if($_POST)
 		mysqli_query($conn, "INSERT INTO system_log (uid, log, datetime, bu_id) VALUES ('" . $_SESSION['id'] . "', 'Update Requirement Status of Agency', now(), 0)") or die(mysqli_error());
 		header("Location: user-superadmin.php?last=Bidding");
 	} 
+	elseif ((isset($_POST['btnprebid']))) {
+		$bid_id = $_POST['txtbiddingid'];
+		$getNDIQuery = mysqli_fetch_array(mysqli_query($conn, "Select file_path from bidding_docs WHERE type LIKE '%ndi%'")) or die(mysqli_error($conn));
+		$file_attachment = $getNDIQuery['file_path'];
+		$updateBiddingStatus = mysqli_query($conn, "UPDATE bidding SET bidding_status = 'Prebid' WHERE id = " . $bid_id) or die(mysqli_error($conn));
+
+		if ($updateBiddingStatus) {
+			for ($i = 0, $count = count($_POST['agency_id']); $i < $count; $i++) {
+				mysqli_query($conn, "INSERT INTO bidding_prebid (agency_id, bidding_id) VALUES ('" . $_POST['agency_id'][$i] . "', '" . $bid_id . "')") or die(mysqli_error());
+
+				$mainbody = "<table width='95%' align='center' style='font-family: Calibri, Candara, Segoe, Optima, Arial, sans-serif;'> 
+                    <tr> 
+                        <td>
+                            You are invited to participate for the pre-bidding. <br><br> 
+                            To upload document, PLEASE CLICK <a href='http://localhost/aev-sms-agency/' target='_blank'>HERE</a>
+						</td>
+					</tr>
+					</table>";
+
+				$mail = send_pre_bidding($_POST['agency_email'][$i], $mainbody, $file_attachment);
+			}
+		} 
+
+		mysqli_query($conn, "INSERT INTO system_log (uid, log, datetime, bu_id) VALUES ('" . $_SESSION['id'] . "', 'Start Pre Bid', now(), 0)") or die(mysqli_error());
+		header("Location: user-superadmin.php?last=Bidding");
+	} 
 	elseif((isset($_POST['txtaddbuitementry'])) && !empty($_POST['txtaddbuitementry']))
 	{
 		$editbuitem = mysqli_real_escape_string($conn, $_POST['txtaddbuitementry']);
@@ -3314,16 +3340,30 @@ $biddingsql = mysqli_query($conn, "SELECT bidding.*, cluster_group.name as clust
 while ($bidding = mysqli_fetch_assoc($biddingsql)) {
 
 	if ($bidding['bidding_status'] == 'Nomination') {
+		$addEvaluateStatus = "<td data-column=\"Progress\" class=\"table-row__td\">
+								<a href=\"javascript:void(0)\" style=\"cursor:pointer;\" onclick=\"viewEvaluateAgency('" . $bidding['id'] . "');\">View Security Agency</a>
+							</td>";
 		$addAgencyStatus = "<td data-column=\"Progress\" class=\"table-row__td\">
 								<a href=\"javascript:void(0)\" style=\"cursor:pointer;\" onclick=\"biddingAddSecAgencyModal('" . $bidding['id'] . "');\">Add Security Agency</a>
 							</td>";
 		$bidding_status_style = 'status--yellow';
 	
 	} elseif ($bidding['bidding_status'] == 'Assessment') {
+		$addEvaluateStatus = "<td data-column=\"Progress\" class=\"table-row__td\">
+								<a href=\"javascript:void(0)\" style=\"cursor:pointer;\" onclick=\"viewEvaluateAgency('" . $bidding['id'] . "');\">View Security Agency</a>
+							</td>";
 		$addAgencyStatus = "<td data-column=\"Progress\" class=\"table-row__td\">
 								<a href=\"javascript:void(0)\" style=\"cursor:pointer;\" onclick=\"viewBiddingSecAgencyModal('" . $bidding['id'] . "');\">View Security Agency</a>
 							</td>";
 		$bidding_status_style = 'status--blue';
+	} elseif ($bidding['bidding_status'] == 'Prebid') {
+		$addEvaluateStatus = "<td data-column=\"Progress\" class=\"table-row__td\">
+								<a href=\"javascript:void(0)\" style=\"cursor:pointer;\" onclick=\"viewBiddingSecAgencyModalPrebid('" . $bidding['id'] . "');\">View Security Agency</a>
+							</td>";
+		$addAgencyStatus = "<td data-column=\"Progress\" class=\"table-row__td\">
+								<a href=\"javascript:void(0)\" style=\"cursor:pointer;\" onclick=\"viewBiddingSecAgencyModal('" . $bidding['id'] . "');\">View Security Agency</a>
+							</td>";
+		$bidding_status_style = 'status--red';
 	}
 
 	// 	<td align=\"center\" ><span style=\"background-color: " . $bidding_status_color . ";color: white; padding: 1px 8px;text-align: center; border-radius: 5px; font-size: 13px;\">" . $bidding['bidding_status'] . "</span></td>
@@ -3338,9 +3378,7 @@ while ($bidding = mysqli_fetch_assoc($biddingsql)) {
 							
 							<td align=\"center\" class=\"table-row__td\">36 Points Requirement</td>
 							" . $addAgencyStatus .  "
-							<td data-column=\"Progress\" class=\"table-row__td\">
-								<a href=\"javascript:void(0)\" style=\"cursor:pointer;\" onclick=\"viewEvaluateAgency('" . $bidding['id'] . "');\">Evaluate Documents</a>
-							</td>
+							" . $addEvaluateStatus .  "
 							<td data-column=\"Progress\" class=\"table-row__td\">
 								<a href=\"\">View / Upload File(s)</a>
 							</td>
