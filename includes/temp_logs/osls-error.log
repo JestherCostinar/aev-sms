@@ -5992,3 +5992,7 @@ Stack trace:
 [23-Dec-2022 11:08:32 Asia/Manila] PHP Warning:  A non-numeric value encountered in C:\xampp\htdocs\aev-sms\getinfo.php on line 812
 [23-Dec-2022 11:09:09 Asia/Manila] PHP Warning:  A non-numeric value encountered in C:\xampp\htdocs\aev-sms\getinfo.php on line 812
 [23-Dec-2022 11:09:09 Asia/Manila] PHP Warning:  A non-numeric value encountered in C:\xampp\htdocs\aev-sms\getinfo.php on line 812
+[27-Dec-2022 01:25:36 Asia/Manila] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in C:\xampp\htdocs\aev-sms\user-superadmin.php on line 23
+[27-Dec-2022 01:25:37 Asia/Manila] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in C:\xampp\htdocs\aev-sms\user-superadmin.php on line 134
+[27-Dec-2022 01:25:37 Asia/Manila] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in C:\xampp\htdocs\aev-sms\user-superadmin.php on line 141
+[27-Dec-2022 08:04:02 Asia/Manila] PHP Warning:  mysqli_error() expects exactly 1 parameter, 0 given in C:\xampp\htdocs\aev-sms\user-superadmin.php on line 1459

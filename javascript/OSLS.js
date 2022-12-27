@@ -218,6 +218,17 @@ function viewEvaluateAgency(id)
 function closeEvaluateAgency() {
 	$("#evaluateRequirement").dialog("close");
 }
+
+// Open Modal
+function viewEvaluateAgencyRequirement(id, agencyID)
+{
+	$("#tbodyAgencyRequirement").load("getinfo.php?type=evaluateAgencyRequirement&id=" + id + "&agencyID=" + agencyID);
+	$("#requirementDiv").dialog("open");
+}
+
+function closeEvaluateAgencyRequirement() {
+	$("#requirementDiv").dialog("close");
+}
 // -------------------------- END OF BIDDING JS ----------------------------
 
 function evaluateForm(btn){
@@ -5803,6 +5814,16 @@ $(document).ready(function() {
 		position: {my: "top", at: "center", of: "#topbar"}
   	});
 	$( "#evaluateRequirement" ).dialog({
+		dialogClass: "no-close",	
+		width: 1400,
+		maxHeight: 800,
+		modal: true,
+		closeOnEscape: false,
+		resizable: false,
+		autoOpen: false,
+		position: {my: "top", at: "center", of: "#topbar"}
+  	});
+	$( "#requirementDiv" ).dialog({
 		dialogClass: "no-close",	
 		width: 1400,
 		maxHeight: 800,

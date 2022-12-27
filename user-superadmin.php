@@ -1448,7 +1448,21 @@ if($_POST)
 		
 		mysqli_query($conn, "INSERT INTO system_log (uid, log, datetime, bu_id) VALUES ('" . $_SESSION['id'] . "', 'Start Bidding', now(), 0)") or die(mysqli_error());
 		header("Location: user-superadmin.php?last=Bidding");
-	}
+	} 
+	elseif ((isset($_POST['btnagencyrequirement']))) {
+
+		for ($i = 0, $count = count($_POST['txtRequirementRemarks']); $i < $count; $i++) {
+			echo $_POST['submittedReqID'][$i] . '<br>';
+			echo $_POST['txtRequirementScore'][$i] . '<br>';
+			echo $_POST['txtRequirementRemarks'][$i] . '<br>';
+
+			mysqli_query($conn, "UPDATE bidding_specific SET score = '" . $_POST['txtRequirementScore'][$i] . "', remarks = '" . $_POST['txtRequirementRemarks'][$i] . "' WHERE id = '" . $_POST['submittedReqID'][$i] . "'") or die(mysqli_error());
+		}
+
+
+		mysqli_query($conn, "INSERT INTO system_log (uid, log, datetime, bu_id) VALUES ('" . $_SESSION['id'] . "', 'Update Requirement Status of Agency', now(), 0)") or die(mysqli_error());
+		header("Location: user-superadmin.php?last=Bidding");
+	} 
 	elseif((isset($_POST['txtaddbuitementry'])) && !empty($_POST['txtaddbuitementry']))
 	{
 		$editbuitem = mysqli_real_escape_string($conn, $_POST['txtaddbuitementry']);

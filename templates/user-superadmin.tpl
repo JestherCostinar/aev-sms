@@ -2339,16 +2339,59 @@
 							<tbody id="tbodyEvaluateAgency">
 								
 							</tbody>  
+							
 							<tfoot>
 								<table width="100%" align="center">
 									<tr>
 										<td align="right">
-											<input type="submit" id="btnstartbidding" name="btnstartbidding" class="redbutton" style="margin-top: 5px" value="Start" />
+											<input type="submit" id="btnstartbidding" name="btnstartbidding" class="redbutton" style="margin-top: 5px" value="Start PreBid" />
 										</td>
 									</tr>
 								</table>
 							</tfoot>
 						</table>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+	<!-- ------------------- Evaluate Requirement Submitted By Agency -------------------- -->
+	<div id="requirementDiv" style="display:none; padding-top:24px;" >
+		<img src="images/x_mark_red.png" height="24px" style="cursor:pointer; position:absolute; right:10px; top:5px;" onclick="closeEvaluateAgencyRequirement();" />
+		<table align="center" width="100%" border="1" style="border-collapse:collapse;">
+			<tr>
+				<td colspan="100%">
+					<div id="agencyRequirementDiv" name="agencyRequirementDiv" class="agencyRequirementDivs" style="cursor:pointer; padding: 10px">
+						<form id="frmAgencyRequirement" name="frmAgencyRequirement" method="post" action="user-superadmin.php">
+						<table width="100%" align="center"  width="100%" border="1" style="border-collapse:collapse; padding: 10px; border: 1px solid #ddd !important;">
+						<caption class="text-center" style="margin-bottom: 10px; font-weight: 700;">Result based on security agency submitted documents</caption>
+							<br>
+							<thead>
+								<tr>
+									<th>File Name</th>
+									<th>Category</th>
+									<th>Weight Percentage</th>
+									<th>Submitted File</th>
+									<th>Score</th>
+									<th>Remarks</th>
+								</tr>
+							</thead>
+							<tbody id="tbodyAgencyRequirement">
+								
+							</tbody>  
+							
+							<tfoot>
+								<table width="100%" align="center">
+									<tr>
+										<td align="right">
+											<input type="submit" id="btnagencyrequirement" name="btnagencyrequirement" class="redbutton" style="margin-top: 5px" value="Save" />
+										</td>
+									</tr>
+								</table>
+							</tfoot>
+						</table>
+						</form>
 					</div>
 				</td>
 			</tr>

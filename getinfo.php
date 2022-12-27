@@ -18,6 +18,7 @@ elseif($_SESSION['level'] == "Super Admin")
 
 $type = mysqli_real_escape_string($conn, $_GET['type']);
 $id = mysqli_real_escape_string($conn, $_GET['id']);
+$agencyID = mysqli_real_escape_string($conn, $_GET['agencyID']);
 $id2 = mysqli_real_escape_string($conn, $_GET['id2']);
 $resulttable = "";
 if($type == "agencybu")
@@ -807,13 +808,27 @@ elseif ($type == "evaluateAgency") {
 							<td align='center'>" . $evaluateAgencyNum . "</td>
 							<td align='center'>" . $evaluateAgency['agency_name'] . "</td>
 							<td align='center'>" . $evaluateAgency['comply'] . "/36 Requirements</td>
-							<td align='center'>" . $getLegalScore['legalScore'] * .40 . "%</td>
-							<td align='center'>" . $getTechnicalScore['technicalScore'] * .40 . "%</td>
-							<td align='center'>" . $getFinancialScore['financialScore'] * .20 . "%</td>
+							<td align='center' style='background-color: #f9c8c8'>" . $getLegalScore['legalScore'] * .40 . "%</td>
+							<td align='center' style='background-color: rgb(198,217,240)'>" . $getTechnicalScore['technicalScore'] * .40 . "%</td>
+							<td align='center' style='background-color: rgb(234,241,221)'>" . $getFinancialScore['financialScore'] * .20 . "%</td>
 							<td align='center'>" . $totalPercentage . "%</td>
-							<td align='center'><a href='javascript:void(0)' style='cursor:pointer; color: blue' onclick='viewEvaluateAgency(" . $id . ");\'>Evaluate</a></td>
+							<td align='center'><a href='javascript:void(0)' style='cursor:pointer; color: blue' onclick='viewEvaluateAgencyRequirement(" . $id . ",  " . $evaluateAgency['id'] . ");'>Evaluate</a></td>
 						</tr>";
 		$evaluateAgencyNum++;
+	}
+} 
+elseif ($type == "evaluateAgencyRequirement") {
+	$result = mysqli_query($conn, "SELECT bidding_specific.id as req_id, bidding_specific.remarks as superadmin_remarks, bidding_specific.*, bidding_template_item.* FROM `bidding_specific` INNER JOIN bidding_template_item ON bidding_specific.template_id = bidding_template_item.id WHERE bidding_specific.agency_id = " . $agencyID . " and bidding_specific.bidding_id = " . $id . "") or die(mysqli_error($conn));
+	while ($evaluateAgencyRequirement = mysqli_fetch_assoc($result)) {
+		$resulttable .= "<tr height='10px' >
+							<input type='hidden' id='submittedReqID[]' name='submittedReqID[]'  value=" . $evaluateAgencyRequirement['req_id'] . " /> 
+							<td align='center' width='30%'>" . $evaluateAgencyRequirement['requirement_name'] . "</td>
+							<td align='center' width='10%'>" . $evaluateAgencyRequirement['category'] . "</td>
+							<td align='center' width='10%'>" . $evaluateAgencyRequirement['weight_percentage'] . "</td>
+							<td align='center' width='10%'><a style='color: blue' href='http://localhost/aev-sms-agency/" . $evaluateAgencyRequirement['file_path'] . "' target='_blank'>View</a></td>
+							<td align='center' width='10%'><input type='text' id='txtRequirementScore[]' name='txtRequirementScore[]'  value=" . $evaluateAgencyRequirement['score'] . " /></td>
+							<td align='center' width='10%'><textarea id='txtRequirementRemarks[]' name='txtRequirementRemarks[]' >" . $evaluateAgencyRequirement['superadmin_remarks'] . "</textarea></td>
+						</tr>";
 	}
 }
 
