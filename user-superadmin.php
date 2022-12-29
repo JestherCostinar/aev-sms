@@ -622,9 +622,10 @@ if($_POST)
 			$clusterReceiver = '';
 			$getReceiverOfClusterQuery = mysqli_query($conn, "SELECT users_mst.user_email FROM `users_mst` INNER JOIN bu_mst ON users_mst.bu = bu_mst.id WHERE bu_mst.cluster_group = " . $biddingCluster);
 			while ($getReceiverOfCluster = mysqli_fetch_assoc($getReceiverOfClusterQuery)) {
-				$clusterReceiver .= $getReceiverOfCluster['user_email'] . ',';
+				if($getReceiverOfCluster['user_email']) {
+					$clusterReceiver .= $getReceiverOfCluster['user_email'] . ',';
+				}
 			}
-
 			$mail = send_bidding_invitation($clusterReceiver, $biddingMessage);
 		}
 
@@ -1401,13 +1402,13 @@ if($_POST)
 				$passwordText = '';
 
 				if(md5('Password2022') == $getAgencyEmail['password']) {
-					$passwordText = 'Password2022';
+					$passwordText = 'Password'.date('Y');
 				}
 
 				$mainbody = "<table width='95%' align='center' style='font-family: Calibri, Candara, Segoe, Optima, Arial, sans-serif;'> 
                     <tr> 
                         <td>
-                            Nomination of Security Agency.<br><br> 
+							We are reaching out to inform you that your security agency is nominated to participate in the bidding.<br><br> 
                             To upload requirements, PLEASE CLICK <a href='http://localhost/aev-sms-agency/' target='_blank'>HERE</a>
 							<br><br>
 							<strong>Login Credentials:</strong><br>
@@ -1425,7 +1426,9 @@ if($_POST)
 				$mail = send_bidding_requirements($getAgencyEmail['email'], $mainbody);
 			}
 
-			$resulttable = "<div style='font-family: Calibri, Candara, Segoe, Optima, Arial, sans-serif;'><h2>List of Participant</h2>
+			$resulttable = "<div style='font-family: Calibri, Candara, Segoe, Optima, Arial, sans-serif;'>
+			<p>Hi, <br><br>I am pleased to present the list of qualified participants for the bidding process.<br>
+			 Attached to this email, you will find a complete list of all qualified security agencies.</p>
 			<table style='width:30%; border:1px solid black;'>
 				<tr >
 					<th align='left' style='border:1px solid black; background: red; color: white'>Agency Name</th>
@@ -1436,7 +1439,7 @@ if($_POST)
 									<td style='border:1px solid black;'>" . $row['agency_name'] . "</td>
 								</tr>";
 			}
-			$resulttable .= "</table>";
+			$resulttable .= "</table></div>";
 			$clusterReceiverForBiddingClose = '';
 			$getReceiverOfClusterCloseBiddingQuery = mysqli_query($conn, "SELECT users_mst.user_email FROM `users_mst` INNER JOIN bu_mst ON users_mst.bu = bu_mst.id WHERE bu_mst.cluster_group = " . $clust_id);
 			while ($getReceiverOfClusterCloseBidding = mysqli_fetch_assoc($getReceiverOfClusterCloseBiddingQuery)) {
@@ -1471,13 +1474,16 @@ if($_POST)
 
 		if ($updateBiddingStatus) {
 			for ($i = 0, $count = count($_POST['agency_id']); $i < $count; $i++) {
-				mysqli_query($conn, "INSERT INTO bidding_prebid (agency_id, bidding_id) VALUES ('" . $_POST['agency_id'][$i] . "', '" . $bid_id . "')") or die(mysqli_error());
+				mysqli_query($conn, "UPDATE bidding_agency SET bidding_status = 'Prebid' WHERE bidding_id = '" . $bid_id . "' AND agency_id = '" . $_POST['agency_id'][$i] . "'") or die(mysqli_error());
 
 				$mainbody = "<table width='95%' align='center' style='font-family: Calibri, Candara, Segoe, Optima, Arial, sans-serif;'> 
                     <tr> 
                         <td>
-                            You are invited to participate for the pre-bidding. <br><br> 
-                            To upload document, PLEASE CLICK <a href='http://localhost/aev-sms-agency/' target='_blank'>HERE</a>
+							I am pleased to inform you that you are qualified for the pre-bidding process.
+						 <br><br> 
+                            To upload document for pre-bidding, PLEASE CLICK <a href='http://localhost/aev-sms-agency/' target='_blank'>HERE</a>
+						<br><br>
+							Also, attached to this email, you will find a copy of the signed Non-Disclosure Agreements (NDA) for the bidding Please review the document and let us know if there are any issues or concerns with the documents
 						</td>
 					</tr>
 					</table>";
@@ -3341,7 +3347,7 @@ while ($bidding = mysqli_fetch_assoc($biddingsql)) {
 
 	if ($bidding['bidding_status'] == 'Nomination') {
 		$addEvaluateStatus = "<td data-column=\"Progress\" class=\"table-row__td\">
-								<a href=\"javascript:void(0)\" style=\"cursor:pointer;\" onclick=\"viewEvaluateAgency('" . $bidding['id'] . "');\">View Security Agency</a>
+								<a href=\"javascript:void(0)\" style=\"cursor:pointer;\" onclick=\"viewEvaluateAgency('" . $bidding['id'] . "');\">Evaluate Security Agency</a>
 							</td>";
 		$addAgencyStatus = "<td data-column=\"Progress\" class=\"table-row__td\">
 								<a href=\"javascript:void(0)\" style=\"cursor:pointer;\" onclick=\"biddingAddSecAgencyModal('" . $bidding['id'] . "');\">Add Security Agency</a>
@@ -3350,7 +3356,7 @@ while ($bidding = mysqli_fetch_assoc($biddingsql)) {
 	
 	} elseif ($bidding['bidding_status'] == 'Assessment') {
 		$addEvaluateStatus = "<td data-column=\"Progress\" class=\"table-row__td\">
-								<a href=\"javascript:void(0)\" style=\"cursor:pointer;\" onclick=\"viewEvaluateAgency('" . $bidding['id'] . "');\">View Security Agency</a>
+								<a href=\"javascript:void(0)\" style=\"cursor:pointer;\" onclick=\"viewEvaluateAgency('" . $bidding['id'] . "');\">Evaluate Security Agency</a>
 							</td>";
 		$addAgencyStatus = "<td data-column=\"Progress\" class=\"table-row__td\">
 								<a href=\"javascript:void(0)\" style=\"cursor:pointer;\" onclick=\"viewBiddingSecAgencyModal('" . $bidding['id'] . "');\">View Security Agency</a>
@@ -3358,7 +3364,7 @@ while ($bidding = mysqli_fetch_assoc($biddingsql)) {
 		$bidding_status_style = 'status--blue';
 	} elseif ($bidding['bidding_status'] == 'Prebid') {
 		$addEvaluateStatus = "<td data-column=\"Progress\" class=\"table-row__td\">
-								<a href=\"javascript:void(0)\" style=\"cursor:pointer;\" onclick=\"viewBiddingSecAgencyModalPrebid('" . $bidding['id'] . "');\">View Security Agency</a>
+								<a href=\"javascript:void(0)\" style=\"cursor:pointer;\" onclick=\"viewBiddingSecAgencyModalPrebid('" . $bidding['id'] . "');\">Evaluate Security Agency</a>
 							</td>";
 		$addAgencyStatus = "<td data-column=\"Progress\" class=\"table-row__td\">
 								<a href=\"javascript:void(0)\" style=\"cursor:pointer;\" onclick=\"viewBiddingSecAgencyModal('" . $bidding['id'] . "');\">View Security Agency</a>
@@ -3380,7 +3386,10 @@ while ($bidding = mysqli_fetch_assoc($biddingsql)) {
 							" . $addAgencyStatus .  "
 							" . $addEvaluateStatus .  "
 							<td data-column=\"Progress\" class=\"table-row__td\">
-								<a href=\"\">View / Upload File(s)</a>
+								<a href=\"\">View Documents / Offcer</a>
+							</td>
+							<td data-column=\"Progress\" class=\"table-row__td\">
+								<a href=\"\">Bidding Consolidation</a>
 							</td>
 						 </tr>";
 	$nomination_color = '';
@@ -3406,5 +3415,4 @@ echo stripslashes($body);
 
 
 ?>
-
 

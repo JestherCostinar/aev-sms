@@ -5817,51 +5817,51 @@ $(document).ready(function() {
   	});
 	$( "#viewsecagencymodal" ).dialog({
 		dialogClass: "no-close",	
-		width: 900,
+		width: 700,
 		maxHeight: 800,
 		modal: true,
-		closeOnEscape: false,
+		closeOnEscape: true,
 		resizable: false,
 		autoOpen: false,
 		position: {my: "top", at: "center", of: "#topbar"}
   	});
 	$( "#viewEvaluateRequirement" ).dialog({
 		dialogClass: "no-close",	
-		width: 1400,
+		width: 1200,
 		maxHeight: 800,
 		modal: true,
-		closeOnEscape: false,
-		resizable: false,
+		closeOnEscape: true,
+		resizable: true,
 		autoOpen: false,
 		position: {my: "top", at: "center", of: "#topbar"}
   	});
 	$( "#evaluateRequirement" ).dialog({
 		dialogClass: "no-close",	
-		width: 1400,
-		maxHeight: 800,
+		width: 1200,
+		maxheight: 600,
 		modal: true,
-		closeOnEscape: false,
-		resizable: false,
+		closeOnEscape: true,
+		resizable: true,
 		autoOpen: false,
 		position: {my: "top", at: "center", of: "#topbar"}
   	});
 	$( "#requirementDiv" ).dialog({
 		dialogClass: "no-close",	
-		width: 1400,
-		maxHeight: 800,
+		width: 1200,
+		height: 550,
 		modal: true,
-		closeOnEscape: false,
-		resizable: false,
+		closeOnEscape: true,
+		resizable: true,
 		autoOpen: false,
 		position: {my: "top", at: "center", of: "#topbar"}
   	});
 	$( "#addsecagencymodal" ).dialog({
 		dialogClass: "no-close",	
-		width: 1400,
-		maxHeight: 800,
+		width: 1200,
+		maxHeight: 580,
 		modal: true,
-		closeOnEscape: false,
-		resizable: false,
+		closeOnEscape: true,
+		resizable: true,
 		autoOpen: false,
 		position: {my: "top", at: "center", of: "#topbar"}
   	});
@@ -5869,8 +5869,8 @@ $(document).ready(function() {
 		dialogClass: "no-close",
 		width: 800,
 		modal: true,
-		closeOnEscape: false,
-		resizable: false,
+		closeOnEscape: true,
+		resizable: true,
 		autoOpen: false
   	});
 	$( "#back" ).click(function() {

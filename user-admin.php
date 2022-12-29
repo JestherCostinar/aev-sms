@@ -2105,6 +2105,8 @@ if($_POST)
 			}
 		}
 
+		$updatePass = "Password".date("Y");
+		mysqli_query($conn, "UPDATE agency_mst SET password = '" . md5($updatePass) . "'") or die(mysqli_error());
 		mysqli_query($conn, "INSERT INTO system_log (uid, log, datetime, bu_id) VALUES ('" . $_SESSION['id'] . "', 'Nominate Security Agency', now(), 0)") or die(mysqli_error());
 		header("Location: user-admin.php?last=Bidding");
 	} 
@@ -3652,6 +3654,8 @@ $getCluster = mysqli_fetch_assoc($getClusterQuery);
 $addAgencyStatus = '';
 $biddingsql = mysqli_query($conn, "SELECT bidding.*, cluster_group.name as cluster FROM bidding INNER JOIN cluster_group ON bidding.cluster_id = cluster_group.id WHERE bidding.cluster_id = " . $getCluster['cluster_group'] . " ORDER BY bidding_status DESC");
 while ($bidding = mysqli_fetch_assoc($biddingsql)) {
+
+	
 	if ($bidding['bidding_status'] == 'Nomination') {
 		$addAgencyStatus = "<td data-column=\"Progress\" class=\"table-row__td\">
 								<a href=\"javascript:void(0)\" style=\"cursor:pointer;\" onclick=\"biddingAddSecAgencyModal('" . $bidding['id'] . "');\">Add Security Agency</a>
@@ -3659,6 +3663,12 @@ while ($bidding = mysqli_fetch_assoc($biddingsql)) {
 		$bidding_status_style = 'status--green';
 		$statusText = 'Ongoing';
 	} elseif ($bidding['bidding_status'] == 'Assessment') {
+		$addAgencyStatus = "<td data-column=\"Progress\" class=\"table-row__td\">
+								<a href=\"javascript:void(0)\" style=\"cursor:pointer;\" onclick=\"viewBiddingSecAgencyModal('" . $bidding['id'] . "');\">View Security Agency</a>
+							</td>";
+		$bidding_status_style = 'status--red';
+		$statusText = 'Closed';
+	} elseif ($bidding['bidding_status'] == 'Prebid') {
 		$addAgencyStatus = "<td data-column=\"Progress\" class=\"table-row__td\">
 								<a href=\"javascript:void(0)\" style=\"cursor:pointer;\" onclick=\"viewBiddingSecAgencyModal('" . $bidding['id'] . "');\">View Security Agency</a>
 							</td>";
@@ -3712,5 +3722,4 @@ else
 echo stripslashes($body);
 
 ?>
-
 

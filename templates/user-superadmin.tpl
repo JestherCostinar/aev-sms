@@ -2170,7 +2170,7 @@
 					<th class="table__th" width="15%">Cluster</th>
 					<th class="table__th" width="8%">Bidding Status</th>
 					<th class="table__th" width="10%">Bidding Requirement</th>
-					<th class="table__th" colspan="3" width="30%">Action</th>
+					<th class="table__th" colspan="4" width="40%">Action</th>
 				</tr>
             </thead>
             <tbody class="table__tbody">
@@ -2270,6 +2270,12 @@
 				<td colspan="100%">
 					<div id="poolSecAgencyDiv" name="poolSecAgencyDiv" style="padding: 10px" class="biddingaddsecagencydivs">
                         <form id="frmPoolAgency" name="frmPoolAgency" method="post" action="user-superadmin.php">
+						
+						<table width="100%" align="center"  width="100%" border="1" style="border-collapse:collapse; padding: 10px">
+                            <tr style="background: #f00">
+                                <th>List of nominated security agency</th>
+                            </tr>
+                        </table>
 						<table width="100%" align="center" border="1" style="border-collapse:collapse; padding: 10px">
                             <thead>
                                 <tr class="whiteonblack">
@@ -2285,7 +2291,13 @@
                             <tbody id="tbodyAddSecAgency">
                             </tbody>    
                         </table>
-                        
+                        <table width="100%" align="center">
+                            <tr>
+                                <td align="right">
+									<input type="submit" id="btnstartbidding" name="btnstartbidding" class="redbutton" value="Start" />
+                                </td>
+                            </tr>
+                        </table>
                         <br>
                         <table width="100%" align="center"  width="100%" border="1" style="border-collapse:collapse; padding: 10px">
                             <tr style="background: #ffffd4">
@@ -2301,7 +2313,6 @@
                         <table width="100%" align="center">
                             <tr>
                                 <td align="right">
-									<input type="submit" id="btnstartbidding" name="btnstartbidding" class="redbutton" value="Start" />
                                     <input type="submit" id="btnsavepoolagency" name="btnsavepoolagency" class="redbutton" value="Save" />
                                 </td>
                             </tr>
@@ -2313,7 +2324,6 @@
 		</table>
     </div>
 	
-
 	<!-- ------------------- Evaluate Requirement -------------------- -->
 	<div id="evaluateRequirement" style="display:none; padding-top:24px;" >
 		<img src="images/x_mark_red.png" height="24px" style="cursor:pointer; position:absolute; right:10px; top:5px;" onclick="closeEvaluateAgency();" />
@@ -2322,50 +2332,46 @@
 				<td colspan="100%">
 					<div id="evaluateRequirementDiv" name="evaluateRequirementDiv" class="evaluateRequirementDivs" style="cursor:pointer; padding: 10px">
 						<form id="frmPreBid" name="frmPreBid" method="post" action="user-superadmin.php">
-						<table width="100%" align="center"  width="100%" border="1" style="border-collapse:collapse; padding: 10px; border: 1px solid #ddd !important;">
-						<caption class="text-center" style="margin-bottom: 10px; font-weight: 700;">Result based on security agency submitted documents</caption>
-							<br>
-							<thead>
-								<tr>
-									<th></th>
-									<th>#</th>
-									<th>Agency Name</th>
-									<th>Total Comply</th>
-									<th>Total Legal Score</th>
-									<th>Total Technical Score</th>
-									<th>Total Financial Score</th>
-									<th>Total</th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody id="tbodyEvaluateAgency">
-								
-							</tbody>  
-							
-							<tfoot>
-								<table width="100%" align="center">
+							<table width="100%" align="center"  width="100%" border="1" style="border-collapse:collapse; padding: 10px; border: 1px solid #ddd !important;">
+							<caption class="text-center" style="margin-bottom: 10px; font-weight: 700;">Result based on security agency submitted documents</caption>
+								<br>
+								<thead>
 									<tr>
-										<td align="right">
-											<input type="submit" id="btnprebid" name="btnprebid" class="redbutton" style="margin-top: 5px" value="Start PreBid" />
-										</td>
+										<th></th>
+										<th>#</th>
+										<th>Agency Name</th>
+										<th>Total Comply</th>
+										<th>Total Legal Score</th>
+										<th>Total Technical Score</th>
+										<th>Total Financial Score</th>
+										<th>Total</th>
+										<th></th>
 									</tr>
-								</table>
-							</tfoot>
-						</table>
+								</thead>
+								<tbody id="tbodyEvaluateAgency">
+									
+								</tbody>  
+								
+
+								<td align="right" colspan="100%">
+									<input type="submit" id="btnprebid" name="btnprebid" class="redbutton" style="margin-top: 5px" value="Start PreBid" />
+								</td>
+										
+							</table>
 						</form>
 					</div>
 				</td>
 			</tr>
 		</table>
 	</div>
-
-	<!-- ------------------- Evaluate Requirement -------------------- -->
+	
+	<!-- ------------------- View Evaluate Requirement -------------------- -->
 	<div id="viewEvaluateRequirement" style="display:none; padding-top:24px;" >
 		<img src="images/x_mark_red.png" height="24px" style="cursor:pointer; position:absolute; right:10px; top:5px;" onclick="closeViewEvaluateAgency();" />
 		<table align="center" width="100%" border="1" style="border-collapse:collapse;">
 			<tr>
 				<td colspan="100%">
-					<div id="evaluateRequirementDiv" name="evaluateRequirementDiv" class="evaluateRequirementDivs" style="cursor:pointer; padding: 10px">
+					<div id="viewevaluateRequirementDiv" name="viewevaluateRequirementDiv" class="viewevaluateRequirementDivs" style="cursor:pointer; padding: 10px">
 						<table width="100%" align="center"  width="100%" border="1" style="border-collapse:collapse; padding: 10px; border: 1px solid #ddd !important;">
 						<caption class="text-center" style="margin-bottom: 10px; font-weight: 700;">Result based on security agency submitted documents</caption>
 							<br>
@@ -2415,15 +2421,9 @@
 								
 							</tbody>  
 							
-							<tfoot>
-								<table width="100%" align="center">
-									<tr>
-										<td align="right">
-											<input type="submit" id="btnagencyrequirement" name="btnagencyrequirement" class="redbutton" style="margin-top: 5px" value="Save" />
-										</td>
-									</tr>
-								</table>
-							</tfoot>
+							<td align="right" colspan="100%">
+								 <input type="submit" id="btnagencyrequirement" name="btnagencyrequirement" class="redbutton" style="margin-top: 5px" value="Save" />
+							</td>		
 						</table>
 						</form>
 					</div>

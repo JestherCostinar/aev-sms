@@ -6019,3 +6019,18 @@ Stack trace:
 [27-Dec-2022 12:40:38 Asia/Manila] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in C:\xampp\htdocs\aev-sms\user-superadmin.php on line 1329
 [27-Dec-2022 12:40:38 Asia/Manila] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in C:\xampp\htdocs\aev-sms\user-superadmin.php on line 1442
 [27-Dec-2022 12:44:02 Asia/Manila] PHP Warning:  count(): Parameter must be an array or an object that implements Countable in C:\xampp\htdocs\aev-sms\user-superadmin.php on line 1473
+[27-Dec-2022 13:35:43 Asia/Manila] PHP Warning:  mysqli_error() expects exactly 1 parameter, 0 given in C:\xampp\htdocs\aev-sms\user-superadmin.php on line 1474
+[27-Dec-2022 13:36:43 Asia/Manila] PHP Deprecated:  Function get_magic_quotes_runtime() is deprecated in C:\xampp\htdocs\aev-sms\phpmailer\PHPMailer-master\class.phpmailer.php on line 2691
+[27-Dec-2022 13:36:49 Asia/Manila] PHP Deprecated:  Function get_magic_quotes_runtime() is deprecated in C:\xampp\htdocs\aev-sms\phpmailer\PHPMailer-master\class.phpmailer.php on line 2691
+[27-Dec-2022 13:39:12 Asia/Manila] PHP Deprecated:  Function get_magic_quotes_runtime() is deprecated in C:\xampp\htdocs\aev-sms\phpmailer\PHPMailer-master\class.phpmailer.php on line 2691
+[27-Dec-2022 14:18:01 Asia/Manila] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in C:\xampp\htdocs\aev-sms\user-superadmin.php on line 23
+[27-Dec-2022 14:18:02 Asia/Manila] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in C:\xampp\htdocs\aev-sms\user-superadmin.php on line 134
+[27-Dec-2022 14:18:02 Asia/Manila] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in C:\xampp\htdocs\aev-sms\user-superadmin.php on line 141
+[27-Dec-2022 15:21:30 Asia/Manila] PHP Deprecated:  Function get_magic_quotes_runtime() is deprecated in C:\xampp\htdocs\aev-sms\phpmailer\PHPMailer-master\class.phpmailer.php on line 2691
+[29-Dec-2022 16:03:30 Asia/Manila] PHP Deprecated:  Function get_magic_quotes_runtime() is deprecated in C:\xampp\htdocs\aev-sms\phpmailer\PHPMailer-master\class.phpmailer.php on line 2691
+[29-Dec-2022 16:03:35 Asia/Manila] PHP Deprecated:  Function get_magic_quotes_runtime() is deprecated in C:\xampp\htdocs\aev-sms\phpmailer\PHPMailer-master\class.phpmailer.php on line 2691
+[29-Dec-2022 16:06:25 Asia/Manila] PHP Deprecated:  Function get_magic_quotes_runtime() is deprecated in C:\xampp\htdocs\aev-sms\phpmailer\PHPMailer-master\class.phpmailer.php on line 2691
+[29-Dec-2022 16:06:30 Asia/Manila] PHP Deprecated:  Function get_magic_quotes_runtime() is deprecated in C:\xampp\htdocs\aev-sms\phpmailer\PHPMailer-master\class.phpmailer.php on line 2691
+[29-Dec-2022 16:07:06 Asia/Manila] PHP Warning:  count(): Parameter must be an array or an object that implements Countable in C:\xampp\htdocs\aev-sms\user-superadmin.php on line 1476
+[29-Dec-2022 16:13:41 Asia/Manila] PHP Deprecated:  Function get_magic_quotes_runtime() is deprecated in C:\xampp\htdocs\aev-sms\phpmailer\PHPMailer-master\class.phpmailer.php on line 2691
+[29-Dec-2022 16:13:47 Asia/Manila] PHP Deprecated:  Function get_magic_quotes_runtime() is deprecated in C:\xampp\htdocs\aev-sms\phpmailer\PHPMailer-master\class.phpmailer.php on line 2691

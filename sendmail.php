@@ -502,8 +502,7 @@ function send_bidding_invitation($to,$message)
 	$mail->Port = 2525;
 
 	//Recipients
-	$mail->setFrom('jesther.jc15@gmail.com', 'Contract Compliance Alert');
-
+	$mail->setFrom('no-reply@aboitiz.com', 'SMS Bidding Initialization');
 	//$mail->addReplyTo('no-reply@aboitiz.com', 'Aboitiz Foundation Team');
 
 	$tocc = explode(",", $to);
@@ -511,9 +510,10 @@ function send_bidding_invitation($to,$message)
 		$mail->addAddress($cc);
 	}
 
-	$mail->addAddress($to);
-
-	$mail->Subject = 'Invitation to Bidding';
+	$mail->IsHTML(false);
+	$mail->Subject = 'SMS Bidding Initialization';
+	$message = str_replace('\n', '<br>', $message);
+	$message = str_replace('\r', '', $message);
 	$mail->msgHTML($message);
 
 
@@ -547,7 +547,7 @@ function send_bidding_requirements($to, $message)
 	$mail->Port = 2525;
 
 	//Recipients
-	$mail->setFrom('jesther.jc15@gmail.com', 'Contract Compliance Alert');
+	$mail->setFrom('no-reply@aboitiz.com', 'SMS Bidding Invitation');
 
 	//$mail->addReplyTo('no-reply@aboitiz.com', 'Aboitiz Foundation Team');
 
@@ -587,7 +587,7 @@ function send_bidding_notification($to, $message)
 	$mail->Port = 2525;
 
 	//Recipients
-	$mail->setFrom('jesther.jc15@gmail.com', 'AEV-SMS');
+	$mail->setFrom('no-reply@aboitiz.com', 'SMS Bidding Update');
 
 	//$mail->addReplyTo('no-reply@aboitiz.com', 'Aboitiz Foundation Team');
 
@@ -595,8 +595,6 @@ function send_bidding_notification($to, $message)
 	foreach ($tocc as $cc) {
 		$mail->addAddress($cc);
 	}
-
-	$mail->addAddress($to);
 
 	$mail->Subject = 'Nomination of Security Agency Closed';
 	$mail->msgHTML($message);
@@ -632,7 +630,7 @@ function send_pre_bidding($to, $message, $attachment)
 	$mail->Port = 2525;
 
 	//Recipients
-	$mail->setFrom('jesther.jc15@gmail.com', 'AEV-SMS');
+	$mail->setFrom('no-reply@aboitiz.com', 'SMS Bidding Update');
 
 	//$mail->addReplyTo('no-reply@aboitiz.com', 'Aboitiz Foundation Team');
 
