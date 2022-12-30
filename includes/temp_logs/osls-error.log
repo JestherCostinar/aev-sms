@@ -6034,3 +6034,7 @@ Stack trace:
 [29-Dec-2022 16:07:06 Asia/Manila] PHP Warning:  count(): Parameter must be an array or an object that implements Countable in C:\xampp\htdocs\aev-sms\user-superadmin.php on line 1476
 [29-Dec-2022 16:13:41 Asia/Manila] PHP Deprecated:  Function get_magic_quotes_runtime() is deprecated in C:\xampp\htdocs\aev-sms\phpmailer\PHPMailer-master\class.phpmailer.php on line 2691
 [29-Dec-2022 16:13:47 Asia/Manila] PHP Deprecated:  Function get_magic_quotes_runtime() is deprecated in C:\xampp\htdocs\aev-sms\phpmailer\PHPMailer-master\class.phpmailer.php on line 2691
+[30-Dec-2022 05:39:46 Asia/Manila] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in C:\xampp\htdocs\aev-sms\view-uploads.php on line 52
+[30-Dec-2022 05:39:46 Asia/Manila] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in C:\xampp\htdocs\aev-sms\view-uploads.php on line 80
+[30-Dec-2022 05:39:59 Asia/Manila] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in C:\xampp\htdocs\aev-sms\view-uploads.php on line 52
+[30-Dec-2022 05:39:59 Asia/Manila] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in C:\xampp\htdocs\aev-sms\view-uploads.php on line 80

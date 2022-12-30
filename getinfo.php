@@ -854,11 +854,18 @@ elseif ($type == "evaluateAgencyRequirement") {
 							<td align='center' width='10%'><textarea id='txtRequirementRemarks[]' name='txtRequirementRemarks[]' >" . $evaluateAgencyRequirement['superadmin_remarks'] . "</textarea></td>
 						</tr>";
 	}
+} 
+elseif ($type == "agencydocument") {
+	$result = mysqli_query($conn, "SELECT agency_mst.agency_name,bidding_agency_docs.* FROM `bidding_agency_docs` INNER JOIN agency_mst ON bidding_agency_docs.agency_id = agency_mst.id WHERE bidding_agency_docs.bidding_id = " . $id . "") or die(mysqli_error($conn));
+	while ($agencydocument = mysqli_fetch_assoc($result)) {
+		$resulttable .= "
+						<tr height='10px' class='table-row'>
+							<td align='center' width='10%'>" . $agencydocument['agency_name'] . "</td>
+							<td align='center' width='10%'>" . $agencydocument['file_name'] . "</td>
+							<td align='center' width='10%' ><a style='color: blue' href='" . $agencydocument['file_path'] . "' download>Download</a> | <a style='color: blue' href='" . 'http://localhost/aev-sms-agency/' .$agencydocument['file_path'] . "' target='_blank'>View</a></td>
+						</tr>";
+	}
 }
-
-
-
-
 
 
 

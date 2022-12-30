@@ -1229,10 +1229,10 @@
 				<tr >
 					<th class="table__th" width="5%">#</th>
 					<th class="table__th">Bidding Name</th>
-					<th class="table__th" width="15%">Cluster</th>
+					<th class="table__th" width="10%">Cluster</th>
                     <th class="table__th" width="8%">Nomination Status</th>
 					<th class="table__th" width="10%">Bidding Requirement</th>
-					<th class="table__th" colspan="2" width="20%">Action</th>
+					<th class="table__th" colspan="3" width="25%">Action</th>
 				</tr>
             </thead>
             <tbody class="table__tbody">
@@ -1391,6 +1391,26 @@
           </table> 
     </div>
 
+    <div id="viewsecagencydocument" style="display:none; padding-top:24px;" >
+        <img src="images/x_mark_red.png" height="24px" style="cursor:pointer; position:absolute; right:10px; top:5px;" onclick="closeBiddingSecAgencyDocument();" />
+    	<table align="center" width="100%" border="1" style="border-collapse:collapse;">
+			<tr>
+				<td colspan="100%">
+					<div id="nominatedSecAgencyDiv" name="nominatedSecAgencyDiv" class="biddingsecagencydivs" style="cursor:pointer; padding: 10px">
+                        <table width="100%" align="center"  width="100%" border="1" style="border-collapse:collapse; padding: 10px">
+                            <tr >
+                                <th>List of Security Agency Documents</th>
+                            </tr>
+                        </table>
+                         <table width="100%" align="center"  width="100%" border="1" style="border-collapse:collapse; padding: 10px">
+                            <tbody id="tbodyAgencyDocument">
+                            </tbody>    
+                        </table>
+					</div>
+				</td>
+			</tr>
+		</table>
+    </div>
 
 	<div id="Audit" class="section" style="overflow-x:auto;">
 	

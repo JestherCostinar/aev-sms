@@ -241,6 +241,17 @@ function viewEvaluateAgencyRequirement(id, agencyID)
 function closeEvaluateAgencyRequirement() {
 	$("#requirementDiv").dialog("close");
 }
+
+// Open Modal to View Agency Document in Admin
+function viewBiddingSecAgencyDocument(id)
+{
+	$("#tbodyAgencyDocument").load("getinfo.php?type=agencydocument&id=" + id);
+	$("#viewsecagencydocument").dialog("open");
+}
+
+function closeBiddingSecAgencyDocument() {
+	$("#viewsecagencydocument").dialog("close");
+}
 // -------------------------- END OF BIDDING JS ----------------------------
 
 function evaluateForm(btn){
@@ -5817,7 +5828,17 @@ $(document).ready(function() {
   	});
 	$( "#viewsecagencymodal" ).dialog({
 		dialogClass: "no-close",	
-		width: 700,
+		width: 1000,
+		maxHeight: 800,
+		modal: true,
+		closeOnEscape: true,
+		resizable: false,
+		autoOpen: false,
+		position: {my: "top", at: "center", of: "#topbar"}
+  	});
+	$( "#viewsecagencydocument" ).dialog({
+		dialogClass: "no-close",	
+		width: 1000,
 		maxHeight: 800,
 		modal: true,
 		closeOnEscape: true,
