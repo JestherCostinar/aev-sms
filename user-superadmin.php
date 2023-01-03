@@ -1495,6 +1495,24 @@ if($_POST)
 		mysqli_query($conn, "INSERT INTO system_log (uid, log, datetime, bu_id) VALUES ('" . $_SESSION['id'] . "', 'Start Pre Bid', now(), 0)") or die(mysqli_error());
 		header("Location: user-superadmin.php?last=Bidding");
 	} 
+	elseif ((isset($_POST['btnSaveUploadDocument']))) {
+		$bid_id = $_POST['txtbiddingid'];
+		$file_name = $_POST['bid_docs_name'];
+		if (!empty($_FILES['bid_docs_file']['name'])) {
+			$path =  "documents/" . $bid_id . '-0-' .$_FILES['bid_docs_file']['name'];
+
+			if ($path) {
+				if (@copy($_FILES['bid_docs_file']['tmp_name'], $path)) {
+					mysqli_query($conn, "INSERT INTO bidding_agency_docs (bidding_id, agency_id, file_name, file_path) VALUES ('" . $bid_id . "', 0, '" . $file_name . "', '" . $path . "')") or die(mysqli_error());
+				} else {
+					$catch = "uploadfail " . $_FILES['bid_docs_file']['error'];
+				}
+			}
+		}
+
+		mysqli_query($conn, "INSERT INTO system_log (uid, log, datetime, bu_id) VALUES ('" . $_SESSION['id'] . "', 'Upload Bidding Documents', now(), 0)") or die(mysqli_error());
+		header("Location: user-superadmin.php?last=Bidding");
+	}
 	elseif((isset($_POST['txtaddbuitementry'])) && !empty($_POST['txtaddbuitementry']))
 	{
 		$editbuitem = mysqli_real_escape_string($conn, $_POST['txtaddbuitementry']);
@@ -3386,7 +3404,7 @@ while ($bidding = mysqli_fetch_assoc($biddingsql)) {
 							" . $addAgencyStatus .  "
 							" . $addEvaluateStatus .  "
 							<td data-column=\"Progress\" class=\"table-row__td\">
-								<a href=\"\">View Documents / Offcer</a>
+								<a href=\"javascript:void(0)\" style=\"cursor:pointer;\" onclick=\"viewBiddingSecAgencyDocument('" . $bidding['id'] . "');\">Upload /View Documents</a>
 							</td>
 							<td data-column=\"Progress\" class=\"table-row__td\">
 								<a href=\"\">Bidding Consolidation</a>

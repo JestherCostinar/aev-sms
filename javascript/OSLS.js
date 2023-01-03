@@ -246,6 +246,7 @@ function closeEvaluateAgencyRequirement() {
 function viewBiddingSecAgencyDocument(id)
 {
 	$("#tbodyAgencyDocument").load("getinfo.php?type=agencydocument&id=" + id);
+	$("#tbodyuploaddocs").load("getinfo.php?type=uploaddocument&id=" + id);
 	$("#viewsecagencydocument").dialog("open");
 }
 

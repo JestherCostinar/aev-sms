@@ -1396,8 +1396,8 @@
     	<table align="center" width="100%" border="1" style="border-collapse:collapse;">
 			<tr>
 				<td colspan="100%">
-					<div id="nominatedSecAgencyDiv" name="nominatedSecAgencyDiv" class="biddingsecagencydivs" style="cursor:pointer; padding: 10px">
-                        <table width="100%" align="center"  width="100%" border="1" style="border-collapse:collapse; padding: 10px">
+					<div id="viewsecagencydocumentDiv" name="viewsecagencydocumentDiv" class="viewsecagencydocumentdivs" style="cursor:pointer; padding: 10px">
+                           <table width="100%" align="center"  width="100%" border="1" style="border-collapse:collapse; padding: 10px">
                             <tr >
                                 <th>List of Security Agency Documents</th>
                             </tr>

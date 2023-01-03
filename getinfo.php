@@ -731,7 +731,7 @@ elseif($type == "newTicketFilters")
 	$biddingnum = 1;
 	$result = mysqli_query($conn, "SELECT * FROM bidding_agency INNER JOIN agency_mst ON bidding_agency.agency_id = agency_mst.id WHERE bidding_agency.bidding_id = " . $id) or die(mysqli_error($conn));
 	while ($row = mysqli_fetch_assoc($result)) {
-		$resulttable .= "<tr>
+		$resulttable .= "<tr class='altrows>
 							<td align='center'>" . $biddingnum . "</td>
 							<td align='center'>" . $row['agency_name'] . "</td>
 							<td align='center'>" . $row['address'] . "</td>
@@ -764,7 +764,7 @@ elseif ($type == "nominatedpoolsecagency") {
 	$biddingnum = 1;
 	$result = mysqli_query($conn, "SELECT bidding_agency.id as bid_agency_id, bidding_agency.*, agency_mst.*, bidding.* FROM bidding_agency INNER JOIN agency_mst ON bidding_agency.agency_id = agency_mst.id INNER JOIN bidding ON bidding.id = bidding_agency.bidding_id WHERE bidding_agency.bidding_id = " . $id) or die(mysqli_error($conn));
 	while ($row = mysqli_fetch_assoc($result)) {
-		$resulttable .= "<tr>
+		$resulttable .= "<tr >
 							<input type='hidden' id='txtbidclust' name='txtbidclust'  value=" . $row['cluster_id'] . " /> 
 							<input type='hidden' id='txtbiddingrequirements' name='txtbiddingrequirements'  value=" . $row['bidding_requirement_id'] . " /> 
 							<input type='hidden' id='txtbiddingid' name='txtbiddingid'  value=" . $row['bidding_id'] . " /> 
@@ -829,7 +829,7 @@ elseif ($type == "viewEvaluateAgency") {
 		$getFinancialScore = mysqli_fetch_array(mysqli_query($conn, "SELECT SUM(score) as financialScore FROM `bidding_specific` INNER JOIN bidding_template_item ON bidding_specific.template_id = bidding_template_item.id WHERE bidding_template_item.category = 'Financial' and bidding_specific.bidding_id =  " . $id . " and bidding_specific.agency_id = " . $evaluateAgency['id'])) ?? 0;
 
 		$totalPercentage = ($getLegalScore['legalScore'] * .40)  + ($getTechnicalScore['technicalScore'] * .40) + ($getFinancialScore['financialScore'] * .20);
-		$resulttable .= "<tr height='10px'>
+		$resulttable .= "<tr height='10px' class='altrows'>
 							<td align='center'>" . $evaluateAgencyNum . "</td>
 							<td align='center'>" . $evaluateAgency['agency_name'] . "</td>
 							<td align='center'>" . $evaluateAgency['comply'] . "/36 Requirements</td>
@@ -864,6 +864,21 @@ elseif ($type == "agencydocument") {
 							<td align='center' width='10%'>" . $agencydocument['file_name'] . "</td>
 							<td align='center' width='10%' ><a style='color: blue' href='" . $agencydocument['file_path'] . "' download>Download</a> | <a style='color: blue' href='" . 'http://localhost/aev-sms-agency/' .$agencydocument['file_path'] . "' target='_blank'>View</a></td>
 						</tr>";
+	}
+} 
+elseif ($type == "uploaddocument") {
+	$agencyDocsNum = 1;
+
+	$result = mysqli_query($conn, "SELECT * FROM `bidding_agency_docs` WHERE bidding_id = " . $id . " AND agency_id = 0") or die(mysqli_error($conn));
+	while ($agencyUploadDocument = mysqli_fetch_assoc($result)) {
+		$resulttable .= "
+						<tr height='10px' class='table-row'>
+							<input type='hidden' id='txtbiddingid' name='txtbiddingid'  value=" . $id . " /> 
+							<td align='center' width='10%'>" . $agencyDocsNum . "</td>
+							<td align='center'>" . $agencyUploadDocument['file_name'] . "</td>
+							<td align='center' width='30%' ><a style='color: blue' href='" . $agencyUploadDocument['file_path'] . "' download>Download</a> | <a style='color: blue' href='" . 'documents/' . $agencydocument['file_path'] . "' target='_blank'>View</a></td>
+						</tr>";
+		$agencyDocsNum++;
 	}
 }
 

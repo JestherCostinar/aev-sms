@@ -2272,7 +2272,7 @@
                         <form id="frmPoolAgency" name="frmPoolAgency" method="post" action="user-superadmin.php">
 						
 						<table width="100%" align="center"  width="100%" border="1" style="border-collapse:collapse; padding: 10px">
-                            <tr style="background: #f00">
+                            <tr style="background: #ffffd4">
                                 <th>List of nominated security agency</th>
                             </tr>
                         </table>
@@ -2431,6 +2431,77 @@
 			</tr>
 		</table>
 	</div>
+
+    <div id="viewsecagencydocument" style="display:none; padding-top:24px;" >
+        <img src="images/x_mark_red.png" height="24px" style="cursor:pointer; position:absolute; right:10px; top:5px;" onclick="closeBiddingSecAgencyDocument();" />
+    	<table align="center" width="100%" border="1" style="border-collapse:collapse;">
+			<tr>
+				<th style="cursor:pointer;" onclick="toggleTabs('viewsecagencydocumentDiv', 'secagencydocumentdivs');">View Documents</th>
+				<th style="cursor:pointer;" onclick="toggleTabs('uploadsecagencydocumentDiv', 'secagencydocumentdivs');">Upload Documents</th>
+			</tr>
+			<tr>
+				<td colspan="100%">
+					<div id="viewsecagencydocumentDiv" name="viewsecagencydocumentDiv" class="secagencydocumentdivs" style="cursor:pointer; padding: 10px">
+                        <table width="100%" align="center"  width="100%" border="1" style="border-collapse:collapse; padding: 10px">
+                            <tr >
+                                <th>List of Security Agency Documents</th>
+                            </tr>
+                        </table>
+                         <table width="100%" align="center"  width="100%" border="1" style="border-collapse:collapse; padding: 10px">
+                            <tbody id="tbodyAgencyDocument">
+                            </tbody>    
+                        </table>
+					</div>
+					<div id="uploadsecagencydocumentDiv" name="uploadsecagencydocumentDiv" class="secagencydocumentdivs" style="cursor:pointer; display:none; padding: 10px">
+						<form id="frmUploadDocument" name="frmUploadDocument" method="post" action="user-superadmin.php" enctype="multipart/form-data">
+							<table id="tbluploadbiddingdocs" width="100%" align="center"  width="100%" border="1" style="border-collapse:collapse">
+								<thead>
+									<tr class="whiteonblack">
+										<th>#</th>
+										<th>Documents name</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody id="tbodyuploaddocs">
+								</tbody>
+							</table>
+							<br><br>
+							<table width="50%" align="center"  width="100%" border="1" style="border-collapse:collapse; padding: 10px">
+								<tr  class="whiteonblack">
+									<th>Upload Documents</th>
+								</tr>
+                        	</table>
+							<table width="50%" align="center" border="1">
+								<tr valign="top">
+									<td >
+										<table border="0">
+											<tr>
+												<tr>
+													<td width='20%'>File Name:</td>
+													<td width='80%'><input type='text' id='bid_docs_name' name='bid_docs_name' required></td>
+												</tr>
+											</tr>
+											<tr>
+												<td width="20%">File:</td>
+												<td width='80%'><input type='file' id='bid_docs_file' name='bid_docs_file' required></td>
+											</tr>
+										</table>
+									</td>					
+								</tr>
+							</table>
+							<table width="100%" align="center">
+								<tr>
+									<td align="right">
+										<input type="submit" id="btnSaveUploadDocument"  class="redbutton" name="btnSaveUploadDocument" width="100px" style="cursor:pointer;" value="Save"/>
+									</td>
+								</tr>
+							</table>
+						</form>
+					</div>
+				</td>
+			</tr>
+		</table>
+    </div>
 
 	<div id="Audit" class="section" style="overflow-x:auto;">
 	
