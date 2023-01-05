@@ -9,9 +9,10 @@ include("includes/function.php");
 
 $biddingID = $_GET['id'];
 $bu_ID = $_GET['bu_id'];
+$agency_ID =$_GET['agency_id'];
 
 
-$evaluatesql = mysqli_query($conn, "SELECT * FROM bidding_evaluation WHERE  bidding_id = '" . $biddingID . "' AND bu_id = '" . $bu_ID . "'") or die(mysqli_error($conn));
+$evaluatesql = mysqli_query($conn, "SELECT * FROM bidding_evaluation WHERE  bidding_id = '" . $biddingID . "' AND bu_id = '" . $bu_ID . "' AND agency_id = '" . $agency_ID . "'") or die(mysqli_error($conn));
 $getEvaluateData = mysqli_fetch_assoc($evaluatesql);
 
 
@@ -57,6 +58,7 @@ $evaluate_model = '<img src="images/x_mark_red.png" height="24px" style="cursor:
                                     <td rowspan="7">Area of Expertise</td>
                                     <td >Physical Asset Security (5)</td>
                                     <input type="hidden" name="bidding_id" style="background: #f8ffb4" value="' . $biddingID . '">
+                                    <input type="hidden" name="agency_id" style="background: #f8ffb4" value="' . $agency_ID . '">
                                     <td><input type="number" name="evaluate_pas" style="background: #f8ffb4" value="' . $getEvaluateData["pas_score"] . '"></td>
                                     <td>5%</td>
                                     <td style="background: #c7c7c7"></td>

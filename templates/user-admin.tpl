@@ -1406,13 +1406,40 @@
 			<tr>
 				<td colspan="100%">
 					<div id="viewsecagencydocumentDiv" name="viewsecagencydocumentDiv" class="viewsecagencydocumentdivs" style="cursor:pointer; padding: 10px">
-                           <table width="100%" align="center"  width="100%" border="1" style="border-collapse:collapse; padding: 10px">
+                           <table width="60%" align="center" border="1" style="border-collapse:collapse; padding: 20px">
                             <tr >
                                 <th>List of Security Agency Documents</th>
                             </tr>
                         </table>
-                         <table width="100%" align="center"  width="100%" border="1" style="border-collapse:collapse; padding: 10px">
+                         <table width="60%" align="center"  border="1" style="border-collapse:collapse; padding: 20px">
                             <tbody id="tbodyAgencyDocument">
+                            </tbody>    
+                        </table>
+					</div>
+				</td>
+			</tr>
+		</table>
+    </div>
+
+   <div id="biddingListToEvaluate" style="display:none; padding-top:24px;" >
+        <img src="images/x_mark_red.png" height="24px" style="cursor:pointer; position:absolute; right:10px; top:5px;" onclick="closeListToEvaluate();" />
+    	<table align="center" width="100%" border="1" style="border-collapse:collapse;">
+			<tr>
+				<td colspan="100%">
+					<div id="listtoevaluate" name="listtoevaluate" class="listtoevaluatedivs" style="cursor:pointer; padding: 10px">
+                         <table width="100%" align="center"  width="100%" border="1" style="border-collapse:collapse; padding: 10px">
+                            <thead>
+                                <tr class="whiteonblack">
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Address</th>
+                                    <th>President/General Manager</th>
+                                    <th>Email</th>
+                                    <th>Contact Number</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodylisttoevaluate">
                             </tbody>    
                         </table>
 					</div>

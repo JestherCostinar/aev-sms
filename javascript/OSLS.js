@@ -274,10 +274,21 @@ function closeBiddingSecAgencyDocumentSpecific() {
 	$("#viewsecagencydocumentspecific").dialog("close");
 }
 
-// Open Modal to Evaluate Agency Document in Admin
-function biddingEvaluateSecAgencyModal(id, bu_id)
+// Open List to Evaluate Modal
+function biddingListToEvaluateModal(id)
 {
-	$("#biddingEvaluateSecAgencyHolder").load("bidding_evaluation.php?id=" + id + "&bu_id=" + bu_id);
+	$("#tbodylisttoevaluate").load("getinfo.php?type=listtoevaluate&id=" + id);
+	$("#biddingListToEvaluate").dialog("open");
+}
+
+function closeListToEvaluate() {
+	$("#biddingListToEvaluate").dialog("close");
+}
+
+// Open Modal to Evaluate Agency Document in Admin
+function biddingEvaluateSecAgencyModal(id, bu_id, agency_id)
+{
+	$("#biddingEvaluateSecAgencyHolder").load("bidding_evaluation.php?id=" + id + "&bu_id=" + bu_id + "&agency_id=" + agency_id);
 	$("#biddingEvaluateSecAgencyModal").dialog("open");
 }
 
@@ -5936,6 +5947,16 @@ $(document).ready(function() {
 		modal: true,
 		closeOnEscape: true,
 		resizable: true,
+		autoOpen: false,
+		position: {my: "top", at: "center", of: "#topbar"}
+  	});
+	$( "#biddingListToEvaluate" ).dialog({
+		dialogClass: "no-close",	
+		width: 1000,
+		maxHeight: 800,
+		modal: true,
+		closeOnEscape: true,
+		resizable: false,
 		autoOpen: false,
 		position: {my: "top", at: "center", of: "#topbar"}
   	});

@@ -908,6 +908,22 @@ elseif ($type == "uploaddocument") {
 		$agencyDocsNum++;
 	}
 }
+elseif ($type == "listtoevaluate") {
+	$biddingnum = 1;
+	$result = mysqli_query($conn, "SELECT * FROM bidding_agency INNER JOIN agency_mst ON bidding_agency.agency_id = agency_mst.id WHERE bidding_agency.bidding_id = " . $id . " AND bidding_agency.bidding_status = 'Prebid'") or die(mysqli_error($conn));
+	while ($row = mysqli_fetch_assoc($result)) {
+		$resulttable .= "<tr class='altrows' height='30px'>
+							<td align='center'>" . $biddingnum . "</td>
+							<td align='center'>" . $row['agency_name'] . "</td>
+							<td align='center'>" . $row['address'] . "</td>
+							<td align='center'>" . $row['oic'] . "</td>
+							<td align='center'>" . $row['email'] . "</td>
+							<td align='center'>" . $row['contact_number'] . "</td>
+							<td align='center'><a href='javascript:void(0)' style='cursor:pointer; color: blue' onclick='biddingEvaluateSecAgencyModal(" . $id . ",  " . $_SESSION['id'] . ", " . $row['agency_id'] . ");'>Evaluate</a></td>
+						</tr>";
+		$biddingnum++;
+	}
+}
 
 
 
