@@ -626,6 +626,8 @@ if($_POST)
 					$clusterReceiver .= $getReceiverOfCluster['user_email'] . ',';
 				}
 			}
+
+			$biddingMessage .= "/nTo nominate security agency, PLEASE CLICK HERE: <a href='http://localhost/aev-sms/user-superadmin.php?last=BUs&catch=catchelse' targer='_blank'>Link</a>";
 			$mail = send_bidding_invitation($clusterReceiver, $biddingMessage);
 		}
 
@@ -1401,7 +1403,7 @@ if($_POST)
 			while ($getAgencyEmail = mysqli_fetch_assoc($getAgencyEmailQuery)) {
 				$passwordText = '';
 
-				if(md5('Password2022') == $getAgencyEmail['password']) {
+				if(md5('Password2023') == $getAgencyEmail['password']) {
 					$passwordText = 'Password'.date('Y');
 				}
 
@@ -1462,13 +1464,17 @@ if($_POST)
 			mysqli_query($conn, "UPDATE bidding_specific SET score = '" . $_POST['txtRequirementScore'][$i] . "', remarks = '" . $_POST['txtRequirementRemarks'][$i] . "' WHERE id = '" . $_POST['submittedReqID'][$i] . "'") or die(mysqli_error());
 		}
 
-
 		mysqli_query($conn, "INSERT INTO system_log (uid, log, datetime, bu_id) VALUES ('" . $_SESSION['id'] . "', 'Update Requirement Status of Agency', now(), 0)") or die(mysqli_error());
 		header("Location: user-superadmin.php?last=Bidding");
 	} 
 	elseif ((isset($_POST['btnprebid']))) {
 		$bid_id = $_POST['txtbiddingid'];
-		$getNDIQuery = mysqli_fetch_array(mysqli_query($conn, "Select file_path from bidding_docs WHERE type LIKE '%ndi%'")) or die(mysqli_error($conn));
+		$prebid_venue = $_POST['prebid_venue'];
+		$prebid_date = date('m-d-Y', strtotime($_POST["prebid_date"]));
+		$prebid_time = date('h:i:sa', strtotime($_POST["prebid_time"]));
+		$prebid_docs = $_POST['prebid_docs'];
+
+		$getNDIQuery = mysqli_fetch_array(mysqli_query($conn, "Select file_path from bidding_docs WHERE id = " . $prebid_docs)) or die(mysqli_error($conn));
 		$file_attachment = $getNDIQuery['file_path'];
 		$updateBiddingStatus = mysqli_query($conn, "UPDATE bidding SET bidding_status = 'Prebid' WHERE id = " . $bid_id) or die(mysqli_error($conn));
 
@@ -1478,12 +1484,17 @@ if($_POST)
 
 				$mainbody = "<table width='95%' align='center' style='font-family: Calibri, Candara, Segoe, Optima, Arial, sans-serif;'> 
                     <tr> 
-                        <td>
-							I am pleased to inform you that you are qualified for the pre-bidding process.
+                        <td>Hi Respective Security Agency, <br><br>
+							We would like to inform everyone that you are qualified for the pre-bid process.
 						 <br><br> 
-                            To upload document for pre-bidding, PLEASE CLICK <a href='http://localhost/aev-sms-agency/' target='_blank'>HERE</a>
+                            Prebid Details:<br>
+							Venue: " . $prebid_venue . " <br>
+							Date: " . $prebid_date . " <br>
+							Time: " . $prebid_time . " 
 						<br><br>
-							Also, attached to this email, you will find a copy of the signed Non-Disclosure Agreements (NDA) for the bidding Please review the document and let us know if there are any issues or concerns with the documents
+							Also, attached to this email, you will find a copy of the Non-Disclosure Agreements (NDA) for the bidding process.
+							As part of our pre-bid conference requirement, we would like to request to fill-up the attached confidentiality agreement. 
+							1 confidentiality agreement per business unit. Also attached is the list of the Aboitiz Business Units as well as the corresponding security head and their respective contact details. Kindly bring the signed confidentiality agreement during the pre-bid conference on " . $prebid_date . ".
 						</td>
 					</tr>
 					</table>";
@@ -1498,12 +1509,20 @@ if($_POST)
 	elseif ((isset($_POST['btnSaveUploadDocument']))) {
 		$bid_id = $_POST['txtbiddingid'];
 		$file_name = $_POST['bid_docs_name'];
+		$message = $_POST['bid_docs_message'];
+		$email = $_POST['txtAgencyEmail'];
+
+		for ($i = 0, $count = count($email); $i < $count; $i++) {
+			$prebidEmailReceiver .= $email[$i] . ',';
+		}
+
 		if (!empty($_FILES['bid_docs_file']['name'])) {
 			$path =  "documents/" . $bid_id . '-0-' .$_FILES['bid_docs_file']['name'];
 
 			if ($path) {
 				if (@copy($_FILES['bid_docs_file']['tmp_name'], $path)) {
-					mysqli_query($conn, "INSERT INTO bidding_agency_docs (bidding_id, agency_id, file_name, file_path) VALUES ('" . $bid_id . "', 0, '" . $file_name . "', '" . $path . "')") or die(mysqli_error());
+					mysqli_query($conn, "INSERT INTO bidding_agency_docs (bidding_id, agency_id, file_name, file_path, date) VALUES ('" . $bid_id . "', 0, '" . $file_name . "', '" . $path . "', '" . date('Y-m-d H:i:s') . "')") or die(mysqli_error());
+					$mail = send_bidding_documents($prebidEmailReceiver, $message, $path);
 				} else {
 					$catch = "uploadfail " . $_FILES['bid_docs_file']['error'];
 				}
@@ -3336,8 +3355,10 @@ while ($biddingtemplate = mysqli_fetch_assoc($biddingtemplatesql)) {
 // BIDDING DOCUMENTS
 $biddingdocstable = "";
 $biddingdocsnum = 1;
+$biddingdocslist = '';
 $biddingdocssql = mysqli_query($conn, "SELECT * FROM bidding_docs");
 while ($biddingdocsresult = mysqli_fetch_assoc($biddingdocssql)) {
+	$biddingdocslist .= "<option value=\"" . $biddingdocsresult['id'] . "\">" . $biddingdocsresult['file_name'] . "</option>";
 	$biddingdocstable .= "<tr align=\"center\">" .
 		"<td>" . $biddingdocsnum . "</td>" .
 		"<td>" . $biddingdocsresult['file_name'] . "</td>" .
@@ -3404,7 +3425,7 @@ while ($bidding = mysqli_fetch_assoc($biddingsql)) {
 							" . $addAgencyStatus .  "
 							" . $addEvaluateStatus .  "
 							<td data-column=\"Progress\" class=\"table-row__td\">
-								<a href=\"javascript:void(0)\" style=\"cursor:pointer;\" onclick=\"viewBiddingSecAgencyDocument('" . $bidding['id'] . "');\">Upload /View Documents</a>
+								<a href=\"javascript:void(0)\" style=\"cursor:pointer;\" onclick=\"viewBiddingSecAgencyDocument('" . $bidding['id'] . "');\">Upload/View</a>
 							</td>
 							<td data-column=\"Progress\" class=\"table-row__td\">
 								<a href=\"\">Bidding Consolidation</a>

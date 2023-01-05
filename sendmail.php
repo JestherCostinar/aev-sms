@@ -651,4 +651,50 @@ function send_pre_bidding($to, $message, $attachment)
 		echo "Yes";
 	}
 }
+
+function send_bidding_documents($to, $message, $attachment)
+{
+	$mail = new PHPMailer;
+	//$mail->isSendmail();
+	$mail->isSMTP();
+
+	//Set the SMTP server to send through
+	$mail->Host = 'smtp.mailtrap.io';
+
+	//Enable SMTP authentication
+	$mail->SMTPAuth = true;
+
+	//SMTP username
+	$mail->Username = 'aea8de017e2e93';
+
+	//SMTP password
+	$mail->Password = '489459a07fba68';
+
+
+	//TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+	$mail->Port = 2525;
+
+	//Recipients
+	$mail->setFrom('no-reply@aboitiz.com', 'SMS Bidding Documents');
+	//$mail->addReplyTo('no-reply@aboitiz.com', 'Aboitiz Foundation Team');
+
+	$tocc = explode(",", $to);
+	foreach ($tocc as $cc) {
+		$mail->addAddress($cc);
+	}
+
+	$mail->IsHTML(true);
+	$mail->Subject = 'SMS Bidding Documents';
+	$message = str_replace('\n', '<br>', $message);
+	$message = str_replace('\r', '', $message);
+	$mail->msgHTML($message);
+	$mail->addAttachment($attachment);
+
+
+	if (!$mail->send()) {
+		echo "Error";
+	} else {
+		echo "Yes";
+	}
+}
 ?>

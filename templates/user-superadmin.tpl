@@ -2165,12 +2165,22 @@
       <table class="table" width="95%" align="center" border="1" style="border-collapse:collapse; border: 1px solid #ccc;">
       		<thead class="table__thead" style="background-color: #e0e0e0; " height="30px">
 				<tr >
-					<th class="table__th" width="5%">#</th>
-					<th class="table__th">Bidding Name</th>
-					<th class="table__th" width="15%">Cluster</th>
-					<th class="table__th" width="8%">Bidding Status</th>
-					<th class="table__th" width="10%">Bidding Requirement</th>
-					<th class="table__th" colspan="4" width="40%">Action</th>
+					<tr>
+						<th rowspan="3" class="table__th">#</th>
+						<th rowspan="3" class="table__th">Bidding Name</th>
+						<th rowspan="3" class="table__th" width="10%">Cluster</th>
+						<th rowspan="3" class="table__th" width="13%">Bidding Status</th>
+						<th rowspan="3" class="table__th" width="15%">Bidding Requirement</th>
+					</tr>
+					<tr>
+						<th  class="table__th" colspan="4">  SECURITY AGENCY  </th>
+					</tr>
+					<tr>
+						<th style="font-weight: 500; color: #5e5e5e">  Nomination  </th>
+						<th style="font-weight: 500; color: #5e5e5e">  Assessment  </th>
+						<th style="font-weight: 500; color: #5e5e5e">  Documents  </th>
+						<th style="font-weight: 500; color: #5e5e5e">  Result  </th>
+					</tr>
 				</tr>
             </thead>
             <tbody class="table__tbody">
@@ -2351,12 +2361,44 @@
 								<tbody id="tbodyEvaluateAgency">
 									
 								</tbody>  
-								
-
-								<td align="right" colspan="100%">
-									<input type="submit" id="btnprebid" name="btnprebid" class="redbutton" style="margin-top: 5px" value="Start PreBid" />
-								</td>
-										
+								<table width="50%" align="center" border="1" style="margin-top: 20px">
+									<tbody style="background: #f3f3f3">
+										<tr valign="top">
+											<td >
+												<table border="0" >
+													<tr>
+														<tr>
+															<td width='20%'>Venue:</td>
+															<td width='80%'><input type='text' id='prebid_venue' name='prebid_venue' required></td>
+														</tr>
+													</tr>
+													<tr>
+														<tr>
+															<td width='20%'>Date:</td>
+															<td width='30%'><input type='date' id='prebid_date' name='prebid_date' required></td>
+															<td width='20%'>Time:</td>
+															<td width='30%'><input type='time' id='prebid_time' name='prebid_time' required></td>
+														</tr>
+													</tr>
+													<tr>
+														<tr>
+															<td width='20%'>File to attach:</td>
+															<td width='80%'>
+																<select id="prebid_docs" name="prebid_docs" >
+																	<option value="None"></option>
+																	"' . $biddingdocslist . '"
+																</select>
+															</td>
+														</tr>
+													</tr>
+												</table>
+											</td>	
+											<td align="center" valign="middle" colspan="100%">
+												<input type="submit" id="btnprebid" name="btnprebid" class="redbutton" style="margin-top: 5px" value="Start PreBid" />
+											</td>				
+										</tr>
+									</tbody>
+								</table>
 							</table>
 						</form>
 					</div>
@@ -2432,6 +2474,38 @@
 		</table>
 	</div>
 
+	<!-- -------- Evaluate Requirement Submitted By Agency When Assessment CLOSED ----------- -->
+	<div id="viewRequirementDiv" style="display:none; padding-top:24px;" >
+		<img src="images/x_mark_red.png" height="24px" style="cursor:pointer; position:absolute; right:10px; top:5px;" onclick="closeEvaluateAgencyRequirementClose();" />
+		<table align="center" width="100%" border="1" style="border-collapse:collapse;">
+			<tr>
+				<td colspan="100%">
+					<div id="agencyRequirementCloseDiv" name="agencyRequirementCloseDiv" class="agencyRequirementCloseDivs" style="cursor:pointer; padding: 10px">
+						<form id="frmAgencyRequirement" name="frmAgencyRequirement" method="post" action="user-superadmin.php">
+							<table width="100%" align="center"  width="100%" border="1" style="border-collapse:collapse; padding: 10px; border: 1px solid #ddd !important;">
+							<caption class="text-center" style="margin-bottom: 10px; font-weight: 700;">Result based on security agency submitted documents</caption>
+								<br>
+								<thead>
+									<tr>
+										<th>File Name</th>
+										<th>Category</th>
+										<th>Weight Percentage</th>
+										<th>Submitted File</th>
+										<th>Score</th>
+										<th>Remarks</th>
+									</tr>
+								</thead>
+								<tbody id="tbodyViewAgencyRequirement">
+									
+								</tbody>  	
+							</table>
+						</form>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+
     <div id="viewsecagencydocument" style="display:none; padding-top:24px;" >
         <img src="images/x_mark_red.png" height="24px" style="cursor:pointer; position:absolute; right:10px; top:5px;" onclick="closeBiddingSecAgencyDocument();" />
     	<table align="center" width="100%" border="1" style="border-collapse:collapse;">
@@ -2441,20 +2515,22 @@
 			</tr>
 			<tr>
 				<td colspan="100%">
-					<div id="viewsecagencydocumentDiv" name="viewsecagencydocumentDiv" class="secagencydocumentdivs" style="cursor:pointer; padding: 10px">
-                        <table width="100%" align="center"  width="100%" border="1" style="border-collapse:collapse; padding: 10px">
-                            <tr >
-                                <th>List of Security Agency Documents</th>
-                            </tr>
-                        </table>
-                         <table width="100%" align="center"  width="100%" border="1" style="border-collapse:collapse; padding: 10px">
-                            <tbody id="tbodyAgencyDocument">
+					<div id="viewsecagencydocumentDiv" name="viewsecagencydocumentDiv" class="secagencydocumentdivs" style="cursor:pointer; padding: 20px">
+                        <form id="frmUploadDocument" name="frmUploadDocument" method="post" action="user-superadmin.php" enctype="multipart/form-data">
+						<table width="80%" align="center" border="1" style="border-collapse:collapse; padding: 30px">
+                            <thead>
+								<tr class="whiteonblack">
+									<th width="5%">#</th>
+									<th>Security Agency</th>
+									<th width="15%">Action</th>
+								</tr>
+							</thead>
+							<tbody id="tbodyAgencyDocument">
                             </tbody>    
                         </table>
 					</div>
 					<div id="uploadsecagencydocumentDiv" name="uploadsecagencydocumentDiv" class="secagencydocumentdivs" style="cursor:pointer; display:none; padding: 10px">
-						<form id="frmUploadDocument" name="frmUploadDocument" method="post" action="user-superadmin.php" enctype="multipart/form-data">
-							<table id="tbluploadbiddingdocs" width="100%" align="center"  width="100%" border="1" style="border-collapse:collapse">
+							<table id="tbluploadbiddingdocs" align="center"  width="100%" border="1" style="border-collapse:collapse">
 								<thead>
 									<tr class="whiteonblack">
 										<th>#</th>
@@ -2466,7 +2542,7 @@
 								</tbody>
 							</table>
 							<br><br>
-							<table width="50%" align="center"  width="100%" border="1" style="border-collapse:collapse; padding: 10px">
+							<table width="50%" align="center" border="1" style="border-collapse:collapse; padding: 10px">
 								<tr  class="whiteonblack">
 									<th>Upload Documents</th>
 								</tr>
@@ -2475,6 +2551,12 @@
 								<tr valign="top">
 									<td >
 										<table border="0">
+											<tr>
+												<tr>
+													<td width='20%'>Message:</td>
+													<td width='80%'><textarea id='bid_docs_message' name='bid_docs_message' required></textarea></td>
+												</tr>
+											</tr>
 											<tr>
 												<tr>
 													<td width='20%'>File Name:</td>
@@ -2497,6 +2579,34 @@
 								</tr>
 							</table>
 						</form>
+					</div>
+				</td>
+			</tr>
+		</table>
+    </div>
+
+	<div id="viewsecagencydocumentspecific" style="display:none; padding-top:24px;" >
+        <img src="images/x_mark_red.png" height="24px" style="cursor:pointer; position:absolute; right:10px; top:5px;" onclick="closeBiddingSecAgencyDocumentSpecific();" />
+    	<table align="center" width="100%" border="1" style="border-collapse:collapse;">
+		
+			<tr>
+				<td colspan="100%">
+					<div id="viewsecagencydocumentspecificDiv" name="viewsecagencydocumentspecificDiv" class="secagencydocumentspecificdivs" style="cursor:pointer; padding: 10px">
+                         <table width="100%" align="center"  width="100%" border="1" style="border-collapse:collapse; padding: 10px">
+                            <tr style="background: #ffffd4">
+                                <th>List of documents submitted by Security Agency</th>
+                            </tr>
+                        </table>
+						 <table width="100%" align="center"  width="100%" border="1" style="border-collapse:collapse; padding: 10px">
+                            <thead>
+								<tr style="background: #939393; color: #fff">
+									<th>File Name</th>
+									<th width="15%">Action</th>
+								</tr>
+							</thead>
+							<tbody id="tbodyAgencyDocumentSpecific">
+                            </tbody>    
+                        </table>
 					</div>
 				</td>
 			</tr>

@@ -1227,12 +1227,21 @@
       <table class="table" width="95%" align="center" border="1" style="border-collapse:collapse; border: 1px solid #ccc;">
       		<thead class="table__thead" style="background-color: #e0e0e0; " height="30px">
 				<tr >
-					<th class="table__th" width="5%">#</th>
-					<th class="table__th">Bidding Name</th>
-					<th class="table__th" width="10%">Cluster</th>
-                    <th class="table__th" width="8%">Nomination Status</th>
-					<th class="table__th" width="10%">Bidding Requirement</th>
-					<th class="table__th" colspan="3" width="25%">Action</th>
+					<tr>
+						<th rowspan="3" class="table__th">#</th>
+						<th rowspan="3" class="table__th">Bidding Name</th>
+						<th rowspan="3" class="table__th" width="10%">Cluster</th>
+						<th rowspan="3" class="table__th" width="8%">Nomination Status</th>
+						<th rowspan="3" class="table__th" width="10%">Bidding Requirement</th>
+					</tr>
+					<tr>
+						<th  class="table__th" colspan="3" width="40%">  SECURITY AGENCY  </th>
+					</tr>
+					<tr>
+						<th style="font-weight: 500; color: #5e5e5e">  Nomination  </th>
+						<th style="font-weight: 500; color: #5e5e5e">  Documents  </th>
+						<th style="font-weight: 500; color: #5e5e5e">  Evaulation  </th>
+					</tr>
 				</tr>
             </thead>
             <tbody class="table__tbody">
@@ -1410,6 +1419,11 @@
 				</td>
 			</tr>
 		</table>
+    </div>
+
+    <div id="biddingEvaluateSecAgencyModal" style="display:none; padding-top:24px;" >
+        <div id="biddingEvaluateSecAgencyHolder" name="biddingEvaluateSecAgencyHolder">
+		</div>
     </div>
 
 	<div id="Audit" class="section" style="overflow-x:auto;">

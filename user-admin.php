@@ -2118,6 +2118,37 @@ if($_POST)
 
 		mysqli_query($conn, "INSERT INTO system_log (uid, log, datetime, bu_id) VALUES ('" . $_SESSION['id'] . "', 'Nominate Security Agency', now(), 0)") or die(mysqli_error());
 		header("Location: user-admin.php?last=Bidding");
+	} 
+	elseif ((isset($_POST['btnsaveevaluation']))) {
+		$bidding_id = $_POST['bidding_id'];
+		$evaluate_pas = $_POST['evaluate_pas'];
+		$evaluate_ep = $_POST['evaluate_ep'];
+		$evaluate_cm = $_POST['evaluate_cm'];
+		$evaluate_osh = $_POST['evaluate_osh'];
+		$evaluate_i = $_POST['evaluate_i'];
+		$evaluate_hr = $_POST['evaluate_hr'];
+		$evaluate_cr = $_POST['evaluate_cr'];
+		$evaluate_we = $_POST['evaluate_we'];
+		$evaluate_lc = $_POST['evaluate_lc'];
+		$evaluate_rp = $_POST['evaluate_rp'];
+		$evaluate_pm = $_POST['evaluate_pm'];
+		$evaluate_ase = $_POST['evaluate_ase'];
+		$evaluate_sf = $_POST['evaluate_sf'];
+		$evaluate_pp = $_POST['evaluate_pp'];
+		$evaluate_fs = $_POST['evaluate_fs'];
+		$evaluate_bid_offer = $_POST['evaluate_bid_offer'];
+		$evaluate_remarks = $_POST['evaluate_remarks'];
+
+		$actlogssql = mysqli_query($conn, "select * from bidding_evaluation where bidding_id = " . $bidding_id . " AND bu_id = " . $_SESSION['bu'] . "");
+		if(mysqli_num_rows($actlogssql) > 0) {
+			mysqli_query($conn, "UPDATE bidding_evaluation SET pas_score = '" . $evaluate_pas . "', ep_score = '" . $evaluate_ep . "', cm_score = '" . $evaluate_cm . "', osh_score = '" . $evaluate_osh . "', i_score = '" . $evaluate_i . "', hr_score = '" . $evaluate_hr . "', cr_score = '" . $evaluate_cr . "', we_score = '" . $evaluate_we . "', lc_score = '" . $evaluate_lc . "', rp_score = '" . $evaluate_rp . "', pm_score = '" . $evaluate_pm . "', ase_score = '" . $evaluate_ase . "', sf_score = '" . $evaluate_sf . "', pp_score = '" . $evaluate_pp . "', fs_score = '" . $evaluate_fs . "', bid_offer_score = '" . $evaluate_bid_offer . "', remarks = '" . $evaluate_remarks . "' WHERE bidding_id = '" . $bidding_id . "' AND bu_id = '" . $_SESSION['bu'] . "'") or die(mysqli_error());
+		} else {
+			mysqli_query($conn, "INSERT INTO bidding_evaluation (bidding_id, bu_id, pas_score, ep_score, cm_score, osh_score, i_score, hr_score, cr_score, we_score, lc_score, rp_score, pm_score, ase_score, sf_score, pp_score, fs_score, bid_offer_score, remarks, date) 
+			VALUES ('" . $bidding_id . "', '" . $_SESSION['bu'] . "', '" . $evaluate_pas . "', '" . $evaluate_ep . "', '" . $evaluate_cm . "', '" . $evaluate_osh . "', '" . $evaluate_i . "', '" . $evaluate_hr . "', '" . $evaluate_cr . "', '" . $evaluate_we . "', '" . $evaluate_lc . "', '" . $evaluate_rp . "', '" . $evaluate_pm . "', '" . $evaluate_ase . "', '" . $evaluate_sf . "', '" . $evaluate_pp . "', '" . $evaluate_fs . "', '" . $evaluate_bid_offer . "', '" . $evaluate_remarks . "', now())") or die(mysqli_error());
+		}
+
+		mysqli_query($conn, "INSERT INTO system_log (uid, log, datetime, bu_id) VALUES ('" . $_SESSION['id'] . "', 'Evaluate Security Agency', now(), 0)") or die(mysqli_error());
+		header("Location: user-admin.php?last=Bidding");
 	}
 	elseif((isset($_POST['txtAddEntries'])) && !empty($_POST['txtAddEntries']))
 	{
@@ -3677,7 +3708,7 @@ while ($bidding = mysqli_fetch_assoc($biddingsql)) {
 	}
 	// 	<td align=\"center\" ><span style=\"background-color: " . $bidding_status_color . ";color: white; padding: 1px 8px;text-align: center; border-radius: 5px; font-size: 13px;\">" . $bidding['bidding_status'] . "</span></td>
 
-	$biddingtable .= "<tr align=\"center\" height=\"25px\" style=\"font-weight: 500;\" class=\"table-row \" >
+	$biddingtable .= "<tr align=\"center\" height=\"15px\" style=\"font-weight: 500;\" class=\"table-row \" >
 							<td  class=\"table-row__td\">" . $biddingnum . "</td>
 							<td align=\"center\"  class=\"table-row__td\"><div class=\"table-row__info\"><p class=\"table-row__name\">" . $bidding['bidding_name'] . "</p></div></td>
 							<td align=\"center\" class=\"table-row__td\"><div><p class=\"table-row__policy\">" . $bidding['cluster'] . "</p></div></td>
@@ -3690,7 +3721,7 @@ while ($bidding = mysqli_fetch_assoc($biddingsql)) {
 								<a href=\"javascript:void(0)\" style=\"cursor:pointer;\" onclick=\"viewBiddingSecAgencyDocument('" . $bidding['id'] . "');\">View Documents</a>
 							</td>
 							<td data-column=\"Progress\" class=\"table-row__td\">
-								<a href=\"javascript:void(0)\" style=\"cursor:pointer;\" onclick=\"biddingSecAgencyModal('" . $bidding['id'] . "');\">Evaluate Agency</a>
+								<a href=\"javascript:void(0)\" style=\"cursor:pointer;\" onclick=\"biddingEvaluateSecAgencyModal('" . $bidding['id'] . "', '" . $_SESSION['bu']. "');\">Evaluate Agency</a>
 							</td>
 							
 						 </tr>";

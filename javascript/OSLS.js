@@ -242,6 +242,16 @@ function closeEvaluateAgencyRequirement() {
 	$("#requirementDiv").dialog("close");
 }
 
+function viewEvaluateAgencyRequirementClose(id, agencyID)
+{		
+	$("#tbodyViewAgencyRequirement").load("getinfo.php?type=evaluateAgencyRequirementClose&id=" + id + "&agencyID=" + agencyID);
+	$("#viewRequirementDiv").dialog("open");
+}
+
+function closeEvaluateAgencyRequirementClose() {
+	$("#viewRequirementDiv").dialog("close");
+}
+
 // Open Modal to View Agency Document in Admin
 function viewBiddingSecAgencyDocument(id)
 {
@@ -253,6 +263,28 @@ function viewBiddingSecAgencyDocument(id)
 function closeBiddingSecAgencyDocument() {
 	$("#viewsecagencydocument").dialog("close");
 }
+
+function viewBiddingSecAgencyDocumentSpecific(id, agencyID)
+{
+	$("#tbodyAgencyDocumentSpecific").load("getinfo.php?type=agencydocumentspecific&id=" + id + "&agencyID=" + agencyID);
+	$("#viewsecagencydocumentspecific").dialog("open");
+}
+
+function closeBiddingSecAgencyDocumentSpecific() {
+	$("#viewsecagencydocumentspecific").dialog("close");
+}
+
+// Open Modal to Evaluate Agency Document in Admin
+function biddingEvaluateSecAgencyModal(id, bu_id)
+{
+	$("#biddingEvaluateSecAgencyHolder").load("bidding_evaluation.php?id=" + id + "&bu_id=" + bu_id);
+	$("#biddingEvaluateSecAgencyModal").dialog("open");
+}
+
+function closeBiddingEvaluateSecAgencyModal() {
+	$("#biddingEvaluateSecAgencyModal").dialog("close");
+}
+
 // -------------------------- END OF BIDDING JS ----------------------------
 
 function evaluateForm(btn){
@@ -5847,6 +5879,16 @@ $(document).ready(function() {
 		autoOpen: false,
 		position: {my: "top", at: "center", of: "#topbar"}
   	});
+	  $( "#viewsecagencydocumentspecific" ).dialog({
+		dialogClass: "no-close",	
+		width: 1000,
+		maxHeight: 800,
+		modal: true,
+		closeOnEscape: true,
+		resizable: false,
+		autoOpen: false,
+		position: {my: "top", at: "center", of: "#topbar"}
+  	});
 	$( "#viewEvaluateRequirement" ).dialog({
 		dialogClass: "no-close",	
 		width: 1200,
@@ -5877,6 +5919,16 @@ $(document).ready(function() {
 		autoOpen: false,
 		position: {my: "top", at: "center", of: "#topbar"}
   	});
+	$( "#viewRequirementDiv" ).dialog({
+		dialogClass: "no-close",	
+		width: 1200,
+		height: 550,
+		modal: true,
+		closeOnEscape: true,
+		resizable: true,
+		autoOpen: false,
+		position: {my: "top", at: "center", of: "#topbar"}
+  	});
 	$( "#addsecagencymodal" ).dialog({
 		dialogClass: "no-close",	
 		width: 1200,
@@ -5884,6 +5936,16 @@ $(document).ready(function() {
 		modal: true,
 		closeOnEscape: true,
 		resizable: true,
+		autoOpen: false,
+		position: {my: "top", at: "center", of: "#topbar"}
+  	});
+	$( "#biddingEvaluateSecAgencyModal" ).dialog({
+		dialogClass: "no-close",	
+		width: 1000,
+		maxHeight: 800,
+		modal: true,
+		closeOnEscape: true,
+		resizable: false,
 		autoOpen: false,
 		position: {my: "top", at: "center", of: "#topbar"}
   	});
